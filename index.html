@@ -1,0 +1,3366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="Um mapa do Porto por regiões de passeio: bairros, miradouros, jardins e pontos de referência.">
+  <title>Guia do Porto</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <style>
+:root{--paper:#fcfbf8;--ink:#263b35;--muted:#63716a;--line:#dcded5;--accent:#b94730}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,summary{font:inherit;-webkit-tap-highlight-color:transparent}
+button,summary{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #267a70;outline-offset:3px}
+button:disabled{cursor:default;opacity:.55}
+.app{display:grid;grid-template-columns:360px minmax(0,1fr);height:100vh;height:100dvh;overflow:hidden}
+.sidebar{display:flex;flex-direction:column;min-height:0;min-width:0;border-right:1px solid var(--line);background:var(--paper)}
+.guide-handle{display:none}
+.sidebar header{padding:29px 25px 23px;flex:none}
+.pride-stripe{height:5px;width:108px;border-radius:4px;background:linear-gradient(to right,#E40303 0 16.667%,#FF8C00 16.667% 33.333%,#FFED00 33.333% 50%,#008026 50% 66.667%,#004DFF 66.667% 83.333%,#750787 83.333% 100%);margin-bottom:21px}
+.sidebar h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-1px;margin:0 0 15px;color:#25352f}
+.sidebar h1 span{font-weight:450}
+.list-heading{display:flex;justify-content:space-between;margin:0 25px;padding:12px 0 9px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:650;flex:none}
+.list{overflow:auto;flex:1;min-height:0;padding:0 14px 12px;scrollbar-width:thin;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.region-item{border:1px solid transparent;border-radius:9px;margin:0 0 4px}
+.region{display:grid;grid-template-columns:14px minmax(0,1fr) 18px;gap:12px;align-items:center;text-align:left;padding:13px 11px;min-height:58px;list-style:none;border-radius:8px;color:var(--ink)}
+.region::-webkit-details-marker{display:none}
+.region::marker{content:""}
+.region:hover{background:color-mix(in srgb,var(--color) 8%,#fff)}
+.region-item[open]{border-color:var(--color);background:#fffdf9}
+.region-item[open]>.region{background:color-mix(in srgb,var(--color) 9%,#fff);border-radius:8px 8px 0 0}
+.dot{width:13px;height:13px;border-radius:50%;background:var(--color);box-shadow:inset 0 0 0 1px #00000014}
+.region strong{display:block;font-size:13px;font-weight:650}
+.region small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.arrow{color:#748177;font-size:20px;text-align:center;transition:transform .15s}
+.region-item[open] .arrow{transform:rotate(180deg)}
+.region-details{padding:16px 15px 18px;overflow-wrap:anywhere}
+.region-details p{font-size:13px;color:var(--muted);margin:0 0 13px}
+.region-details h3{font-size:11px;letter-spacing:.5px;margin:18px 0 6px;color:var(--ink)}
+.region-details h3:first-child{margin-top:0}
+.region-details ul{padding-left:17px;font-size:12px;line-height:1.9;margin:8px 0 14px}
+.region-details a{color:#9f3e2c;font-size:12px;font-weight:650;text-underline-offset:3px}
+.region-details .source{display:block;font-size:10px;font-weight:400;margin-top:15px;color:var(--muted)}
+.official{border-top:1px solid var(--line);padding-top:11px;font-size:11px!important}
+.region-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.region-actions a{display:inline-flex;align-items:center;min-height:44px}
+.locate-region{border:1px solid var(--line);border-radius:7px;padding:10px 12px;min-height:44px;background:#f3f5ee;color:var(--ink);font-size:12px}
+.sidebar footer{padding:14px 25px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);flex:none}
+.sidebar footer>strong{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)}
+.sidebar footer p{margin:5px 0 9px}
+.sidebar footer summary{text-decoration:underline;text-underline-offset:2px}
+.sidebar footer a{color:var(--muted)}
+.map-shell{position:relative;min-width:0;min-height:0;background:#e4e7db;overflow:hidden}
+#map{position:absolute;inset:0;z-index:0}
+.map-top{position:absolute;left:22px;right:22px;top:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;z-index:10;pointer-events:none}
+.map-top>*{pointer-events:auto}
+.map-caption{background:#fffdf8ed;border:1px solid #d8ddd2;box-shadow:0 3px 15px #25372e10;padding:11px 15px;border-radius:9px;font-size:12px}
+.map-caption b{display:block;font-size:10px;letter-spacing:1.3px;text-transform:uppercase}
+.map-caption span{font-size:11px;color:var(--muted)}
+.overview{border:1px solid #d1d8cc;border-radius:8px;background:#fffdf8;min-height:44px;padding:10px 14px;color:var(--ink);font-size:12px;box-shadow:0 3px 15px #25372e10}
+.layers{position:absolute;bottom:29px;left:22px;z-index:10;background:#fffdf8ef;border:1px solid #d8ddd2;border-radius:8px;padding:0 9px;display:flex;gap:6px;font-size:11px;max-width:calc(100% - 85px)}
+.layers label{display:flex;gap:6px;align-items:center;cursor:pointer;min-height:44px;padding:0 5px}
+.layers input{accent-color:var(--ink);margin:0}
+.notice{position:absolute;top:91px;left:22px;right:22px;z-index:15;background:#fff4d8;padding:12px 16px;border:1px solid #d8bb70;border-radius:8px;font-size:12px}
+.maplibregl-map{font-family:inherit;background:#e5e8dd}
+.maplibregl-ctrl-bottom-right{right:10px;bottom:8px}
+.maplibregl-ctrl-group button{color:var(--ink);width:40px;height:40px}
+.maplibregl-ctrl-attrib a{color:inherit}
+.zone-label{pointer-events:none!important;background:#fffdf8e8;border:1px solid #ffffff90;box-shadow:0 1px 5px #283d301a;color:#283d31;padding:3px 7px;border-radius:4px;font-size:11px;font-weight:650;text-align:center;max-width:125px;line-height:1.2;z-index:1}
+.place-icon{--place-color:#1565c0;padding:0;background:transparent!important;border:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;z-index:2;touch-action:manipulation;cursor:pointer}
+.place-dot{width:14px;height:14px;display:flex;align-items:center;justify-content:center;background:#fffdf8;border:2px solid var(--place-color);border-radius:50%;box-shadow:0 1px 5px #182b3030;font-size:9px;font-weight:800;line-height:1;color:var(--place-color);pointer-events:none}
+.place-icon.anchor{z-index:3}
+.place-icon.anchor .place-dot{width:23px;height:23px;background:var(--place-color);color:#fffdf8}
+.place-icon.anchor.compact-anchor .place-dot{width:20px;height:20px}
+.place-icon.hotel,.place-icon.bus-station{z-index:4}
+.place-icon.hotel .place-dot,.place-icon.bus-station .place-dot{width:32px;height:32px;border-radius:6px;background:#1565c0;border:2px solid #fff;color:#fff;box-shadow:0 2px 8px #15365450}
+.place-icon.hotel .place-dot{width:23px;height:23px;border-radius:5px;font-size:14px;font-weight:800}
+.place-icon.bus-station svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.maplibregl-popup{z-index:20}
+.maplibregl-popup-content{font-size:13px;line-height:1.5;border-radius:10px;padding:17px 46px 17px 17px;box-shadow:0 4px 20px #183d2926}
+.place-name{display:block;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.place-type{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+.maplibregl-popup-close-button{width:40px;height:40px;font-size:23px;color:var(--ink)}
+.noscript{position:absolute;inset:100px 25px auto;z-index:25;padding:20px;background:#fffdf8}
+@media(min-width:1500px){.app{grid-template-columns:390px minmax(0,1fr)}.sidebar header{padding:32px}.list-heading{margin:0 32px}}
+@media(max-width:800px){.app{grid-template-columns:285px minmax(0,1fr)}.sidebar header{padding:23px 20px 20px}.sidebar h1{font-size:28px}.list-heading{margin:0 20px}.sidebar footer{padding:12px 20px}.map-top{left:12px;right:12px;top:12px}.map-caption{display:none}.map-top{justify-content:flex-end}.layers{left:12px;bottom:29px;gap:0;padding:0 5px}.layers label{padding:0 4px}.notice{left:12px;right:12px;top:67px}}
+@media(max-width:580px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,var(--map-height,45%)) minmax(0,1fr)}
+  .map-shell{grid-row:1}.sidebar{grid-row:2;border-right:0;border-top:1px solid var(--line)}
+  .guide-handle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:none;width:100%;min-height:44px;padding:6px 16px;border:0;background:transparent;color:var(--muted);font-size:10px;touch-action:none;cursor:ns-resize;user-select:none}
+  .guide-handle::before{content:"";width:42px;height:4px;border-radius:4px;background:#9ba69f}
+  .sidebar header{touch-action:none;user-select:none;cursor:ns-resize}
+  .sidebar footer{max-height:24dvh;overflow:auto}
+.app[data-guide-expanded="true"] .map-top,.app[data-guide-expanded="true"] .layers,.app[data-guide-expanded="true"] .maplibregl-control-container{visibility:hidden}
+  .sidebar header{padding:13px 17px 10px}.sidebar h1{font-size:22px;line-height:1.15;letter-spacing:-.5px;margin:0 0 6px}.sidebar h1 br{display:none}.sidebar h1 span{margin-left:5px}
+  .pride-stripe{height:4px;width:80px;margin-bottom:9px}
+  .list-heading{margin:0 17px;padding:8px 0;font-size:9px}.list{padding:0 9px 10px}.region{min-height:60px;padding:11px}.region strong{font-size:14px}.region small{font-size:11px}.region-details{padding:14px}.region-details p{font-size:13px}
+  .sidebar footer{padding:7px 17px}.sidebar footer>strong,.sidebar footer>p{display:none}.sidebar footer summary{min-height:28px;display:flex;align-items:center}
+  .map-caption{display:block;padding:9px 10px}.map-caption span{display:none}.map-caption b{font-size:9px}.overview{padding:9px 10px;font-size:11px}
+  .zone-label{font-size:9px;padding:2px 4px;max-width:100px}.layers{font-size:10px}.layers label{gap:4px}.maplibregl-popup-content{padding-top:14px;padding-bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){.arrow{transition:none}}
+
+
+.place-lists{margin:0 0 15px;border:1px solid var(--line);border-radius:9px;background:#fffdf8}
+.place-lists>summary{min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;font-size:13px;font-weight:650;list-style:none}
+.place-lists>summary::-webkit-details-marker{display:none}
+.active-list-count{font-size:10px;font-weight:450;color:var(--muted)}
+.place-list-content{padding:0 10px 12px}
+.place-list-content>p{font-size:11px;color:var(--muted);margin:0 2px 10px}
+.list-toggles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.list-toggle{display:flex;align-items:center;justify-content:space-between;gap:6px;text-align:left;border:1px solid var(--line);border-radius:8px;min-height:46px;padding:8px 9px;background:#fff;color:var(--ink);font-size:11px;line-height:1.25}
+.list-toggle[aria-pressed="true"]{background:#263b35;color:#fff;border-color:#263b35}
+.list-count{font-size:10px;opacity:.75;flex:none}
+.neighborhood-list-heading{padding:3px 10px 10px;color:var(--muted);font-size:10px;font-weight:650;letter-spacing:.6px;text-transform:uppercase}
+.fit-lists{width:100%;margin-top:9px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#f3f5ee;color:var(--ink);font-size:11px}
+.metro-hint{font-size:11px;color:var(--muted);margin:2px 0 8px}
+.metro-toggles{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px}
+.metro-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0;border:1px solid var(--line);border-radius:8px;background:#fff}
+.metro-toggle[aria-pressed="false"] .metro-badge{opacity:.3;filter:grayscale(1)}
+.metro-toggle[aria-pressed="true"]{border-color:#263b35}
+.metro-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 4px;border-radius:12px;background:var(--line-color);color:var(--line-ink);border:2px solid var(--line-edge,var(--line-color));font-size:11px;font-weight:800;line-height:1}
+.metro-actions{display:flex;gap:7px;margin-top:9px}
+.metro-actions button{flex:1;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#f3f5ee;color:var(--ink);font-size:11px}
+.metro-popup-lines{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.metro-popup-lines .metro-badge{font-size:12px;min-width:26px;height:26px;border-radius:13px}
+.street-list{margin-bottom:14px}
+.street-button{display:block;width:100%;text-align:left;min-height:46px;padding:10px 12px;border:0;border-left:5px solid var(--color);border-radius:6px;background:#fff;color:var(--ink);font-size:13px;margin:7px 0}
+.street-button small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.street-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;font-weight:650}
+.street-heading label{display:flex;align-items:center;gap:5px;font-size:11px;min-height:44px;font-weight:400}
+.street-heading input{accent-color:var(--ink)}
+.region-dialog{position:fixed;inset:0;margin:0;padding:0;border:0;border-top:5px solid var(--color);width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;background:var(--paper);color:var(--ink);overflow:hidden}
+.region-dialog[open]{display:flex;flex-direction:column}
+.region-dialog::backdrop{background:#263b3555}
+.region-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;padding:calc(15px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) 15px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);background:var(--paper)}
+.region-dialog-header p{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.region-dialog-header h2{font-size:25px;line-height:1.2;letter-spacing:-.6px;margin:0;overflow-wrap:anywhere}
+.region-dialog-close{display:flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);font-size:29px;line-height:1}
+.region-dialog-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:24px max(22px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px))}
+.region-dialog-body p{font-size:15px;line-height:1.75;margin-bottom:19px}
+.region-dialog-body h3{font-size:12px;margin:25px 0 9px}
+.region-dialog-body ul{font-size:14px;line-height:1.9;margin-bottom:22px}
+.region-dialog-body .official{font-size:12px!important;line-height:1.7;padding-top:16px}
+.region-dialog-body .region-actions{gap:18px}
+.region-dialog-body .locate-region{min-height:48px;font-size:13px}
+.region-dialog-body .region-actions a{min-height:48px;font-size:13px}
+.region-dialog-body .source{font-size:11px;margin-top:21px}
+
+.editable-text{white-space:pre-line}
+.editorial-links{display:flex;flex-wrap:wrap;gap:5px 16px;margin:18px 0}
+.editorial-links a{display:inline-flex;align-items:center;min-height:44px}
+.place-editorial{max-height:28dvh;overflow-y:auto;overscroll-behavior:contain;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.place-editorial h3{font-size:12px;line-height:1.4;margin:13px 0 6px}
+.place-editorial p,.place-editorial li{font-size:13px;line-height:1.6}
+.place-editorial p{margin:0 0 10px}.place-editorial ul{padding-left:18px;margin:7px 0 12px}
+.place-editorial .editorial-links{margin:8px 0 0;gap:3px 12px}.place-editorial a{font-size:12px;color:#9f3e2c}
+.place-google{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.place-google a{display:inline-flex;align-items:center;min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font-size:12px;font-weight:600;text-decoration:none}
+.editorial-tools{margin-top:7px}.editorial-tools button{min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font-size:12px}
+.editorial-tools p{line-height:1.6}.content-error{color:#9f3e2c}
+</style>
+</head>
+<body>
+  <main class="app">
+    <aside class="sidebar" aria-label="Explorar regiões do Porto">
+      <button id="guide-handle" class="guide-handle" type="button" aria-expanded="false" aria-controls="regions" aria-label="Expandir o guia de bairros. Também pode arrastar para cima."><span id="guide-handle-label">Deslize para cima · Mais bairros</span></button>
+      <header id="guide-header">
+        <div class="pride-stripe" aria-hidden="true"></div>
+        <h1>Guia<br><span>do Porto</span></h1>      </header>
+      <div class="list-heading"><span>Explore o guia</span><span id="count" aria-live="polite">7 áreas</span></div>
+      <div class="list" id="regions"></div>
+      <footer><details><summary>Como ler o mapa</summary><p>As cores acompanham a lista de regiões. Os pontos verdes indicam parques e jardins; vermelhos, monumentos e praças; azuis, estabelecimentos, museus e transporte. Use os botões em “Minhas listas” para mostrar ou ocultar cada seleção. O controle “Referências” mostra a Estação de São Bento (S), a Torre dos Clérigos (C) e a Ponte Luís I (P); o terminal de autocarros de Campanhã e o aeroporto aparecem sempre. As linhas de metrô seguem as cores oficiais; toque no “M” azul de uma estação para ver as linhas que passam por ela.</p></details><details><summary>Sobre os contornos e as fontes</summary><p>Seis áreas desenhadas por você no Google My Maps sobre as freguesias do Porto, preservadas como no arquivo enviado. O contorno do Centro Histórico é o limite oficial da freguesia, tirado do OpenStreetMap. Pequenas sobreposições e frestas entre regiões vêm dos desenhos. As partes sem cor, como Gaia e Matosinhos, ficam fora do mapa de áreas.</p><p>Mapa de fundo: OpenFreeMap, com dados do OpenStreetMap. Linhas e estações do Metro do Porto: OpenStreetMap.</p></details><details class="editorial-tools"><summary>Meus textos</summary><p id="editorial-status" role="status">Os textos podem ser personalizados nos arquivos JSON.</p><button type="button" id="import-editorial">Carregar textos JSON</button><input id="editorial-files" type="file" accept=".json,application/json" multiple hidden></details></footer>
+    </aside>
+    <section class="map-shell" aria-label="Mapa interativo do Porto">
+      <div id="map" aria-label="Mapa: toque nos locais ou nas ruas em destaque para ver suas informações. Informações dos bairros ficam na lista."></div>
+      <div class="map-top"><div class="map-caption"><b>Porto · Portugal</b><span>Áreas de passeio, em cores</span></div><button id="overview" class="overview" type="button">↗ Ver todas as áreas</button></div>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div class="layers"><label><input type="checkbox" id="areas" checked> Áreas</label><label><input type="checkbox" id="labels" checked> Nomes</label><label><input type="checkbox" id="places" checked> Referências</label><label><input type="checkbox" id="metro" checked> Metrô</label></div>
+      <noscript><p class="noscript">Ative o JavaScript para explorar o mapa. Este HTML usa internet para carregar o mapa de ruas.</p></noscript>
+    </section>
+  </main>
+  <dialog id="region-dialog" class="region-dialog" aria-labelledby="region-dialog-title">
+    <div class="region-dialog-header">
+      <div><p>Guia do Porto</p><h2 id="region-dialog-title"></h2></div>
+      <button id="close-region-dialog" class="region-dialog-close" type="button" aria-label="Fechar informações do bairro e voltar ao mapa" autofocus>×</button>
+    </div>
+    <div id="region-dialog-body" class="region-details region-dialog-body"></div>
+  </dialog>
+  <script id="map-data" type="application/json">
+{
+  "groups": {
+    "centro": "Centro histórico e Baixa",
+    "oeste": "Rumo ao rio e ao mar",
+    "norte": "Norte da cidade",
+    "leste": "Bonfim e Campanhã"
+  },
+  "regions": [
+    {
+      "id": "centro-historico",
+      "name": "Centro Histórico",
+      "group": "centro",
+      "color": "#E40303",
+      "tag": "Ribeira, Baixa e Cedofeita",
+      "center": [
+        41.1543497,
+        -8.6183185
+      ],
+      "polygon": [
+        [
+          41.159759,
+          -8.6359384
+        ],
+        [
+          41.1602172,
+          -8.6348259
+        ],
+        [
+          41.1604907,
+          -8.634221
+        ],
+        [
+          41.1605684,
+          -8.6328138
+        ],
+        [
+          41.1608036,
+          -8.6329447
+        ],
+        [
+          41.1613453,
+          -8.6331371
+        ],
+        [
+          41.1613997,
+          -8.6331556
+        ],
+        [
+          41.1620504,
+          -8.6324678
+        ],
+        [
+          41.1626308,
+          -8.6312493
+        ],
+        [
+          41.1638114,
+          -8.6333601
+        ],
+        [
+          41.1643189,
+          -8.6321825
+        ],
+        [
+          41.1646715,
+          -8.631618
+        ],
+        [
+          41.1659112,
+          -8.628818
+        ],
+        [
+          41.166071,
+          -8.6283732
+        ],
+        [
+          41.1666294,
+          -8.6265092
+        ],
+        [
+          41.1667245,
+          -8.6264359
+        ],
+        [
+          41.1670348,
+          -8.6251871
+        ],
+        [
+          41.1674615,
+          -8.6234871
+        ],
+        [
+          41.1675163,
+          -8.6231556
+        ],
+        [
+          41.1675202,
+          -8.6230295
+        ],
+        [
+          41.1674545,
+          -8.6227936
+        ],
+        [
+          41.1674905,
+          -8.6218102
+        ],
+        [
+          41.1674478,
+          -8.6213978
+        ],
+        [
+          41.1663443,
+          -8.6209275
+        ],
+        [
+          41.16586,
+          -8.6205413
+        ],
+        [
+          41.1658233,
+          -8.6204193
+        ],
+        [
+          41.1657722,
+          -8.6193284
+        ],
+        [
+          41.1648613,
+          -8.6199048
+        ],
+        [
+          41.1651654,
+          -8.6182077
+        ],
+        [
+          41.1647297,
+          -8.6137667
+        ],
+        [
+          41.1648099,
+          -8.6137422
+        ],
+        [
+          41.1647326,
+          -8.6124594
+        ],
+        [
+          41.1647815,
+          -8.6124548
+        ],
+        [
+          41.164774,
+          -8.612377
+        ],
+        [
+          41.1650708,
+          -8.6115626
+        ],
+        [
+          41.1646505,
+          -8.611157
+        ],
+        [
+          41.1645454,
+          -8.6109892
+        ],
+        [
+          41.1645244,
+          -8.610476
+        ],
+        [
+          41.1644856,
+          -8.6095305
+        ],
+        [
+          41.1637828,
+          -8.6095649
+        ],
+        [
+          41.1635445,
+          -8.6093718
+        ],
+        [
+          41.1631814,
+          -8.6089356
+        ],
+        [
+          41.1624598,
+          -8.6092331
+        ],
+        [
+          41.1621473,
+          -8.6068975
+        ],
+        [
+          41.1621629,
+          -8.6068545
+        ],
+        [
+          41.1619613,
+          -8.6052488
+        ],
+        [
+          41.1618221,
+          -8.604123
+        ],
+        [
+          41.161806,
+          -8.6040048
+        ],
+        [
+          41.161743,
+          -8.6039486
+        ],
+        [
+          41.1615536,
+          -8.6038857
+        ],
+        [
+          41.1604461,
+          -8.6043916
+        ],
+        [
+          41.1601818,
+          -8.6044686
+        ],
+        [
+          41.1548022,
+          -8.6046938
+        ],
+        [
+          41.1545986,
+          -8.6031373
+        ],
+        [
+          41.1545568,
+          -8.6030454
+        ],
+        [
+          41.1524803,
+          -8.6038581
+        ],
+        [
+          41.1513663,
+          -8.604294
+        ],
+        [
+          41.1509353,
+          -8.6042635
+        ],
+        [
+          41.1509462,
+          -8.6041726
+        ],
+        [
+          41.1509884,
+          -8.6022412
+        ],
+        [
+          41.146413,
+          -8.6019354
+        ],
+        [
+          41.1456661,
+          -8.6018624
+        ],
+        [
+          41.145663,
+          -8.6017753
+        ],
+        [
+          41.1454208,
+          -8.6015131
+        ],
+        [
+          41.1450736,
+          -8.6014971
+        ],
+        [
+          41.1446104,
+          -8.6013985
+        ],
+        [
+          41.1445894,
+          -8.6015071
+        ],
+        [
+          41.1438153,
+          -8.6013385
+        ],
+        [
+          41.1436655,
+          -8.6012394
+        ],
+        [
+          41.1433572,
+          -8.6018465
+        ],
+        [
+          41.143265,
+          -8.6018871
+        ],
+        [
+          41.1426697,
+          -8.601914
+        ],
+        [
+          41.1426457,
+          -8.6020802
+        ],
+        [
+          41.1421417,
+          -8.6031534
+        ],
+        [
+          41.1418152,
+          -8.6040526
+        ],
+        [
+          41.1417622,
+          -8.604079
+        ],
+        [
+          41.140944,
+          -8.6039354
+        ],
+        [
+          41.1407271,
+          -8.6059152
+        ],
+        [
+          41.1396025,
+          -8.6105809
+        ],
+        [
+          41.1392837,
+          -8.6120579
+        ],
+        [
+          41.138902,
+          -8.6156035
+        ],
+        [
+          41.1394193,
+          -8.6181223
+        ],
+        [
+          41.1397954,
+          -8.6195272
+        ],
+        [
+          41.1409491,
+          -8.6187098
+        ],
+        [
+          41.1411472,
+          -8.6191723
+        ],
+        [
+          41.1414808,
+          -8.6198231
+        ],
+        [
+          41.1424819,
+          -8.6214014
+        ],
+        [
+          41.1425399,
+          -8.6215979
+        ],
+        [
+          41.1431926,
+          -8.6225212
+        ],
+        [
+          41.1439879,
+          -8.6237659
+        ],
+        [
+          41.1443475,
+          -8.6234896
+        ],
+        [
+          41.1446919,
+          -8.6238978
+        ],
+        [
+          41.1447933,
+          -8.6238114
+        ],
+        [
+          41.1446801,
+          -8.6236192
+        ],
+        [
+          41.1448469,
+          -8.623509
+        ],
+        [
+          41.1451175,
+          -8.6239202
+        ],
+        [
+          41.1453105,
+          -8.6240839
+        ],
+        [
+          41.1454377,
+          -8.6243707
+        ],
+        [
+          41.1455241,
+          -8.6243967
+        ],
+        [
+          41.1455326,
+          -8.6243995
+        ],
+        [
+          41.1455678,
+          -8.6239319
+        ],
+        [
+          41.1456964,
+          -8.6239454
+        ],
+        [
+          41.1456716,
+          -8.6245247
+        ],
+        [
+          41.1457097,
+          -8.624567
+        ],
+        [
+          41.1468518,
+          -8.6247856
+        ],
+        [
+          41.1471184,
+          -8.6247667
+        ],
+        [
+          41.1472933,
+          -8.6247132
+        ],
+        [
+          41.1481796,
+          -8.6241843
+        ],
+        [
+          41.1477719,
+          -8.6226757
+        ],
+        [
+          41.149355,
+          -8.6229185
+        ],
+        [
+          41.1506835,
+          -8.623143
+        ],
+        [
+          41.1516197,
+          -8.6213575
+        ],
+        [
+          41.1524327,
+          -8.6208033
+        ],
+        [
+          41.1525922,
+          -8.6207581
+        ],
+        [
+          41.1529002,
+          -8.6240614
+        ],
+        [
+          41.1527704,
+          -8.6245514
+        ],
+        [
+          41.1528511,
+          -8.6245716
+        ],
+        [
+          41.153082,
+          -8.6245329
+        ],
+        [
+          41.1531786,
+          -8.6244829
+        ],
+        [
+          41.1543689,
+          -8.6265601
+        ],
+        [
+          41.1544196,
+          -8.6267418
+        ],
+        [
+          41.1549896,
+          -8.6269804
+        ],
+        [
+          41.1570574,
+          -8.62859
+        ],
+        [
+          41.1569451,
+          -8.6289309
+        ],
+        [
+          41.1569296,
+          -8.6292531
+        ],
+        [
+          41.1569428,
+          -8.6294515
+        ],
+        [
+          41.1571282,
+          -8.6299057
+        ],
+        [
+          41.1573053,
+          -8.6301425
+        ],
+        [
+          41.1574829,
+          -8.6302741
+        ],
+        [
+          41.1578104,
+          -8.6303509
+        ],
+        [
+          41.1581196,
+          -8.6303593
+        ],
+        [
+          41.1581661,
+          -8.6306324
+        ],
+        [
+          41.1581818,
+          -8.6307293
+        ],
+        [
+          41.1582083,
+          -8.6308863
+        ],
+        [
+          41.1582398,
+          -8.6310778
+        ],
+        [
+          41.1582502,
+          -8.6311412
+        ],
+        [
+          41.1590028,
+          -8.6356466
+        ]
+      ],
+      "description": "Freguesia que reúne o Porto antigo: Sé, Ribeira e Miragaia junto ao rio, a Baixa dos Aliados e de Santa Catarina e o bairro de Cedofeita.",
+      "highlights": [
+        "Estação de São Bento",
+        "Sé do Porto",
+        "Ribeira e Cais da Ribeira",
+        "Torre e Igreja dos Clérigos",
+        "Avenida dos Aliados",
+        "Mercado do Bolhão",
+        "Rua de Miguel Bombarda e as galerias"
+      ],
+      "official": "Contorno oficial da freguesia de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória, tirado do OpenStreetMap para completar o mapa, já que não estava no arquivo enviado.",
+      "atmosphere": "Ladeiras, escadarias e fachadas de azulejo. Perto do rio o movimento é bem turístico; na Baixa e em Cedofeita há mais cafés, lojas independentes, galerias e vida noturna.",
+      "walk": "Comece em São Bento, suba até a Sé e desça pelas escadas e vielas até a Ribeira. Dali, atravesse o tabuleiro inferior da Ponte Luís I para ver o Porto do lado de Gaia, ou volte pela Rua das Flores até os Clérigos e os Aliados.",
+      "tip": "As subidas são fortes: vá de sapato confortável. À noite, as ruas entre a Galeria de Paris, a Rua da Conceição e a Praça de Carlos Alberto concentram bares.",
+      "source": "https://pt.wikipedia.org/wiki/Cedofeita,_Santo_Ildefonso,_S%C3%A9,_Miragaia,_S%C3%A3o_Nicolau_e_Vit%C3%B3ria",
+      "boundarySource": "https://www.openstreetmap.org/relation/3382149",
+      "boundaryType": "official",
+      "mapLabel": "Centro",
+      "sourceName": "Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória"
+    },
+    {
+      "id": "bonfim",
+      "name": "Bonfim",
+      "group": "leste",
+      "color": "#FF8C00",
+      "tag": "Bairro residencial e cafés novos",
+      "center": [
+        41.1522247,
+        -8.5952387
+      ],
+      "polygon": [
+        [
+          41.1619083,
+          -8.6038439
+        ],
+        [
+          41.1615899,
+          -8.6038456
+        ],
+        [
+          41.1605398,
+          -8.6043391
+        ],
+        [
+          41.1547723,
+          -8.6046609
+        ],
+        [
+          41.1545946,
+          -8.6029872
+        ],
+        [
+          41.1513843,
+          -8.6043127
+        ],
+        [
+          41.1509399,
+          -8.6042483
+        ],
+        [
+          41.1510369,
+          -8.6021884
+        ],
+        [
+          41.147046,
+          -8.6018236
+        ],
+        [
+          41.145624,
+          -8.6017377
+        ],
+        [
+          41.1452443,
+          -8.6013447
+        ],
+        [
+          41.1446545,
+          -8.6013662
+        ],
+        [
+          41.1438061,
+          -8.6010872
+        ],
+        [
+          41.1434102,
+          -8.601849
+        ],
+        [
+          41.1431275,
+          -8.6020421
+        ],
+        [
+          41.1427639,
+          -8.6019026
+        ],
+        [
+          41.1417054,
+          -8.6038231
+        ],
+        [
+          41.1419672,
+          -8.6010754
+        ],
+        [
+          41.1411269,
+          -8.5980713
+        ],
+        [
+          41.1397533,
+          -8.5948312
+        ],
+        [
+          41.140222,
+          -8.5902607
+        ],
+        [
+          41.1418541,
+          -8.5876858
+        ],
+        [
+          41.1426782,
+          -8.5868704
+        ],
+        [
+          41.1449728,
+          -8.5876429
+        ],
+        [
+          41.1455558,
+          -8.5872561
+        ],
+        [
+          41.1457289,
+          -8.5875923
+        ],
+        [
+          41.1463349,
+          -8.5874743
+        ],
+        [
+          41.1468277,
+          -8.588987
+        ],
+        [
+          41.1471266,
+          -8.589148
+        ],
+        [
+          41.1492271,
+          -8.5879463
+        ],
+        [
+          41.1498007,
+          -8.5900921
+        ],
+        [
+          41.1503675,
+          -8.5903996
+        ],
+        [
+          41.1517735,
+          -8.5904265
+        ],
+        [
+          41.152064,
+          -8.5907
+        ],
+        [
+          41.1526298,
+          -8.5909308
+        ],
+        [
+          41.1525975,
+          -8.5911668
+        ],
+        [
+          41.1528156,
+          -8.5916067
+        ],
+        [
+          41.1534861,
+          -8.5911024
+        ],
+        [
+          41.1565165,
+          -8.5910479
+        ],
+        [
+          41.1570819,
+          -8.5911873
+        ],
+        [
+          41.1576878,
+          -8.5937515
+        ],
+        [
+          41.160982,
+          -8.5918587
+        ],
+        [
+          41.1639996,
+          -8.5894312
+        ],
+        [
+          41.1671031,
+          -8.5883477
+        ],
+        [
+          41.1679443,
+          -8.5907
+        ],
+        [
+          41.1662227,
+          -8.5923281
+        ],
+        [
+          41.1647297,
+          -8.5926741
+        ],
+        [
+          41.1647459,
+          -8.5932105
+        ],
+        [
+          41.1631616,
+          -8.5936906
+        ],
+        [
+          41.1636853,
+          -8.5976587
+        ],
+        [
+          41.163661,
+          -8.5981308
+        ],
+        [
+          41.1651068,
+          -8.599724
+        ]
+      ],
+      "description": "A leste da Baixa, entre a Praça da Batalha e Campanhã. Bairro residencial antigo que nos últimos anos ganhou cafés, restaurantes e ateliês.",
+      "highlights": [
+        "Jardim de São Lázaro",
+        "Biblioteca Pública Municipal do Porto",
+        "Igreja do Bonfim",
+        "Campo 24 de Agosto"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Ruas mais calmas que as do centro, casas com azulejo e comércio de bairro. A Rua do Bonfim e o entorno do Jardim de São Lázaro concentram as aberturas recentes.",
+      "walk": "Saia da Praça da Batalha, passe pelo Jardim de São Lázaro e siga pela Rua do Bonfim até a igreja. Para voltar, o metrô no Campo 24 de Agosto leva à Trindade e aos Aliados.",
+      "tip": "Bom para almoçar fora da rota turística. O Suribachi, da lista vegana, fica na Rua do Bonfim.",
+      "source": "https://pt.wikipedia.org/wiki/Bonfim_(Porto)",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Bonfim",
+      "sourceName": "Bonfin"
+    },
+    {
+      "id": "massarelos",
+      "name": "Lordelo do Ouro e Massarelos",
+      "group": "oeste",
+      "color": "#FFED00",
+      "tag": "Palácio de Cristal, Serralves e o rio",
+      "center": [
+        41.1512071,
+        -8.640465
+      ],
+      "polygon": [
+        [
+          41.1636135,
+          -8.6626075
+        ],
+        [
+          41.1632057,
+          -8.663129
+        ],
+        [
+          41.1624464,
+          -8.6633436
+        ],
+        [
+          41.1616549,
+          -8.6651246
+        ],
+        [
+          41.1602494,
+          -8.664159
+        ],
+        [
+          41.1595264,
+          -8.6659016
+        ],
+        [
+          41.1572485,
+          -8.6643138
+        ],
+        [
+          41.1571677,
+          -8.6640348
+        ],
+        [
+          41.1568446,
+          -8.6643567
+        ],
+        [
+          41.1566184,
+          -8.6639704
+        ],
+        [
+          41.1528217,
+          -8.6610951
+        ],
+        [
+          41.1526924,
+          -8.6620607
+        ],
+        [
+          41.1517084,
+          -8.6625437
+        ],
+        [
+          41.1509636,
+          -8.6622967
+        ],
+        [
+          41.1500765,
+          -8.6623077
+        ],
+        [
+          41.1499295,
+          -8.6608523
+        ],
+        [
+          41.149511,
+          -8.661149
+        ],
+        [
+          41.1494302,
+          -8.660913
+        ],
+        [
+          41.1475382,
+          -8.6611742
+        ],
+        [
+          41.1474251,
+          -8.6608738
+        ],
+        [
+          41.1468757,
+          -8.6589426
+        ],
+        [
+          41.1467464,
+          -8.6579126
+        ],
+        [
+          41.1484753,
+          -8.6545222
+        ],
+        [
+          41.1483662,
+          -8.6533102
+        ],
+        [
+          41.147946,
+          -8.6497053
+        ],
+        [
+          41.1485277,
+          -8.6472806
+        ],
+        [
+          41.1480107,
+          -8.6425813
+        ],
+        [
+          41.1485924,
+          -8.6404141
+        ],
+        [
+          41.1483177,
+          -8.6369165
+        ],
+        [
+          41.1476714,
+          -8.6343845
+        ],
+        [
+          41.146679,
+          -8.6322202
+        ],
+        [
+          41.1459357,
+          -8.6309435
+        ],
+        [
+          41.1450147,
+          -8.6296023
+        ],
+        [
+          41.1446996,
+          -8.627875
+        ],
+        [
+          41.1448208,
+          -8.6251606
+        ],
+        [
+          41.1444779,
+          -8.6241803
+        ],
+        [
+          41.1416419,
+          -8.6197278
+        ],
+        [
+          41.1418116,
+          -8.6190305
+        ],
+        [
+          41.1443933,
+          -8.6233494
+        ],
+        [
+          41.1447529,
+          -8.6237785
+        ],
+        [
+          41.1448054,
+          -8.6236605
+        ],
+        [
+          41.1447206,
+          -8.6234567
+        ],
+        [
+          41.1448983,
+          -8.6234138
+        ],
+        [
+          41.1454073,
+          -8.6240468
+        ],
+        [
+          41.1454154,
+          -8.6242184
+        ],
+        [
+          41.1455689,
+          -8.6243686
+        ],
+        [
+          41.1455931,
+          -8.6236712
+        ],
+        [
+          41.1457224,
+          -8.6238214
+        ],
+        [
+          41.1457385,
+          -8.624433
+        ],
+        [
+          41.1471443,
+          -8.6246583
+        ],
+        [
+          41.1481299,
+          -8.6239287
+        ],
+        [
+          41.1476129,
+          -8.6225125
+        ],
+        [
+          41.1507636,
+          -8.6229631
+        ],
+        [
+          41.1517169,
+          -8.6211392
+        ],
+        [
+          41.1526217,
+          -8.6205384
+        ],
+        [
+          41.1529287,
+          -8.6238644
+        ],
+        [
+          41.1544797,
+          -8.6266753
+        ],
+        [
+          41.1549967,
+          -8.6268899
+        ],
+        [
+          41.1570808,
+          -8.6282846
+        ],
+        [
+          41.1570162,
+          -8.6286494
+        ],
+        [
+          41.1571454,
+          -8.6295292
+        ],
+        [
+          41.1576139,
+          -8.6301944
+        ],
+        [
+          41.1581047,
+          -8.630142
+        ],
+        [
+          41.1588963,
+          -8.6355279
+        ],
+        [
+          41.1597202,
+          -8.6357424
+        ],
+        [
+          41.1608349,
+          -8.636472
+        ],
+        [
+          41.1627734,
+          -8.6389825
+        ],
+        [
+          41.1602049,
+          -8.6417935
+        ]
+      ],
+      "description": "Faixa a oeste do centro, dos Jardins do Palácio de Cristal até a Fundação de Serralves e a margem do Douro. Mistura jardins, museus e avenidas largas.",
+      "highlights": [
+        "Jardins do Palácio de Cristal",
+        "Museu Romântico",
+        "Fundação de Serralves (museu e parque)",
+        "Ponte da Arrábida",
+        "Marginal do Douro"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Mais espaçoso e verde que o centro. Junto ao rio, a marginal é plana e boa para caminhar ou pedalar até a Foz.",
+      "walk": "Dos Jardins do Palácio de Cristal, com vista para o Douro, desça até a marginal e siga o rio no sentido da Ponte da Arrábida. O elétrico 1 faz o mesmo percurso, entre o Infante e o Passeio Alegre.",
+      "tip": "Serralves pede meio dia: o parque é grande e o museu de arte contemporânea tem bilhete conjunto. Confira os horários antes de ir.",
+      "source": "https://pt.wikipedia.org/wiki/Lordelo_do_Ouro_e_Massarelos",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Massarelos",
+      "sourceName": "União das Freguesias de Lorderlo do Ouro e Massarelos"
+    },
+    {
+      "id": "foz",
+      "name": "Aldoar, Foz do Douro e Nevogilde",
+      "group": "oeste",
+      "color": "#008026",
+      "tag": "Onde o Douro encontra o mar",
+      "center": [
+        41.1638942,
+        -8.6676827
+      ],
+      "polygon": [
+        [
+          41.1772005,
+          -8.6575447
+        ],
+        [
+          41.176812,
+          -8.6605566
+        ],
+        [
+          41.1766666,
+          -8.6621015
+        ],
+        [
+          41.1781848,
+          -8.6631959
+        ],
+        [
+          41.1790892,
+          -8.6649769
+        ],
+        [
+          41.1791861,
+          -8.6669081
+        ],
+        [
+          41.1768927,
+          -8.6678736
+        ],
+        [
+          41.1765213,
+          -8.668732
+        ],
+        [
+          41.1758591,
+          -8.67047
+        ],
+        [
+          41.17468,
+          -8.6712854
+        ],
+        [
+          41.1717889,
+          -8.6754482
+        ],
+        [
+          41.1714174,
+          -8.679375
+        ],
+        [
+          41.1734525,
+          -8.6840313
+        ],
+        [
+          41.173291,
+          -8.6877864
+        ],
+        [
+          41.1730003,
+          -8.688473
+        ],
+        [
+          41.1700606,
+          -8.6867135
+        ],
+        [
+          41.1681223,
+          -8.6888163
+        ],
+        [
+          41.1602388,
+          -8.6843663
+        ],
+        [
+          41.1532918,
+          -8.6789161
+        ],
+        [
+          41.1493172,
+          -8.6756545
+        ],
+        [
+          41.1491556,
+          -8.6719424
+        ],
+        [
+          41.1473621,
+          -8.6669642
+        ],
+        [
+          41.1481377,
+          -8.6650544
+        ],
+        [
+          41.1473944,
+          -8.6613208
+        ],
+        [
+          41.149398,
+          -8.6610419
+        ],
+        [
+          41.1494788,
+          -8.6612779
+        ],
+        [
+          41.1498665,
+          -8.6611277
+        ],
+        [
+          41.1500443,
+          -8.6624366
+        ],
+        [
+          41.1506421,
+          -8.6623937
+        ],
+        [
+          41.1516762,
+          -8.6626726
+        ],
+        [
+          41.1527587,
+          -8.6622649
+        ],
+        [
+          41.1528071,
+          -8.6613852
+        ],
+        [
+          41.1563938,
+          -8.6640674
+        ],
+        [
+          41.1565392,
+          -8.6643034
+        ],
+        [
+          41.1566846,
+          -8.6645824
+        ],
+        [
+          41.1570077,
+          -8.6643678
+        ],
+        [
+          41.1595387,
+          -8.6661762
+        ],
+        [
+          41.1602172,
+          -8.6642879
+        ],
+        [
+          41.1616227,
+          -8.6652535
+        ],
+        [
+          41.1624142,
+          -8.6634725
+        ],
+        [
+          41.1631735,
+          -8.6632579
+        ],
+        [
+          41.1637227,
+          -8.6627644
+        ],
+        [
+          41.1708692,
+          -8.6567722
+        ],
+        [
+          41.1738088,
+          -8.6603985
+        ],
+        [
+          41.1749232,
+          -8.6618577
+        ],
+        [
+          41.1762315,
+          -8.6595617
+        ],
+        [
+          41.1760861,
+          -8.656858
+        ]
+      ],
+      "description": "Onde o Douro encontra o Atlântico. Antiga zona de pescadores e de veraneio, hoje bairro residencial com praias e passeio à beira-mar.",
+      "highlights": [
+        "Jardim do Passeio Alegre",
+        "Farolim de Felgueiras",
+        "Forte de São João Baptista da Foz",
+        "Avenida do Brasil e as praias",
+        "Parque da Cidade"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Ritmo de praia: gente caminhando e correndo no passeio marítimo, esplanadas e pôr do sol sobre o mar. Ao norte, Nevogilde e Aldoar são mais residenciais e chegam ao Parque da Cidade.",
+      "walk": "Desça do elétrico 1 no Passeio Alegre, vá até o Farolim de Felgueiras e siga pela Avenida do Brasil, à beira-mar, até o Castelo do Queijo. Dali, o Parque da Cidade fica a poucos minutos.",
+      "tip": "Venta bastante e a água é fria mesmo no verão. Leve um agasalho para o fim da tarde.",
+      "source": "https://pt.wikipedia.org/wiki/Aldoar,_Foz_do_Douro_e_Nevogilde",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Foz",
+      "sourceName": "União das Freguesias Aldoar, de Foz do Douro e Nevogilde"
+    },
+    {
+      "id": "ramalde",
+      "name": "Ramalde",
+      "group": "norte",
+      "color": "#004DFF",
+      "tag": "Residencial, a caminho de Matosinhos",
+      "center": [
+        41.1714401,
+        -8.6371528
+      ],
+      "polygon": [
+        [
+          41.1597202,
+          -8.6357424
+        ],
+        [
+          41.1604506,
+          -8.6342777
+        ],
+        [
+          41.1606122,
+          -8.6326683
+        ],
+        [
+          41.161323,
+          -8.6331619
+        ],
+        [
+          41.1619853,
+          -8.6325396
+        ],
+        [
+          41.1626719,
+          -8.6310805
+        ],
+        [
+          41.1638431,
+          -8.6333764
+        ],
+        [
+          41.1650553,
+          -8.6307779
+        ],
+        [
+          41.1658065,
+          -8.6291042
+        ],
+        [
+          41.1664122,
+          -8.6273232
+        ],
+        [
+          41.1667514,
+          -8.6264435
+        ],
+        [
+          41.1669776,
+          -8.625392
+        ],
+        [
+          41.1670987,
+          -8.6251775
+        ],
+        [
+          41.1700276,
+          -8.6257778
+        ],
+        [
+          41.1726281,
+          -8.6263143
+        ],
+        [
+          41.1745986,
+          -8.627473
+        ],
+        [
+          41.1758261,
+          -8.6279021
+        ],
+        [
+          41.1765044,
+          -8.6256491
+        ],
+        [
+          41.1774896,
+          -8.6247479
+        ],
+        [
+          41.1788006,
+          -8.6238252
+        ],
+        [
+          41.1801361,
+          -8.6229075
+        ],
+        [
+          41.1796193,
+          -8.6266841
+        ],
+        [
+          41.1790379,
+          -8.6324562
+        ],
+        [
+          41.1797162,
+          -8.633808
+        ],
+        [
+          41.1837599,
+          -8.6411834
+        ],
+        [
+          41.1841475,
+          -8.642149
+        ],
+        [
+          41.1837438,
+          -8.6435008
+        ],
+        [
+          41.1817574,
+          -8.647492
+        ],
+        [
+          41.178705,
+          -8.6527062
+        ],
+        [
+          41.1780267,
+          -8.6548734
+        ],
+        [
+          41.1772838,
+          -8.657384
+        ],
+        [
+          41.1760861,
+          -8.656858
+        ],
+        [
+          41.1762315,
+          -8.6595617
+        ],
+        [
+          41.1749232,
+          -8.6618577
+        ],
+        [
+          41.1708692,
+          -8.6567722
+        ],
+        [
+          41.1637227,
+          -8.6627644
+        ],
+        [
+          41.1602049,
+          -8.6417935
+        ],
+        [
+          41.1627734,
+          -8.6389825
+        ],
+        [
+          41.1608349,
+          -8.636472
+        ]
+      ],
+      "description": "Freguesia residencial ao norte da Boavista, pouco turística. É atravessada pelo metrô a caminho de Matosinhos e do aeroporto.",
+      "highlights": [
+        "Estações de metrô Francos, Ramalde e Viso",
+        "Avenida da Boavista, na borda sul"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Bairros de habitação, comércio local e zonas de escritórios. Mais lugar de passagem do que de passeio.",
+      "walk": "Não é um bairro de passeio. Das estações Francos e Ramalde, as linhas A, B, C, E e F seguem direto para a Trindade e o centro.",
+      "tip": "A linha E, que vai ao aeroporto, passa por aqui: é uma base prática para quem chega ou sai de avião.",
+      "source": "https://pt.wikipedia.org/wiki/Ramalde",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Ramalde",
+      "sourceName": "Ramalde"
+    },
+    {
+      "id": "paranhos",
+      "name": "Paranhos",
+      "group": "norte",
+      "color": "#750787",
+      "tag": "Universidades e Hospital de São João",
+      "center": [
+        41.1716773,
+        -8.598878
+      ],
+      "polygon": [
+        [
+          41.1670738,
+          -8.6250048
+        ],
+        [
+          41.1676553,
+          -8.6231809
+        ],
+        [
+          41.1674292,
+          -8.62258
+        ],
+        [
+          41.1675907,
+          -8.6214213
+        ],
+        [
+          41.1665408,
+          -8.6210565
+        ],
+        [
+          41.1657654,
+          -8.6204343
+        ],
+        [
+          41.1656846,
+          -8.6192541
+        ],
+        [
+          41.1643762,
+          -8.6201768
+        ],
+        [
+          41.1649416,
+          -8.6197262
+        ],
+        [
+          41.1651758,
+          -8.6182778
+        ],
+        [
+          41.1648366,
+          -8.6148875
+        ],
+        [
+          41.1650546,
+          -8.6148016
+        ],
+        [
+          41.1648285,
+          -8.6137288
+        ],
+        [
+          41.1649658,
+          -8.6124842
+        ],
+        [
+          41.1652,
+          -8.6116474
+        ],
+        [
+          41.1645377,
+          -8.6109714
+        ],
+        [
+          41.1645216,
+          -8.6097913
+        ],
+        [
+          41.1631081,
+          -8.6089437
+        ],
+        [
+          41.1624296,
+          -8.6092226
+        ],
+        [
+          41.1619245,
+          -8.6038654
+        ],
+        [
+          41.1633703,
+          -8.6022024
+        ],
+        [
+          41.1648484,
+          -8.6002605
+        ],
+        [
+          41.165123,
+          -8.5997455
+        ],
+        [
+          41.1639195,
+          -8.5985975
+        ],
+        [
+          41.1636772,
+          -8.5981523
+        ],
+        [
+          41.1637015,
+          -8.5976802
+        ],
+        [
+          41.1631778,
+          -8.5937121
+        ],
+        [
+          41.164777,
+          -8.5933795
+        ],
+        [
+          41.1646155,
+          -8.5927465
+        ],
+        [
+          41.1655443,
+          -8.5925963
+        ],
+        [
+          41.1662389,
+          -8.5923496
+        ],
+        [
+          41.1668043,
+          -8.5916736
+        ],
+        [
+          41.1671839,
+          -8.5907081
+        ],
+        [
+          41.1671435,
+          -8.5893562
+        ],
+        [
+          41.1671193,
+          -8.5883692
+        ],
+        [
+          41.1743553,
+          -8.5845278
+        ],
+        [
+          41.1741131,
+          -8.5837446
+        ],
+        [
+          41.1754859,
+          -8.582046
+        ],
+        [
+          41.1767053,
+          -8.5799217
+        ],
+        [
+          41.1777713,
+          -8.5784733
+        ],
+        [
+          41.1779319,
+          -8.5776878
+        ],
+        [
+          41.1778189,
+          -8.5765398
+        ],
+        [
+          41.1779481,
+          -8.5757888
+        ],
+        [
+          41.1776816,
+          -8.574952
+        ],
+        [
+          41.1775282,
+          -8.5741151
+        ],
+        [
+          41.1776816,
+          -8.5733748
+        ],
+        [
+          41.1778512,
+          -8.5732246
+        ],
+        [
+          41.1780611,
+          -8.5723878
+        ],
+        [
+          41.1786829,
+          -8.571905
+        ],
+        [
+          41.1791755,
+          -8.571905
+        ],
+        [
+          41.1798942,
+          -8.5739113
+        ],
+        [
+          41.179934,
+          -8.574899
+        ],
+        [
+          41.1806446,
+          -8.5760577
+        ],
+        [
+          41.1803539,
+          -8.5823233
+        ],
+        [
+          41.1810644,
+          -8.5837824
+        ],
+        [
+          41.1795141,
+          -8.5872157
+        ],
+        [
+          41.1796756,
+          -8.5905631
+        ],
+        [
+          41.1816135,
+          -8.59567
+        ],
+        [
+          41.183939,
+          -8.604768
+        ],
+        [
+          41.1846496,
+          -8.6082871
+        ],
+        [
+          41.1832931,
+          -8.6121495
+        ],
+        [
+          41.1827763,
+          -8.6171277
+        ],
+        [
+          41.180257,
+          -8.6217196
+        ],
+        [
+          41.1801361,
+          -8.6229075
+        ],
+        [
+          41.1765044,
+          -8.6256491
+        ],
+        [
+          41.1758261,
+          -8.6279021
+        ],
+        [
+          41.1726281,
+          -8.6263143
+        ]
+      ],
+      "description": "A maior freguesia do Porto, ao norte do centro. Reúne o Polo Universitário da Asprela e o Hospital de São João.",
+      "highlights": [
+        "Polo Universitário da Asprela",
+        "Hospital de São João",
+        "Rua de Costa Cabral"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Bairro de estudantes e moradores, com residências universitárias, comércio de rua e poucas atrações turísticas.",
+      "walk": "Para quem fica por aqui, a linha D (amarela) liga o Hospital de São João à Trindade, aos Aliados e a São Bento, e atravessa a Ponte Luís I até Gaia.",
+      "tip": "Pouco para ver a pé: use como base e vá de metrô para o centro.",
+      "source": "https://pt.wikipedia.org/wiki/Paranhos_(Porto)",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Paranhos",
+      "sourceName": "Paranhos"
+    },
+    {
+      "id": "campanha",
+      "name": "Campanhã",
+      "group": "leste",
+      "color": "#E40303",
+      "tag": "Estação, Dragão e lado oriental",
+      "center": [
+        41.1586809,
+        -8.5762277
+      ],
+      "polygon": [
+        [
+          41.1671193,
+          -8.5883692
+        ],
+        [
+          41.1640158,
+          -8.5894527
+        ],
+        [
+          41.1608381,
+          -8.592035
+        ],
+        [
+          41.157704,
+          -8.593773
+        ],
+        [
+          41.1570981,
+          -8.5912088
+        ],
+        [
+          41.1565327,
+          -8.5910694
+        ],
+        [
+          41.1554906,
+          -8.591123
+        ],
+        [
+          41.1535023,
+          -8.5911239
+        ],
+        [
+          41.1523955,
+          -8.5920037
+        ],
+        [
+          41.1528318,
+          -8.5916282
+        ],
+        [
+          41.1526137,
+          -8.5911883
+        ],
+        [
+          41.152646,
+          -8.5909523
+        ],
+        [
+          41.1519108,
+          -8.5906948
+        ],
+        [
+          41.1517897,
+          -8.590448
+        ],
+        [
+          41.1502693,
+          -8.5904784
+        ],
+        [
+          41.1498169,
+          -8.5901136
+        ],
+        [
+          41.1492433,
+          -8.5879678
+        ],
+        [
+          41.1471428,
+          -8.5891695
+        ],
+        [
+          41.1468439,
+          -8.5890085
+        ],
+        [
+          41.146553,
+          -8.5880966
+        ],
+        [
+          41.1463511,
+          -8.5874958
+        ],
+        [
+          41.1457451,
+          -8.5876138
+        ],
+        [
+          41.145572,
+          -8.5872776
+        ],
+        [
+          41.1451357,
+          -8.5876102
+        ],
+        [
+          41.1427361,
+          -8.5870309
+        ],
+        [
+          41.1436108,
+          -8.5855089
+        ],
+        [
+          41.1436432,
+          -8.5836635
+        ],
+        [
+          41.1436931,
+          -8.5822259
+        ],
+        [
+          41.1436446,
+          -8.5805951
+        ],
+        [
+          41.144598,
+          -8.5778485
+        ],
+        [
+          41.1438547,
+          -8.5755525
+        ],
+        [
+          41.1438547,
+          -8.5736214
+        ],
+        [
+          41.1428205,
+          -8.5723124
+        ],
+        [
+          41.1444041,
+          -8.5694156
+        ],
+        [
+          41.1450343,
+          -8.5706173
+        ],
+        [
+          41.1456483,
+          -8.5699628
+        ],
+        [
+          41.1467067,
+          -8.5691796
+        ],
+        [
+          41.1467713,
+          -8.5683428
+        ],
+        [
+          41.1458665,
+          -8.5678063
+        ],
+        [
+          41.1449131,
+          -8.5670875
+        ],
+        [
+          41.1458665,
+          -8.5648022
+        ],
+        [
+          41.1463916,
+          -8.5638796
+        ],
+        [
+          41.1471349,
+          -8.5639547
+        ],
+        [
+          41.1479266,
+          -8.5637937
+        ],
+        [
+          41.1483629,
+          -8.5631929
+        ],
+        [
+          41.1483467,
+          -8.5624634
+        ],
+        [
+          41.1519983,
+          -8.5566805
+        ],
+        [
+          41.1544864,
+          -8.5526894
+        ],
+        [
+          41.1554235,
+          -8.557453
+        ],
+        [
+          41.1576045,
+          -8.5611866
+        ],
+        [
+          41.1586546,
+          -8.5607789
+        ],
+        [
+          41.1606207,
+          -8.5621706
+        ],
+        [
+          41.1624785,
+          -8.5649387
+        ],
+        [
+          41.1632054,
+          -8.5657541
+        ],
+        [
+          41.1651762,
+          -8.566033
+        ],
+        [
+          41.1667551,
+          -8.5669413
+        ],
+        [
+          41.1674335,
+          -8.5688081
+        ],
+        [
+          41.1674335,
+          -8.5701814
+        ],
+        [
+          41.1681119,
+          -8.5710182
+        ],
+        [
+          41.1702441,
+          -8.5705247
+        ],
+        [
+          41.1713424,
+          -8.5674563
+        ],
+        [
+          41.171895,
+          -8.5672243
+        ],
+        [
+          41.1736232,
+          -8.5681685
+        ],
+        [
+          41.1743662,
+          -8.567632
+        ],
+        [
+          41.1757229,
+          -8.566366
+        ],
+        [
+          41.1759167,
+          -8.5662802
+        ],
+        [
+          41.1790999,
+          -8.5704803
+        ],
+        [
+          41.1793422,
+          -8.5712099
+        ],
+        [
+          41.1798105,
+          -8.5714459
+        ],
+        [
+          41.179859,
+          -8.5737633
+        ],
+        [
+          41.1791755,
+          -8.571905
+        ],
+        [
+          41.1784539,
+          -8.5718751
+        ],
+        [
+          41.1780611,
+          -8.5723878
+        ],
+        [
+          41.1777433,
+          -8.5732269
+        ],
+        [
+          41.1775282,
+          -8.5741151
+        ],
+        [
+          41.1779481,
+          -8.5757888
+        ],
+        [
+          41.1778189,
+          -8.5765398
+        ],
+        [
+          41.1778725,
+          -8.5779691
+        ],
+        [
+          41.1777713,
+          -8.5784733
+        ],
+        [
+          41.1754014,
+          -8.5821748
+        ],
+        [
+          41.1741131,
+          -8.5837446
+        ],
+        [
+          41.1743553,
+          -8.5845278
+        ]
+      ],
+      "description": "Lado oriental da cidade. Tem a estação de comboios de Campanhã, o Terminal Intermodal (autocarros) e o Estádio do Dragão.",
+      "highlights": [
+        "Estação de Campanhã",
+        "Terminal Intermodal de Campanhã",
+        "Estádio do Dragão",
+        "Parque Oriental da Cidade do Porto"
+      ],
+      "official": "Contorno desenhado por você no Google My Maps, preservado como no arquivo enviado. Segue de perto o limite da freguesia, mas serve para organizar os passeios, não como limite oficial.",
+      "atmosphere": "Área de transportes, bairros residenciais e antigas zonas industriais, com uma margem do Douro pouco explorada.",
+      "walk": "Mais ponto de chegada e saída do que de passeio. Da estação, o metrô (linhas A, B, C, E e F) ou o comboio urbano até São Bento levam ao centro em poucos minutos.",
+      "tip": "Em dia de jogo do FC Porto, o metrô até o Estádio do Dragão fica cheio antes e depois da partida.",
+      "source": "https://pt.wikipedia.org/wiki/Campanh%C3%A3",
+      "boundarySource": "assets/maps/freguesias-porto.kml",
+      "boundaryType": "user-drawn",
+      "mapLabel": "Campanhã",
+      "sourceName": "Campanhã"
+    }
+  ],
+  "places": [
+    {
+      "id": "reference-sao-bento",
+      "name": "Estação de São Bento",
+      "type": "Estação ferroviária",
+      "coords": [
+        41.1454799,
+        -8.610522
+      ],
+      "symbol": "S",
+      "anchor": true,
+      "base": true,
+      "listIds": []
+    },
+    {
+      "id": "reference-clerigos",
+      "name": "Torre dos Clérigos",
+      "type": "Monumento",
+      "coords": [
+        41.1456547,
+        -8.6146275
+      ],
+      "symbol": "C",
+      "anchor": true,
+      "base": true,
+      "listIds": []
+    },
+    {
+      "id": "reference-ponte-luis-i",
+      "name": "Ponte Luís I",
+      "type": "Monumento",
+      "coords": [
+        41.1401696,
+        -8.6094576
+      ],
+      "symbol": "P",
+      "anchor": true,
+      "base": true,
+      "listIds": []
+    },
+    {
+      "id": "bus-campanha",
+      "name": "Terminal Intermodal de Campanhã",
+      "type": "Estação rodoviária",
+      "coords": [
+        41.1517313,
+        -8.5831745
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [],
+      "busStation": true,
+      "alwaysVisible": true,
+      "googleUrl": "https://www.google.com/maps/search/?api=1&query=Terminal+Intermodal+de+Campanh%C3%A3",
+      "coordinateSource": "https://www.openstreetmap.org/"
+    },
+    {
+      "id": "airport-porto",
+      "name": "Aeroporto Francisco Sá Carneiro",
+      "type": "Aeroporto",
+      "coords": [
+        41.237,
+        -8.6703
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [],
+      "airport": true,
+      "alwaysVisible": true,
+      "googleUrl": "https://www.google.com/maps/search/?api=1&query=Aeroporto+Francisco+S%C3%A1+Carneiro"
+    },
+    {
+      "id": "google-16848958678542473660",
+      "name": "Café Au Lait",
+      "type": "Bar",
+      "coords": [
+        41.1469923,
+        -8.6143173
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "lgbt"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Caf%C3%A9+Au+Lait/data=!4m2!3m1!1s0xd2464e2f21e6f5f:0xe9d386a605c259bc",
+      "sourceName": "Café Au Lait"
+    },
+    {
+      "id": "google-9085700733045713204",
+      "name": "Zoom Porto",
+      "type": "Discoteca",
+      "coords": [
+        41.1468197,
+        -8.6082796
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "lgbt"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Zoom+Porto/data=!4m2!3m1!1s0xd2464e4fe882edb:0x7e16e4adb8b22934",
+      "sourceName": "Zoom Porto"
+    },
+    {
+      "id": "google-16175080923737709752",
+      "name": "Bar Conceição 35",
+      "type": "Bar",
+      "coords": [
+        41.1499273,
+        -8.6137141
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "lgbt"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Bar+Concei%C3%A7%C3%A3o+35/data=!4m2!3m1!1s0xd2464fd23ef1c7f:0xe0796e66a0955cb8",
+      "sourceName": "Bar Conceição 35"
+    },
+    {
+      "id": "google-8247749298331267903",
+      "name": "Coliseu Porto Ageas",
+      "type": "Sala de espetáculos",
+      "coords": [
+        41.146818,
+        -8.605492
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "lgbt"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Ageas+Porto+Coliseum/data=!4m2!3m1!1s0xd2464e5a091b163:0x7275e449d383333f",
+      "sourceName": "Ageas Porto Coliseum"
+    },
+    {
+      "id": "google-15519567542958855817",
+      "name": "Café Lusitano",
+      "type": "Bar",
+      "coords": [
+        41.1491366,
+        -8.6143825
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "lgbt"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Cafe+Lusitano/data=!4m2!3m1!1s0xd2464fd3396ad55:0xd760947441be9689",
+      "sourceName": "Cafe Lusitano"
+    },
+    {
+      "id": "google-12206103085203183103",
+      "name": "Terrárea",
+      "type": "Restaurante vegano",
+      "coords": [
+        41.1770071,
+        -8.689073
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "vegano"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Terr%C3%A1rea/data=!4m2!3m1!1s0xd246f3c402c78e3:0xa964ca15d555d5ff",
+      "sourceName": "Terrárea"
+    },
+    {
+      "id": "google-2736728975521413940",
+      "name": "daTerra Baixa",
+      "type": "Restaurante vegano",
+      "coords": [
+        41.1441504,
+        -8.6124564
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "vegano"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/daTerra+Baixa/data=!4m2!3m1!1s0xd2464e3d92b75b9:0x25fad080e078fb34",
+      "sourceName": "daTerra Baixa"
+    },
+    {
+      "id": "google-10581264945791473526",
+      "name": "Suribachi",
+      "type": "Restaurante vegetariano",
+      "coords": [
+        41.1490033,
+        -8.5972363
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "vegano"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Suribachi/data=!4m2!3m1!1s0xd2464ed989bdbb5:0x92d8346800319776",
+      "sourceName": "Suribachi"
+    },
+    {
+      "id": "google-17175145855437919136",
+      "name": "A Padoca",
+      "type": "Padaria vegana",
+      "coords": [
+        41.1477114,
+        -8.6205525
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "vegano"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/A+Padoca/data=!4m2!3m1!1s0xd24651cba2b6fa3:0xee5a60285ee653a0",
+      "sourceName": "A Padoca"
+    },
+    {
+      "id": "google-10574056025440140374",
+      "name": "Kind Kitchen",
+      "type": "Restaurante vegano",
+      "coords": [
+        41.1484469,
+        -8.6142175
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "vegano"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Kind+Kitchen/data=!4m2!3m1!1s0xd2465e5981e9921:0x92be97ee6f703c56",
+      "sourceName": "Kind Kitchen"
+    },
+    {
+      "id": "google-4437585510091809369",
+      "name": "Parking Oporto · Palácio da Justiça",
+      "type": "Estacionamento",
+      "coords": [
+        41.1446596,
+        -8.6178075
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "estacionamentos"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/%5BP%5D+Parking+Oporto/data=!4m2!3m1!1s0xd24651dc6ae8327:0x3d95788295716259",
+      "sourceName": "[P] Parking Oporto"
+    },
+    {
+      "id": "google-5379836894796846325",
+      "name": "Parque Saba Praça Carlos Alberto",
+      "type": "Estacionamento",
+      "coords": [
+        41.148286,
+        -8.615711
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "estacionamentos"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Parque+Saba+Pra%C3%A7a+Carlos+Alberto/data=!4m2!3m1!1s0xd24653873c0ddbd:0x4aa90526f7e814f5",
+      "sourceName": "Parque Saba Praça Carlos Alberto"
+    },
+    {
+      "id": "google-17491579783126030126",
+      "name": "Estacionamento D. João I · Telpark",
+      "type": "Estacionamento",
+      "coords": [
+        41.147423,
+        -8.6089447
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "estacionamentos"
+      ],
+      "googleUrl": "https://www.google.com/maps/place/Estacionamento+D.+Jo%C3%A3o+I+-+Telpark/data=!4m2!3m1!1s0xd2464e4f21bd10d:0xf2be93236da1972e",
+      "sourceName": "Estacionamento D. João I - Telpark"
+    },
+    {
+      "id": "pin-gomes-teixeira",
+      "name": "Estacionamento · Praça de Gomes Teixeira",
+      "type": "Estacionamento",
+      "coords": [
+        41.147299,
+        -8.615654
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "estacionamentos"
+      ],
+      "sourceName": "41°08'50.3\"N 8°36'56.4\"W",
+      "googleUrl": "https://www.google.com/maps/search/?api=1&query=41.147299,-8.615654"
+    }
+  ],
+  "boundaryAttribution": "Seis contornos desenhados pelo usuário no Google My Maps (freguesias do Porto), importados sem simplificação do arquivo KMZ. O contorno do Centro Histórico vem do OpenStreetMap.",
+  "placeLists": [
+    {
+      "id": "lgbt",
+      "name": "Bares e clubs LGBT+",
+      "sourceName": "Gay",
+      "placeIds": [
+        "google-16848958678542473660",
+        "google-9085700733045713204",
+        "google-16175080923737709752",
+        "google-8247749298331267903",
+        "google-15519567542958855817"
+      ]
+    },
+    {
+      "id": "vegano",
+      "name": "Vegano e vegetariano",
+      "sourceName": "Porto Vegan Places",
+      "placeIds": [
+        "google-12206103085203183103",
+        "google-2736728975521413940",
+        "google-10581264945791473526",
+        "google-17175145855437919136",
+        "google-10574056025440140374"
+      ]
+    },
+    {
+      "id": "estacionamentos",
+      "name": "Estacionamentos",
+      "sourceName": "Parques Estacionamentos Porto",
+      "placeIds": [
+        "google-4437585510091809369",
+        "google-5379836894796846325",
+        "google-17491579783126030126",
+        "pin-gomes-teixeira"
+      ]
+    }
+  ],
+  "streets": []
+}
+  </script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+'use strict';
+const data = JSON.parse(document.getElementById('map-data').textContent);
+const $ = id => document.getElementById(id);
+const escapeHTML = text => text.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const lngLat = ([lat, lng]) => [lng, lat];
+const panels = new Map(), labels = [], markers = [];
+const listButtons = new Map(), activeLists = new Set();
+const placeLists = data.placeLists || [];
+const allPlaces = data.places;
+const streets = data.streets || [], streetButtons = new Map();
+const metroLines = [], metroStations = [], metroButtons = new Map(), activeMetroLines = new Set();
+let metroReady = false, activeStation = null;
+const metroData = fetch(new URL('assets/maps/metro.geojson',location.href)).then(response=>{
+  if (!response.ok) throw new Error('metro.geojson ('+response.status+')');
+  return response.json();
+});
+const editorial = {bairros:new Map(),locais:new Map(),ruas:new Map()};
+const editorialKind = {bairros:data.regions,locais:data.places,ruas:streets};
+const editorialPaths = ['assets/conteudo/bairros.json','assets/conteudo/locais.json','assets/conteudo/ruas.json'];
+function editorialStatus(message, error = false) {
+  $('editorial-status').textContent = message;
+  $('editorial-status').classList.toggle('content-error',error);
+}
+function parseEditorialDocument(document) {
+  if (!document || typeof document !== 'object' || document.versao !== 1 || !Object.hasOwn(editorialKind,document.tipo) || !Array.isArray(document.itens)) throw new Error('Use um JSON de bairros, locais ou ruas com versao 1 e uma lista de itens.');
+  const known = new Set(editorialKind[document.tipo].map(item=>item.id));
+  const items = new Map();
+  for (const item of document.itens) {
+    if (!item || typeof item.id !== 'string' || !known.has(item.id)) throw new Error('ID desconhecido no arquivo de '+document.tipo+': '+String(item?.id));
+    if (items.has(item.id)) throw new Error('ID repetido: '+item.id);
+    if (document.tipo === 'ruas' && item.bairro !== undefined && !data.regions.some(region=>region.id === item.bairro)) throw new Error('Bairro desconhecido na rua '+item.id+': '+String(item.bairro));
+    for (const key of ['nome','subtitulo','tipo']) if (item[key] !== undefined && typeof item[key] !== 'string') throw new Error('O campo '+key+' de '+item.id+' precisa ser um texto.');
+    if (!Array.isArray(item.secoes)) throw new Error('O campo secoes de '+item.id+' precisa ser uma lista.');
+    for (const section of item.secoes) {
+      if (!section || typeof section !== 'object' || Array.isArray(section)) throw new Error('Seção inválida em '+item.id);
+      for (const key of ['titulo','texto']) if (section[key] !== undefined && typeof section[key] !== 'string') throw new Error('O campo '+key+' de uma seção precisa ser um texto.');
+      if (section.itens !== undefined && (!Array.isArray(section.itens) || section.itens.some(value=>typeof value !== 'string'))) throw new Error('Os itens de uma seção precisam ser uma lista de textos.');
+    }
+    if (item.links !== undefined && (!Array.isArray(item.links) || item.links.some(link=>!link || typeof link.texto !== 'string' || typeof link.url !== 'string'))) throw new Error('Cada link precisa de texto e url.');
+    items.set(item.id,item);
+  }
+  return {kind:document.tipo,items};
+}
+function safeContentUrl(raw) {
+  try {
+    const url = new URL(raw,location.href);
+    return ['http:','https:'].includes(url.protocol)?url.href:null;
+  } catch {return null;}
+}
+function renderEditorialSections(item) {
+  let html = '';
+  for (const section of item.secoes) {
+    if (section.titulo) html += '<h3>'+escapeHTML(section.titulo)+'</h3>';
+    if (section.texto) html += '<p class="editable-text">'+escapeHTML(section.texto)+'</p>';
+    if (section.itens?.length) html += '<ul>'+section.itens.map(value=>'<li>'+escapeHTML(value)+'</li>').join('')+'</ul>';
+  }
+  const links = (item.links || []).map(link=>({texto:link.texto,url:safeContentUrl(link.url)})).filter(link=>link.url);
+  if (links.length) html += '<div class="editorial-links">'+links.map(link=>'<a href="'+escapeHTML(link.url)+'" target="_blank" rel="noopener noreferrer">'+escapeHTML(link.texto)+' ↗</a>').join('')+'</div>';
+  return html;
+}
+function regionName(region) {return editorial.bairros.get(region.id)?.nome ?? region.name;}
+function placeName(place) {return editorial.locais.get(place.id)?.nome ?? place.name;}
+function placeType(place) {return editorial.locais.get(place.id)?.tipo ?? place.type;}
+function placeColor(place) {
+  const type = placeType(place).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  // Cultural venues stay blue even when housed in a palace or historic building.
+  if (/muse|centro cultural|espaco cultural|espaco de expos|instituicao cultural|galeria|teatro/.test(type)) return '#1565c0';
+  if (/\b(praca|plaza|monumento|escultura|fonte|fuente|arco|catedral|palacio|templo)\b/.test(type)) return '#c74939';
+  if (/\b(parque|parc|park|jardim|jardin|jardines|lago)\b/.test(type)) return '#008026';
+  return '#1565c0';
+}
+// Saved Google list places keep their own link; the others search by name.
+function placeGoogleLinks(place) {
+  const search = 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(placeName(place).replace(/\s*·\s*/g,' ')+', Porto');
+  const open = safeContentUrl(place.googleUrl || '') || search;
+  const directions = 'https://www.google.com/maps/dir/?api=1&travelmode=walking&destination='+place.coords.join(',');
+  const link = (url, text) => '<a href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">'+text+'</a>';
+  return '<div class="place-google">'+link(open,'Abrir no Google Maps ↗')+link(directions,'Como chegar ↗')+'</div>';
+}
+function placeContent(place) {
+  const item = editorial.locais.get(place.id);
+  const extra = item?renderEditorialSections(item):'';
+  return '<strong class="place-name">'+escapeHTML(placeName(place))+'</strong><span class="place-type">'+escapeHTML(placeType(place))+'</span>'+(extra?'<div class="place-editorial">'+extra+'</div>':'')+placeGoogleLinks(place);
+}
+function streetName(street) {return editorial.ruas.get(street.id)?.nome ?? street.name;}
+function streetRegion(street) {return data.regions.find(region=>region.id === (editorial.ruas.get(street.id)?.bairro ?? street.regionId));}
+function streetContent(street) {
+  const region = streetRegion(street), item = editorial.ruas.get(street.id);
+  const extra = item?renderEditorialSections(item):street.description?'<p class="editable-text">'+escapeHTML(street.description)+'</p>':'';
+  return '<strong class="place-name">'+escapeHTML(streetName(street))+'</strong>'+(region?'<span class="place-type">'+escapeHTML(regionName(region))+'</span>':'')+(extra?'<div class="place-editorial">'+extra+'</div>':'');
+}
+function streetFeatures() {
+  return {type:'FeatureCollection',features:streets.map(street=>({type:'Feature',properties:{id:street.id,color:streetRegion(street)?.color || '#263b35'},geometry:street.geometry}))};
+}
+function refreshEditorialViews() {
+  data.regions.forEach((region,index)=>{
+    const item = editorial.bairros.get(region.id);
+    const panel = panels.get(region.id);
+    if (panel) {
+      panel.querySelector('.region strong').textContent = regionName(region);
+      panel.querySelector('.region small').textContent = item?.subtitulo ?? region.tag;
+      const content = panel.querySelector('.region-details');
+      content.innerHTML = regionContent(region);
+      content.querySelector('.locate-region').addEventListener('click',()=>focusRegion(region));
+      content.querySelector('.locate-region').disabled = !map;
+    }
+    // The short map label wins over the full name from the JSON (e.g. "Foz" for the long freguesia name).
+    if (labels[index]) labels[index].getElement().textContent = region.mapLabel ?? item?.nome ?? region.name;
+  });
+  for (const {marker,place} of markers) {
+    const label = placeName(place)+' · '+placeType(place);
+    marker.getElement().title = label;
+    marker.getElement().setAttribute('aria-label',label);
+    marker.getElement().style.setProperty('--place-color',placeColor(place));
+  }
+  if (regionDialog.open && selected) {
+    const region = data.regions.find(item=>item.id === selected);
+    if (region) {
+      $('region-dialog-title').textContent = regionName(region);
+      const body = $('region-dialog-body'), scroll = body.scrollTop;
+      body.innerHTML = regionContent(region);
+      body.querySelector('.locate-region').addEventListener('click',()=>{regionDialog.close();focusRegion(region);});
+      body.querySelector('.locate-region').disabled = !map;
+      body.scrollTop = scroll;
+    }
+  }
+  if (activePopup?.isOpen() && activePlace) activePopup.setHTML(placeContent(activePlace));
+  for (const street of streets) {
+    const button = streetButtons.get(street.id), region = streetRegion(street);
+    if (button) {
+      button.querySelector('strong').textContent = streetName(street);
+      button.querySelector('small').textContent = region?regionName(region):'Rua em destaque';
+      button.style.setProperty('--color',region?.color || '#263b35');
+    }
+  }
+  if (overlaysReady) map.getSource('streets')?.setData(streetFeatures());
+  if (activePopup?.isOpen() && activeStreet) activePopup.setHTML(streetContent(activeStreet));
+}
+function applyEditorialDocuments(documents) {
+  const parsed = documents.map(parseEditorialDocument);
+  if (new Set(parsed.map(item=>item.kind)).size !== parsed.length) throw new Error('Selecione apenas um arquivo de cada tipo (bairros, locais ou ruas) por vez.');
+  for (const document of parsed) editorial[document.kind] = document.items;
+  refreshEditorialViews();
+}
+function initializeEditorialContent() {
+  $('import-editorial').addEventListener('click',()=>$('editorial-files').click());
+  $('editorial-files').addEventListener('change',async event=>{
+    const files = Array.from(event.target.files || []);
+    if (!files.length) return;
+    try {
+      const documents = await Promise.all(files.map(async file=>JSON.parse(await file.text())));
+      applyEditorialDocuments(documents);
+      editorialStatus('Textos carregados. Abra um bairro, local ou rua para conferir.');
+    } catch (error) {editorialStatus('Não foi possível carregar: '+error.message,true);}
+    event.target.value = '';
+  });
+  if (location.protocol === 'file:') {
+    editorialStatus('Abrindo por arquivo: use Carregar textos JSON para aplicar suas edições.');
+    return;
+  }
+  editorialStatus('Carregando seus textos…');
+  Promise.allSettled(editorialPaths.map(async path=>{
+    const response = await fetch(new URL(path,location.href),{cache:'no-store'});
+    if (!response.ok) throw new Error(path+' ('+response.status+')');
+    return await response.json();
+  })).then(results=>{
+    const documents = results.filter(result=>result.status === 'fulfilled').map(result=>result.value);
+    try {
+      if (documents.length) applyEditorialDocuments(documents);
+      if (documents.length === editorialPaths.length) editorialStatus('Textos dos bairros, locais e ruas carregados dos arquivos JSON.');
+      else editorialStatus('Algum arquivo de textos não carregou. Os demais textos continuam disponíveis; você também pode carregar os JSONs pelo botão.',true);
+    } catch (error) {editorialStatus('Não foi possível aplicar os textos: '+error.message,true);}
+  });
+}
+
+const mobileLayout = matchMedia('(max-width:580px)');
+const regionDialog = $('region-dialog');
+let regionReturnFocus = null, regionReturnScroll = 0;
+let selected = null, map = null, overlaysReady = false, activePopup = null, activePlace = null, activeStreet = null;
+const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const guideApp = document.querySelector('.app'), guideHandle = $('guide-handle');
+let guideExtent = .55, guideDrag = null, suppressGuideClick = false;
+function setGuideExtent(extent) {
+  guideExtent = Math.max(.35,Math.min(.94,extent));
+  guideApp.style.setProperty('--map-height',((1-guideExtent)*100)+'%');
+  const expanded = guideExtent >= .85;
+  guideApp.dataset.guideExpanded = String(expanded);
+  guideHandle.setAttribute('aria-expanded',String(expanded));
+  guideHandle.setAttribute('aria-label',expanded?'Recolher o guia e voltar ao mapa. Também pode arrastar para baixo.':'Expandir o guia de bairros. Também pode arrastar para cima.');
+  $('guide-handle-label').textContent = expanded?'Deslize para baixo · Voltar ao mapa':'Deslize para cima · Mais bairros';
+}
+function finishGuideDrag(event) {
+  if (!guideDrag || event.pointerId !== guideDrag.pointerId) return;
+  const moved = guideDrag.moved, startExtent = guideDrag.extent;
+  guideDrag = null;
+  if (!moved) return;
+  suppressGuideClick = true;
+  setTimeout(()=>{suppressGuideClick=false;},0);
+  const stops = [.35,.55,.78,.94];
+  setGuideExtent(event.type === 'pointercancel' ? startExtent : stops.reduce((best,value)=>Math.abs(value-guideExtent)<Math.abs(best-guideExtent)?value:best));
+}
+for (const grip of [guideHandle,$('guide-header')]) {
+  grip.addEventListener('pointerdown',event=>{
+    if (!mobileLayout.matches || !event.isPrimary || event.button !== 0) return;
+    guideDrag = {pointerId:event.pointerId,y:event.clientY,extent:guideExtent,moved:false,height:guideApp.getBoundingClientRect().height};
+    grip.setPointerCapture(event.pointerId);
+  });
+  grip.addEventListener('pointermove',event=>{
+    if (!guideDrag || event.pointerId !== guideDrag.pointerId) return;
+    const delta = guideDrag.y-event.clientY;
+    if (!guideDrag.moved && Math.abs(delta)<6) return;
+    guideDrag.moved = true;
+    setGuideExtent(guideDrag.extent+delta/guideDrag.height);
+  });
+  grip.addEventListener('pointerup',finishGuideDrag);
+  grip.addEventListener('pointercancel',finishGuideDrag);
+}
+guideHandle.addEventListener('click',()=>{
+  if (suppressGuideClick) return;
+  setGuideExtent(guideExtent >= .85?.55:.94);
+});
+guideHandle.addEventListener('keydown',event=>{
+  if (!['ArrowUp','ArrowDown','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  setGuideExtent(event.key === 'ArrowUp' || event.key === 'End'?.94:.55);
+});
+const mapLink = name => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ', Porto, Portugal');
+function showNotice(text) { $('notice').textContent = text; $('notice').hidden = false; }
+function regionPoints(region) {
+  if (region.geometry) return region.geometry.type === 'Polygon' ? region.geometry.coordinates.flat() : region.geometry.coordinates.flat(2);
+  return region.polygon.map(lngLat);
+}
+function boundsFor(regions) {
+  const bounds = new maplibregl.LngLatBounds();
+  regions.forEach(region => regionPoints(region).forEach(point => bounds.extend(point)));
+  return bounds;
+}
+function refreshSelection() {
+  if (!overlaysReady) return;
+  map.setPaintProperty('region-fills', 'fill-opacity', ['case',['==',['get','id'],selected || ''],.36,.22]);
+  map.setPaintProperty('region-lines', 'line-width', ['case',['==',['get','id'],selected || ''],3,1.7]);
+}
+function focusRegion(region) {
+  if (!map) return;
+  if (mobileLayout.matches) {setGuideExtent(.55);map.resize();}
+  if (activePopup) activePopup.remove();
+  map.fitBounds(boundsFor([region]), {padding:{top:75,bottom:80,left:30,right:45},maxZoom:15,duration:reducedMotion()?0:450});
+}
+function regionContent(region) {
+  const editable = editorial.bairros.get(region.id);
+  if (editable) return renderEditorialSections(editable)+'<div class="region-actions"><button type="button" class="locate-region">Ver área no mapa</button></div>';
+  return '<p>'+escapeHTML(region.description)+'</p><h3>O clima da região</h3><p>'+escapeHTML(region.atmosphere)+'</p><h3>O que ver</h3><ul>'+region.highlights.map(item=>'<li>'+escapeHTML(item)+'</li>').join('')+'</ul><h3>Uma ideia de passeio</h3><p>'+escapeHTML(region.walk)+'</p><h3>Para aproveitar melhor</h3><p>'+escapeHTML(region.tip)+'</p><p class="official">'+escapeHTML(region.official)+'</p><div class="region-actions"><button type="button" class="locate-region">Ver área no mapa</button><a target="_blank" rel="noopener noreferrer" href="'+mapLink(region.name)+'">Google Maps ↗</a></div><a class="source" target="_blank" rel="noopener noreferrer" href="'+escapeHTML(region.source)+'">Mais sobre a região ↗</a>';
+}
+function openMobileRegion(region, trigger) {
+  regionReturnFocus = trigger;
+  regionReturnScroll = $('regions').scrollTop;
+  if (activePopup) activePopup.remove();
+  selected = region.id;
+  refreshSelection();
+  regionDialog.style.setProperty('--color',region.color);
+  $('region-dialog-title').textContent = regionName(region);
+  const body = $('region-dialog-body');
+  body.innerHTML = regionContent(region);
+  body.querySelector('.locate-region').addEventListener('click',()=>{
+    regionDialog.close();
+    focusRegion(region);
+  });
+  if (!map) body.querySelector('.locate-region').disabled = true;
+  if (!regionDialog.open) regionDialog.showModal();
+  body.scrollTop = 0;
+}
+$('close-region-dialog').addEventListener('click',()=>regionDialog.close());
+regionDialog.addEventListener('close',()=>{
+  selected = null;
+  refreshSelection();
+  if (regionReturnFocus) regionReturnFocus.focus({preventScroll:true});
+  $('regions').scrollTop = regionReturnScroll;
+  regionReturnFocus = null;
+});
+mobileLayout.addEventListener('change',()=>{
+  if (!mobileLayout.matches && regionDialog.open) regionDialog.close();
+  if (mobileLayout.matches) {
+    for (const panel of panels.values()) panel.open = false;
+    if (!regionDialog.open) {selected=null;refreshSelection();}
+  }
+});
+function isPlaceVisible(place) {
+  if (place.isStreet || place.hideMarker) return false; // Routes and hidden references do not get dots.
+  if (place.alwaysVisible) return true;
+  const isReference = place.base !== false;
+  return (isReference && $('places').checked) || (place.listIds || []).some(id => activeLists.has(id));
+}
+function renderStreetControls() {
+  if (!streets.length) return;
+  const section = document.createElement('section'); section.className = 'street-list';
+  section.setAttribute('aria-label','Ruas em destaque');
+  section.innerHTML = '<div class="street-heading"><span>Ruas em destaque</span><label><input id="streets" type="checkbox" checked> Mostrar</label></div>';
+  for (const street of streets) {
+    const region = streetRegion(street), button = document.createElement('button');
+    button.type = 'button'; button.className = 'street-button'; button.style.setProperty('--color',region?.color || '#263b35');
+    button.innerHTML = '<strong>'+escapeHTML(streetName(street))+'</strong><small>'+escapeHTML(region?regionName(region):'Rua em destaque')+'</small>';
+    button.addEventListener('click',()=>{
+      if (!map || !overlaysReady) return;
+      $('streets').checked = true; syncLayers();
+      if (mobileLayout.matches) {setGuideExtent(.55);map.resize();}
+      const bounds = new maplibregl.LngLatBounds();
+      const points = street.geometry.type === 'LineString'?street.geometry.coordinates:street.geometry.type === 'MultiPolygon'?street.geometry.coordinates.flat(2):street.geometry.coordinates.flat();
+      points.forEach(point=>bounds.extend(point));
+      map.fitBounds(bounds,{padding:{top:65,bottom:65,left:30,right:40},maxZoom:16,duration:0});
+      showStreet(street,bounds.getCenter());
+    });
+    streetButtons.set(street.id,button); section.append(button);
+  }
+  const list = $('regions'); list.insertBefore(section,list.querySelector('.neighborhood-list-heading'));
+  $('streets').addEventListener('change',syncLayers);
+}
+// Light line colours (yellow, green, orange…) need dark numbers to stay legible.
+function metroInk(color) {
+  const [r,g,b] = [1,3,5].map(i=>parseInt(color.slice(i,i+2),16)/255);
+  return .2126*r+.7152*g+.0722*b > .55 ? '#1d2b33' : '#fff';
+}
+function metroBadge(line) {
+  return '<span class="metro-badge" style="--line-color:'+line.color+';--line-ink:'+metroInk(line.color)+'" aria-hidden="true">'+escapeHTML(line.line)+'</span>';
+}
+function metroSummary() {
+  const count = $('metro-count');
+  if (!count) return;
+  $('metro-show').checked = $('metro').checked;
+  count.textContent = !$('metro').checked ? 'Oculto' : activeMetroLines.size === metroLines.length ? 'Todas as linhas' : activeMetroLines.size+' de '+metroLines.length+' linhas';
+}
+function renderMetroControls() {
+  const section = document.createElement('section');
+  section.className = 'street-list metro-lines';
+  section.setAttribute('aria-label','Metrô');
+  section.innerHTML = '<div class="street-heading"><span>Metrô <small class="active-list-count" id="metro-count" aria-live="polite">Carregando…</small></span><label><input id="metro-show" type="checkbox" checked> Mostrar</label></div>';
+  const content = document.createElement('div');
+  const hint = document.createElement('p'); hint.className = 'metro-hint'; hint.textContent = 'Toque numa linha para mostrar ou esconder.';
+  const controls = document.createElement('div'); controls.className = 'metro-toggles';
+  const actions = document.createElement('div'); actions.className = 'metro-actions';
+  actions.innerHTML = '<button type="button" data-metro="all">Todas</button><button type="button" data-metro="none">Nenhuma</button>';
+  actions.addEventListener('click',event=>{
+    const action = event.target.closest('button')?.dataset.metro;
+    if (!action) return;
+    activeMetroLines.clear();
+    if (action === 'all') metroLines.forEach(line=>activeMetroLines.add(line.line));
+    $('metro').checked = true;
+    syncMetroButtons();
+  });
+  content.append(hint,controls,actions); section.append(content);
+  const list = $('regions'); list.insertBefore(section,list.querySelector('.neighborhood-list-heading'));
+  $('metro').addEventListener('change',()=>{metroSummary();syncLayers();});
+  $('metro-show').addEventListener('change',event=>{$('metro').checked = event.target.checked;metroSummary();syncLayers();});
+  metroData.then(collection=>{
+    for (const feature of collection.features) {
+      if (feature.properties.kind === 'line') metroLines.push(feature.properties);
+      else metroStations.push(feature);
+    }
+    for (const line of metroLines) {
+      activeMetroLines.add(line.line);
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'metro-toggle'; button.setAttribute('aria-pressed','true');
+      button.title = line.name; button.setAttribute('aria-label',line.name);
+      button.innerHTML = metroBadge(line);
+      button.addEventListener('click',()=>{
+        if (activeMetroLines.has(line.line)) activeMetroLines.delete(line.line); else activeMetroLines.add(line.line);
+        $('metro').checked = true;
+        syncMetroButtons();
+      });
+      metroButtons.set(line.line,button); controls.append(button);
+    }
+    metroSummary();
+  }).catch(()=>{
+    $('metro-count').textContent = 'Indisponível';
+    hint.textContent = 'As linhas de metrô não carregaram. Abra o guia pelo site (não como arquivo local) e verifique a conexão.';
+    actions.hidden = true;
+    $('metro').disabled = true;
+    $('metro-show').disabled = true;
+  });
+}
+function syncMetroButtons() {
+  for (const [id,button] of metroButtons) button.setAttribute('aria-pressed',String(activeMetroLines.has(id)));
+  metroSummary();
+  syncLayers();
+}
+function isStationVisible(station) {
+  return $('metro').checked && station.properties.lines.some(line=>activeMetroLines.has(line));
+}
+// Blue square with a white "M", like the Metro do Porto station signs, drawn once for the station symbol layer.
+function metroStationIcon() {
+  const ratio = 2, size = 20*ratio, canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d'), c = size/2, inset = 1.5*ratio, side = size-2*inset, radius = 4*ratio;
+  ctx.beginPath(); ctx.roundRect(inset,inset,side,side,radius);
+  ctx.fillStyle = '#0B4DA2'; ctx.fill();
+  ctx.lineWidth = 1.5*ratio; ctx.strokeStyle = '#fff'; ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.font = '800 '+(13*ratio)+'px system-ui, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('M',c,c+.8*ratio);
+  return {image:ctx.getImageData(0,0,size,size),pixelRatio:ratio};
+}
+function addMetroLayers() {
+  return metroData.then(collection=>{
+    // GeoJSON sources stringify array properties, so station lines become "|1|2|" for filtering.
+    const features = collection.features.map(({properties,geometry})=>({type:'Feature',geometry,properties:properties.kind === 'line'
+      ? {line:properties.line,color:properties.color,casing:'#fffdf8'}
+      : {name:properties.name,station:metroStations.findIndex(station=>station.properties === properties),lineKey:'|'+properties.lines.join('|')+'|'}}));
+    const {image,pixelRatio} = metroStationIcon();
+    map.addImage('metro-station',image,{pixelRatio});
+    map.addSource('metro',{type:'geojson',data:{type:'FeatureCollection',features}});
+    const before = map.getLayer('street-fills') ? 'street-fills' : undefined;
+    map.addLayer({id:'metro-casing',type:'line',source:'metro',filter:['has','line'],layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':['get','casing'],'line-width':['interpolate',['linear'],['zoom'],11,3,16,8.5]}},before);
+    map.addLayer({id:'metro-lines',type:'line',source:'metro',filter:['has','line'],layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':['get','color'],'line-width':['interpolate',['linear'],['zoom'],11,1.6,16,5],'line-opacity':.9}},before);
+    map.addLayer({id:'metro-stations',type:'symbol',source:'metro',minzoom:11.5,filter:['has','lineKey'],layout:{
+      'icon-image':'metro-station','icon-size':['interpolate',['linear'],['zoom'],11.5,.5,14,.8,17,1.1],'icon-allow-overlap':true,
+      'text-field':['step',['zoom'],'',14.5,['get','name']],'text-font':['Noto Sans Regular'],'text-size':11,'text-offset':[0,1.2],'text-anchor':'top','text-optional':true
+    },paint:{'text-color':'#263b35','text-halo-color':'#fffdf8','text-halo-width':1.5}},before);
+    metroReady = true; syncLayers();
+  });
+}
+function stationContent(station) {
+  const lines = station.properties.lines.map(id=>metroLines.find(line=>line.line === id)).filter(Boolean);
+  const [lng,lat] = station.geometry.coordinates;
+  return '<strong class="place-name">'+escapeHTML(station.properties.name)+'</strong><span class="place-type">Estação de metrô</span><div class="metro-popup-lines">'+lines.map(line=>'<span title="'+escapeHTML(line.name)+'">'+metroBadge(line)+'</span>').join('')+'</div>'+placeGoogleLinks({name:'Metro '+station.properties.name,coords:[lat,lng]});
+}
+function showStation(station) {
+  if (!map || !isStationVisible(station)) return;
+  if (activePopup) activePopup.remove();
+  activePlace = null; activeStreet = null; activeStation = station;
+  activePopup = new maplibregl.Popup({offset:12,maxWidth:'270px',closeButton:true,closeOnClick:true})
+    .setLngLat(station.geometry.coordinates).setHTML(stationContent(station)).addTo(map);
+}
+function renderListControls() {
+  if (!placeLists.length) return;
+  const section = document.createElement('details');
+  section.className = 'place-lists'; section.open = true;
+  const summary = document.createElement('summary');
+  summary.innerHTML = '<span>Minhas listas</span><span class="active-list-count" id="active-list-count" aria-live="polite">Nenhuma ativa</span>';
+  const content = document.createElement('div'); content.className = 'place-list-content';
+  const hint = document.createElement('p'); hint.textContent = 'Ative as listas que quer ver no mapa. Pode escolher várias.';
+  const controls = document.createElement('div'); controls.className = 'list-toggles';
+  const fitButton = document.createElement('button');
+  fitButton.type = 'button'; fitButton.className = 'fit-lists'; fitButton.textContent = 'Ver listas ativas no mapa'; fitButton.hidden = true;
+  fitButton.addEventListener('click',()=>{
+    if (!map) return;
+    if (mobileLayout.matches) {setGuideExtent(.55);map.resize();}
+    const bounds = new maplibregl.LngLatBounds();
+    allPlaces.filter(place => (place.listIds || []).some(id => activeLists.has(id))).forEach(place => bounds.extend(lngLat(place.coords)));
+    if (!bounds.isEmpty()) map.fitBounds(bounds,{padding:{top:75,bottom:80,left:25,right:45},maxZoom:15,duration:reducedMotion()?0:450});
+  });
+  placeLists.forEach(list => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'list-toggle'; button.setAttribute('aria-pressed','false');
+    button.title = list.sourceName || list.name;
+    button.innerHTML = '<span>'+escapeHTML(list.name)+'</span><span class="list-count">'+list.placeIds.length+'</span>';
+    button.addEventListener('click',()=>{
+      if (activeLists.has(list.id)) activeLists.delete(list.id); else activeLists.add(list.id);
+      for (const [id,item] of listButtons) item.setAttribute('aria-pressed',String(activeLists.has(id)));
+      $('active-list-count').textContent = activeLists.size ? activeLists.size+' de '+placeLists.length+' ativas' : 'Nenhuma ativa';
+      fitButton.hidden = !activeLists.size;
+      syncLayers();
+    });
+    listButtons.set(list.id,button); controls.append(button);
+  });
+  content.append(hint,controls,fitButton); section.append(summary,content); $('regions').append(section);
+  const heading = document.createElement('div'); heading.className = 'neighborhood-list-heading'; heading.textContent = 'Bairros'; $('regions').append(heading);
+}
+function syncLayers() {
+  if (overlaysReady) {
+    for (const id of ['region-fills','region-lines']) map.setLayoutProperty(id,'visibility',$('areas').checked?'visible':'none');
+    for (const id of ['street-fills','street-halo','street-lines','street-hit']) map.setLayoutProperty(id,'visibility',$('streets')?.checked === false?'none':'visible');
+  }
+  if (overlaysReady && metroReady) {
+    const lines = [...activeMetroLines], visible = $('metro').checked && lines.length ? 'visible' : 'none';
+    for (const id of ['metro-casing','metro-lines','metro-stations']) map.setLayoutProperty(id,'visibility',visible);
+    map.setFilter('metro-casing',['all',['has','line'],['in',['get','line'],['literal',lines]]]);
+    map.setFilter('metro-lines',['all',['has','line'],['in',['get','line'],['literal',lines]]]);
+    map.setFilter('metro-stations',['all',['has','lineKey'],['any',...lines.map(line=>['in','|'+line+'|',['get','lineKey']])]]);
+  }
+  if (activeStation && !isStationVisible(activeStation) && activePopup) {activePopup.remove();activeStation=null;}
+  labels.forEach(marker => marker.getElement().hidden = !$('labels').checked);
+  markers.forEach(({marker,place}) => marker.getElement().hidden = !isPlaceVisible(place));
+  if (activePlace && !isPlaceVisible(activePlace) && activePopup) {activePopup.remove();activePlace=null;}
+  if (activeStreet && $('streets')?.checked === false && activePopup) {activePopup.remove();activeStreet=null;}
+}
+function fitAllAreas() {
+  if (!map) return;
+  const bounds = boundsFor(data.regions);
+  // The airport is far from the centre; including it would zoom the overview out too much.
+  allPlaces.filter(place=>place.alwaysVisible && !place.airport).forEach(place=>bounds.extend(lngLat(place.coords)));
+  map.fitBounds(bounds, {padding:{top:75,bottom:80,left:25,right:45},maxZoom:14,duration:0});
+}
+function showPlace(place) {
+  if (!map || !isPlaceVisible(place)) return;
+  if (activePopup) activePopup.remove();
+  activePlace = place;
+  activeStreet = null; activeStation = null;
+  activePopup = new maplibregl.Popup({offset:14,maxWidth:'270px',closeButton:true,closeOnClick:true})
+    .setLngLat(lngLat(place.coords))
+    .setHTML(placeContent(place))
+    .addTo(map);
+}
+function showStreet(street, position) {
+  if (!map || $('streets')?.checked === false) return;
+  if (activePopup) activePopup.remove();
+  activePlace = null; activeStreet = street; activeStation = null;
+  activePopup = new maplibregl.Popup({offset:12,maxWidth:'290px',closeButton:true,closeOnClick:true})
+    .setLngLat(position).setHTML(streetContent(street)).addTo(map);
+}
+// Pick the closest actual dot, even when enlarged touch targets overlap.
+function nearestPlace(point, radius = 28) {
+  if (!map) return null;
+  let closest = null, distance = radius*radius;
+  for (const place of allPlaces) {
+    if (!isPlaceVisible(place)) continue;
+    const projected = map.project(lngLat(place.coords));
+    const squared = (projected.x-point.x)**2+(projected.y-point.y)**2;
+    if (squared <= distance) { distance = squared; closest = place; }
+  }
+  return closest;
+}
+$('count').textContent = data.regions.length + ' áreas';
+renderListControls();
+renderMetroControls();
+renderStreetControls();
+data.regions.forEach(region => {
+  const panel = document.createElement('details');
+  panel.className = 'region-item'; panel.style.setProperty('--color',region.color);
+  const summary = document.createElement('summary'); summary.className = 'region';
+  summary.innerHTML = '<span class="dot" aria-hidden="true"></span><span><strong>'+escapeHTML(region.name)+'</strong><small>'+escapeHTML(region.tag)+'</small></span><span class="arrow" aria-hidden="true">⌄</span>';
+  summary.addEventListener('click',event=>{
+    if (mobileLayout.matches) {
+      event.preventDefault();
+      openMobileRegion(region,summary);
+    }
+  });
+  const content = document.createElement('div'); content.className = 'region-details';
+  content.innerHTML = regionContent(region);
+  content.querySelector('.locate-region').addEventListener('click',()=>focusRegion(region));
+  panel.append(summary,content);
+  panel.addEventListener('toggle',()=>{
+    if (panel.open) {
+      selected = region.id;
+      for (const other of panels.values()) if (other !== panel) other.open = false;
+    } else if (selected === region.id) selected = null;
+    refreshSelection();
+  });
+  panels.set(region.id,panel); $('regions').append(panel);
+});
+document.addEventListener('keydown',event=>{
+  if (regionDialog.open) return; // Native dialog handles Escape and keeps focus inside.
+  if (event.key === 'Escape') {
+    if (activePopup && activePopup.isOpen()) activePopup.remove();
+    else if (selected) {
+      const panel = panels.get(selected); panel.open = false; panel.querySelector('summary').focus({preventScroll:true});
+    }
+  }
+});
+['areas','labels','places'].forEach(id => $(id).addEventListener('change',syncLayers));
+$('overview').addEventListener('click',()=>{if(activePopup)activePopup.remove();fitAllAreas();});
+try {
+  if (typeof maplibregl === 'undefined') throw new Error('Biblioteca do mapa indisponível.');
+  map = new maplibregl.Map({
+    container:'map', style:'https://tiles.openfreemap.org/styles/positron',
+    center:[-8.611,41.146], zoom:14, minZoom:3, maxZoom:19,
+    pitch:0, bearing:0, dragRotate:false, pitchWithRotate:false, touchPitch:false,
+    attributionControl:false
+  });
+  map.touchZoomRotate.disableRotation();
+  map.addControl(new maplibregl.NavigationControl({showCompass:false}), 'bottom-right');
+  map.addControl(new maplibregl.ScaleControl({unit:'metric'}), 'bottom-right');
+  map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'Contornos: mapa pessoal Bairros do Porto'}), 'bottom-right');
+  const attribution = map.getContainer().querySelector('.maplibregl-ctrl-attrib');
+  // Start collapsed once; the native information button handles later opening/closing.
+  attribution.classList.remove('maplibregl-compact-show');
+  attribution.removeAttribute('open');
+  const attributionButton = attribution.querySelector('summary');
+  attributionButton.title = 'Informações e créditos do mapa';
+  attributionButton.setAttribute('aria-label',attributionButton.title);
+  fitAllAreas();
+  data.regions.forEach(region => {
+    const label = document.createElement('span');
+    label.className = 'zone-label'; label.textContent = region.mapLabel || region.name;
+    label.setAttribute('aria-hidden','true');
+    labels.push(new maplibregl.Marker({element:label,anchor:'center'}).setLngLat(lngLat(region.center)).addTo(map));
+  });
+  data.places.forEach(place => {
+    const icon = document.createElement('button');
+    icon.type = 'button'; icon.className = 'place-icon'+(place.anchor?' anchor':'')+(place.compactAnchor?' compact-anchor':'')+(place.hotel?' hotel':'')+(place.busStation||place.airport?' bus-station':'');
+    icon.style.setProperty('--place-color',placeColor(place));
+    icon.title = place.name+' · '+place.type; icon.setAttribute('aria-label',icon.title);
+    const dot = document.createElement('span'); dot.className = 'place-dot'; dot.textContent = place.symbol; dot.setAttribute('aria-hidden','true');
+    if (place.hotel) dot.textContent = 'H';
+    if (place.busStation) dot.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="16" rx="3"/><rect x="7" y="6" width="10" height="6" rx="1"/><path d="M8 19v2M16 19v2M9 3V2h6v1"/><circle cx="8" cy="16" r=".8" fill="currentColor"/><circle cx="16" cy="16" r=".8" fill="currentColor"/></svg>';
+    if (place.airport) dot.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.8 0 1.3.7 1.3 1.6v5.4l7.2 4.3v2l-7.2-2.3v4.8l2 1.6v1.6l-3.3-.9-3.3.9v-1.6l2-1.6v-4.8l-7.2 2.3v-2l7.2-4.3V4.1c0-.9.5-1.6 1.3-1.6z"/></svg>';
+    icon.append(dot);
+    icon.addEventListener('click',event=>{
+      event.stopPropagation();
+      if (event.detail === 0) {showPlace(place);return;}
+      const rect = map.getContainer().getBoundingClientRect();
+      showPlace(nearestPlace({x:event.clientX-rect.left,y:event.clientY-rect.top}) || place);
+    });
+    markers.push({place,marker:new maplibregl.Marker({element:icon,anchor:'center'}).setLngLat(lngLat(place.coords)).addTo(map)});
+  });
+  // Places and highlighted streets respond to taps; neighborhood areas remain passive.
+  map.on('click',event=>{
+    const place = nearestPlace(event.point);
+    if (place) {showPlace(place);return;}
+    if (!overlaysReady) return;
+    const {x,y} = event.point;
+    const stationFeature = metroReady && $('metro').checked && map.queryRenderedFeatures([[x-12,y-12],[x+12,y+12]],{layers:['metro-stations']})[0];
+    const station = stationFeature && metroStations[stationFeature.properties.station];
+    if (station) {showStation(station);return;}
+    if ($('streets')?.checked === false) return;
+    const feature = map.queryRenderedFeatures([[x-10,y-10],[x+10,y+10]],{layers:['street-hit','street-fills']})[0];
+    const street = feature && streets.find(item=>item.id === feature.properties.id);
+    if (street) showStreet(street,event.lngLat);
+  });
+  map.on('load',()=>{
+    const features = data.regions.map(region => {
+      const ring = region.polygon.map(lngLat); ring.push([...ring[0]]);
+      return {type:'Feature',properties:{id:region.id,color:region.color,stroke:region.color === '#FFED00' ? '#B39400' : region.color},geometry:region.geometry || {type:'Polygon',coordinates:[ring]}};
+    });
+    map.addSource('regions',{type:'geojson',data:{type:'FeatureCollection',features}});
+    map.addLayer({id:'region-fills',type:'fill',source:'regions',paint:{'fill-color':['get','color'],'fill-opacity':.22}});
+    map.addLayer({id:'region-lines',type:'line',source:'regions',paint:{'line-color':['get','stroke'],'line-width':1.7}});
+    map.addSource('streets',{type:'geojson',data:streetFeatures()});
+    map.addLayer({id:'street-fills',type:'fill',source:'streets',filter:['==',['geometry-type'],'Polygon'],paint:{'fill-color':['get','color'],'fill-opacity':.75}});
+    map.addLayer({id:'street-halo',type:'line',source:'streets',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#fffdf8','line-width':8}});
+    map.addLayer({id:'street-lines',type:'line',source:'streets',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':['get','color'],'line-width':4}});
+    map.addLayer({id:'street-hit',type:'line',source:'streets',paint:{'line-color':'#000','line-width':24,'line-opacity':0}});
+    overlaysReady = true; refreshSelection(); syncLayers();
+    addMetroLayers().catch(()=>{});
+  });
+  map.on('error',()=>{
+    $('map').dataset.background='error';
+    showNotice('O mapa não carregou por completo. Verifique a conexão e o acesso a tiles.openfreemap.org.');
+  });
+  map.on('idle',()=>{
+    if (map.isStyleLoaded() && map.areTilesLoaded()) {$('map').dataset.background='loaded';$('notice').hidden=true;}
+  });
+  syncLayers();
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(()=>map.resize()).observe($('map'));
+} catch (error) {
+  showNotice('Não foi possível iniciar o mapa. Verifique a conexão e a aceleração de hardware do navegador. Você pode consultar as regiões na lista.');
+  $('overview').disabled = true;
+  document.querySelectorAll('.layers input').forEach(input=>input.disabled=true);
+  document.querySelectorAll('.locate-region').forEach(button=>button.disabled=true);
+}
+initializeEditorialContent();
+
+  </script>
+</body>
+</html>

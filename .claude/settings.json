@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"import playwright;print\\('playwright ok'\\)\")",
+      "Read(//home/clara/.cache/**)",
+      "Bash(curl -s -m 120 -A \"madrid-guide/1.0 \\(personal map\\)\" -X POST https://overpass-api.de/api/interpreter --data-urlencode 'data=[out:json][timeout:90];area[\"name\"=\"Comunidad de Madrid\"][\"admin_level\"=\"4\"]->.a;rel\\(area.a\\)[\"route\"=\"subway\"];out tags;' -o osm/routes.json)",
+      "Bash(python3 -I -c ' *)",
+      "Bash(curl -s -m 180 -A \"madrid-guide/1.0 \\(personal map\\)\" -X POST https://overpass-api.de/api/interpreter --data-urlencode 'data=[out:json][timeout:150];area[\"name\"=\"Comunidad de Madrid\"][\"admin_level\"=\"4\"]->.a;rel\\(area.a\\)[\"route\"=\"subway\"][\"network\"=\"Metro de Madrid\"]->.r;.r out geom;node\\(r.r\\);out;nwr\\(area.a\\)[\"railway\"=\"station\"][\"station\"=\"subway\"];out center tags;' -o osm/full.json)",
+      "Bash(curl -s -m 30 https://tiles.openfreemap.org/styles/positron)",
+      "WebFetch(domain:www.google.com)",
+      "Bash(cp /tmp/claude-1000/-home-clara-Repo-madrid/00755342-955c-4b36-b6ce-c8c081f1a2a5/scratchpad/metro.geojson /home/clara/Repo/madrid/assets/maps/metro.geojson && head -c 400 /home/clara/Repo/madrid/assets/maps/metro.geojson)"
+    ],
+    "additionalDirectories": [
+      "/home/clara/Repo/madrid/assets/maps"
+    ]
+  }
+}

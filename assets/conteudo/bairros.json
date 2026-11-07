@@ -1,0 +1,267 @@
+{
+  "versao": 1,
+  "tipo": "bairros",
+  "itens": [
+    {
+      "id": "centro-historico",
+      "nome": "Centro Histórico",
+      "subtitulo": "Ribeira, Baixa e Cedofeita",
+      "secoes": [
+        {
+          "texto": "Freguesia que reúne o Porto antigo: Sé, Ribeira e Miragaia junto ao rio, a Baixa dos Aliados e de Santa Catarina e o bairro de Cedofeita."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ladeiras, escadarias e fachadas de azulejo. Perto do rio o movimento é bem turístico; na Baixa e em Cedofeita há mais cafés, lojas independentes, galerias e vida noturna."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Estação de São Bento",
+            "Sé do Porto",
+            "Ribeira e Cais da Ribeira",
+            "Torre e Igreja dos Clérigos",
+            "Avenida dos Aliados",
+            "Mercado do Bolhão",
+            "Rua de Miguel Bombarda e as galerias"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Comece em São Bento, suba até a Sé e desça pelas escadas e vielas até a Ribeira. Dali, atravesse o tabuleiro inferior da Ponte Luís I para ver o Porto do lado de Gaia, ou volte pela Rua das Flores até os Clérigos e os Aliados."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "As subidas são fortes: vá de sapato confortável. À noite, as ruas entre a Galeria de Paris, a Rua da Conceição e a Praça de Carlos Alberto concentram bares."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Cedofeita,_Santo_Ildefonso,_S%C3%A9,_Miragaia,_S%C3%A3o_Nicolau_e_Vit%C3%B3ria"
+        }
+      ]
+    },
+    {
+      "id": "bonfim",
+      "nome": "Bonfim",
+      "subtitulo": "Bairro residencial e cafés novos",
+      "secoes": [
+        {
+          "texto": "A leste da Baixa, entre a Praça da Batalha e Campanhã. Bairro residencial antigo que nos últimos anos ganhou cafés, restaurantes e ateliês."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ruas mais calmas que as do centro, casas com azulejo e comércio de bairro. A Rua do Bonfim e o entorno do Jardim de São Lázaro concentram as aberturas recentes."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardim de São Lázaro",
+            "Biblioteca Pública Municipal do Porto",
+            "Igreja do Bonfim",
+            "Campo 24 de Agosto"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Saia da Praça da Batalha, passe pelo Jardim de São Lázaro e siga pela Rua do Bonfim até a igreja. Para voltar, o metrô no Campo 24 de Agosto leva à Trindade e aos Aliados."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "Bom para almoçar fora da rota turística. O Suribachi, da lista vegana, fica na Rua do Bonfim."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Bonfim_(Porto)"
+        }
+      ]
+    },
+    {
+      "id": "massarelos",
+      "nome": "Lordelo do Ouro e Massarelos",
+      "subtitulo": "Palácio de Cristal, Serralves e o rio",
+      "secoes": [
+        {
+          "texto": "Faixa a oeste do centro, dos Jardins do Palácio de Cristal até a Fundação de Serralves e a margem do Douro. Mistura jardins, museus e avenidas largas."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Mais espaçoso e verde que o centro. Junto ao rio, a marginal é plana e boa para caminhar ou pedalar até a Foz."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardins do Palácio de Cristal",
+            "Museu Romântico",
+            "Fundação de Serralves (museu e parque)",
+            "Ponte da Arrábida",
+            "Marginal do Douro"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Dos Jardins do Palácio de Cristal, com vista para o Douro, desça até a marginal e siga o rio no sentido da Ponte da Arrábida. O elétrico 1 faz o mesmo percurso, entre o Infante e o Passeio Alegre."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "Serralves pede meio dia: o parque é grande e o museu de arte contemporânea tem bilhete conjunto. Confira os horários antes de ir."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Lordelo_do_Ouro_e_Massarelos"
+        }
+      ]
+    },
+    {
+      "id": "foz",
+      "nome": "Aldoar, Foz do Douro e Nevogilde",
+      "subtitulo": "Onde o Douro encontra o mar",
+      "secoes": [
+        {
+          "texto": "Onde o Douro encontra o Atlântico. Antiga zona de pescadores e de veraneio, hoje bairro residencial com praias e passeio à beira-mar."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ritmo de praia: gente caminhando e correndo no passeio marítimo, esplanadas e pôr do sol sobre o mar. Ao norte, Nevogilde e Aldoar são mais residenciais e chegam ao Parque da Cidade."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardim do Passeio Alegre",
+            "Farolim de Felgueiras",
+            "Forte de São João Baptista da Foz",
+            "Avenida do Brasil e as praias",
+            "Parque da Cidade"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Desça do elétrico 1 no Passeio Alegre, vá até o Farolim de Felgueiras e siga pela Avenida do Brasil, à beira-mar, até o Castelo do Queijo. Dali, o Parque da Cidade fica a poucos minutos."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "Venta bastante e a água é fria mesmo no verão. Leve um agasalho para o fim da tarde."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Aldoar,_Foz_do_Douro_e_Nevogilde"
+        }
+      ]
+    },
+    {
+      "id": "ramalde",
+      "nome": "Ramalde",
+      "subtitulo": "Residencial, a caminho de Matosinhos",
+      "secoes": [
+        {
+          "texto": "Freguesia residencial ao norte da Boavista, pouco turística. É atravessada pelo metrô a caminho de Matosinhos e do aeroporto."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Bairros de habitação, comércio local e zonas de escritórios. Mais lugar de passagem do que de passeio."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Estações de metrô Francos, Ramalde e Viso",
+            "Avenida da Boavista, na borda sul"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Não é um bairro de passeio. Das estações Francos e Ramalde, as linhas A, B, C, E e F seguem direto para a Trindade e o centro."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "A linha E, que vai ao aeroporto, passa por aqui: é uma base prática para quem chega ou sai de avião."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Ramalde"
+        }
+      ]
+    },
+    {
+      "id": "paranhos",
+      "nome": "Paranhos",
+      "subtitulo": "Universidades e Hospital de São João",
+      "secoes": [
+        {
+          "texto": "A maior freguesia do Porto, ao norte do centro. Reúne o Polo Universitário da Asprela e o Hospital de São João."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Bairro de estudantes e moradores, com residências universitárias, comércio de rua e poucas atrações turísticas."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Polo Universitário da Asprela",
+            "Hospital de São João",
+            "Rua de Costa Cabral"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Para quem fica por aqui, a linha D (amarela) liga o Hospital de São João à Trindade, aos Aliados e a São Bento, e atravessa a Ponte Luís I até Gaia."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "Pouco para ver a pé: use como base e vá de metrô para o centro."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Paranhos_(Porto)"
+        }
+      ]
+    },
+    {
+      "id": "campanha",
+      "nome": "Campanhã",
+      "subtitulo": "Estação, Dragão e lado oriental",
+      "secoes": [
+        {
+          "texto": "Lado oriental da cidade. Tem a estação de comboios de Campanhã, o Terminal Intermodal (autocarros) e o Estádio do Dragão."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Área de transportes, bairros residenciais e antigas zonas industriais, com uma margem do Douro pouco explorada."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Estação de Campanhã",
+            "Terminal Intermodal de Campanhã",
+            "Estádio do Dragão",
+            "Parque Oriental da Cidade do Porto"
+          ]
+        },
+        {
+          "titulo": "Uma ideia de passeio",
+          "texto": "Mais ponto de chegada e saída do que de passeio. Da estação, o metrô (linhas A, B, C, E e F) ou o comboio urbano até São Bento levam ao centro em poucos minutos."
+        },
+        {
+          "titulo": "Para aproveitar melhor",
+          "texto": "Em dia de jogo do FC Porto, o metrô até o Estádio do Dragão fica cheio antes e depois da partida."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Campanh%C3%A3"
+        }
+      ]
+    }
+  ]
+}

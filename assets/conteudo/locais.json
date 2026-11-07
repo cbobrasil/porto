@@ -1,0 +1,272 @@
+{
+  "versao": 1,
+  "tipo": "locais",
+  "itens": [
+    {
+      "id": "reference-sao-bento",
+      "nome": "Estação de São Bento",
+      "tipo": "Estação ferroviária",
+      "secoes": [
+        {
+          "texto": "Estação de comboios no centro, famosa pelo átrio coberto de azulejos com cenas da história de Portugal. A entrada no átrio é livre. Daqui saem os comboios urbanos para Campanhã e Guimarães."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
+      "id": "reference-clerigos",
+      "nome": "Torre dos Clérigos",
+      "tipo": "Monumento",
+      "secoes": [
+        {
+          "texto": "Torre barroca do século XVIII, um dos símbolos da cidade e visível de quase todo o centro. A subida tem cerca de 240 degraus e bilhete pago; ao fim da tarde costuma ter fila."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
+      "id": "reference-ponte-luis-i",
+      "nome": "Ponte Luís I",
+      "tipo": "Monumento",
+      "secoes": [
+        {
+          "texto": "Ponte de ferro de dois tabuleiros entre o Porto e Gaia. Em cima passam o metrô (linha D) e pedestres, com vista sobre a Ribeira; embaixo, carros e pedestres junto ao rio."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
+      "id": "bus-campanha",
+      "nome": "Terminal Intermodal de Campanhã",
+      "tipo": "Estação rodoviária",
+      "secoes": [
+        {
+          "texto": "Principal terminal de autocarros de longa distância, ao lado da estação de comboios de Campanhã. Para o centro: metrô (linhas A, B, C, E e F) ou comboio urbano até São Bento."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Chegada e saída"
+      ]
+    },
+    {
+      "id": "airport-porto",
+      "nome": "Aeroporto Francisco Sá Carneiro",
+      "tipo": "Aeroporto",
+      "secoes": [
+        {
+          "texto": "Aeroporto do Porto, ao norte da cidade. A linha E (violeta) do metrô liga o aeroporto à Trindade, no centro, sem baldeação; compre o cartão Andante na estação."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Chegada e saída"
+      ]
+    },
+    {
+      "id": "google-16848958678542473660",
+      "nome": "Café Au Lait",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar-café pequeno na Rua da Galeria de Paris, uma das ruas mais movimentadas da noite na Baixa. Bom para começar a noite com uma tosta e uma bebida. Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares e clubs LGBT+"
+      ]
+    },
+    {
+      "id": "google-9085700733045713204",
+      "nome": "Zoom Porto",
+      "tipo": "Discoteca",
+      "secoes": [
+        {
+          "texto": "Discoteca LGBT+ na Rua de Passos Manuel, perto do Coliseu. Funciona de madrugada, sobretudo no fim de semana, e enche tarde. Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares e clubs LGBT+"
+      ]
+    },
+    {
+      "id": "google-16175080923737709752",
+      "nome": "Bar Conceição 35",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar LGBT+ na Rua da Conceição, a poucos passos da Galeria de Paris e da Praça de Carlos Alberto. Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares e clubs LGBT+"
+      ]
+    },
+    {
+      "id": "google-8247749298331267903",
+      "nome": "Coliseu Porto Ageas",
+      "tipo": "Sala de espetáculos",
+      "secoes": [
+        {
+          "texto": "Coliseu do Porto, sala de espetáculos histórica dos anos 1940 na Rua de Passos Manuel, com fachada art déco. Recebe concertos, festas e o circo de Natal. Veja a programação e compre o bilhete antes."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares e clubs LGBT+"
+      ]
+    },
+    {
+      "id": "google-15519567542958855817",
+      "nome": "Café Lusitano",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar LGBT+ de cocktails na Rua de José Falcão, num salão de decoração clássica. Mais tranquilo no começo da noite, com DJ no fim de semana. Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares e clubs LGBT+"
+      ]
+    },
+    {
+      "id": "google-12206103085203183103",
+      "nome": "Terrárea",
+      "tipo": "Restaurante vegano",
+      "secoes": [
+        {
+          "texto": "Restaurante vegano em Matosinhos, na Rua de Brito Capelo, perto da praia e da estação de metrô Brito Capelo (linhas A e F). Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-2736728975521413940",
+      "nome": "daTerra Baixa",
+      "tipo": "Restaurante vegano",
+      "secoes": [
+        {
+          "texto": "Bufê vegano a preço fixo na Rua de Mouzinho da Silveira, entre São Bento e a Ribeira. Prato à vontade, sopa e sobremesa; prático para o almoço."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-10581264945791473526",
+      "nome": "Suribachi",
+      "tipo": "Restaurante vegetariano",
+      "secoes": [
+        {
+          "texto": "Restaurante macrobiótico e vegetariano na Rua do Bonfim, com loja de produtos naturais. Confira os horários antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-17175145855437919136",
+      "nome": "A Padoca",
+      "tipo": "Padaria vegana",
+      "secoes": [
+        {
+          "texto": "Padaria e café vegano na Rua do Rosário, perto da Rua de Miguel Bombarda. Pães, salgados e doces para o café da manhã ou o lanche."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-10574056025440140374",
+      "nome": "Kind Kitchen",
+      "tipo": "Restaurante vegano",
+      "secoes": [
+        {
+          "texto": "Restaurante vegano na Rua de Ceuta, perto dos Aliados, com pratos de inspiração internacional e sobremesas. Vale reservar para o jantar."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-4437585510091809369",
+      "nome": "Parking Oporto · Palácio da Justiça",
+      "tipo": "Estacionamento",
+      "secoes": [
+        {
+          "texto": "Parque de estacionamento junto ao Palácio da Justiça e ao Jardim da Cordoaria, a poucos minutos a pé dos Clérigos."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Estacionamentos"
+      ]
+    },
+    {
+      "id": "google-5379836894796846325",
+      "nome": "Parque Saba Praça Carlos Alberto",
+      "tipo": "Estacionamento",
+      "secoes": [
+        {
+          "texto": "Parque subterrâneo sob a Praça de Carlos Alberto, no meio da Baixa e perto da Galeria de Paris."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Estacionamentos"
+      ]
+    },
+    {
+      "id": "google-17491579783126030126",
+      "nome": "Estacionamento D. João I · Telpark",
+      "tipo": "Estacionamento",
+      "secoes": [
+        {
+          "texto": "Parque subterrâneo na Praça de D. João I, entre os Aliados e a Rua de Santa Catarina."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Estacionamentos"
+      ]
+    },
+    {
+      "id": "pin-gomes-teixeira",
+      "nome": "Estacionamento · Praça de Gomes Teixeira",
+      "tipo": "Estacionamento",
+      "secoes": [
+        {
+          "texto": "Ponto salvo na Praça de Gomes Teixeira (Praça dos Leões), ao lado da Reitoria da Universidade. Confira o acesso antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Estacionamentos"
+      ]
+    }
+  ]
+}
