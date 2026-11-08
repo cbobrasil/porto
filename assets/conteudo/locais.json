@@ -45,6 +45,48 @@
       ]
     },
     {
+      "id": "reference-bolhao",
+      "nome": "Mercado do Bolhão",
+      "tipo": "Mercado",
+      "secoes": [
+        {
+          "texto": "Mercado histórico da Baixa, reaberto em 2022 depois de uma longa reforma. Bancas de peixe, fruta, flores, enchidos e queijos, e pequenos restaurantes no andar de cima. Fechado aos domingos; confira o horário."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
+      "id": "reference-casa-da-musica",
+      "nome": "Casa da Música",
+      "tipo": "Sala de concertos",
+      "secoes": [
+        {
+          "texto": "Sala de concertos na Rotunda da Boavista, projetada por Rem Koolhaas. O prédio vale a visita mesmo sem concerto; há visitas guiadas pagas. Metrô: estação Casa da Música (linhas A, B, C, E e F)."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
+      "id": "reference-lello",
+      "nome": "Livraria Lello",
+      "tipo": "Livraria",
+      "secoes": [
+        {
+          "texto": "Livraria de 1906, perto dos Clérigos, famosa pela escadaria vermelha de madeira. A entrada exige bilhete pago, de preferência comprado no site, e quase sempre tem fila; ir logo na abertura ajuda."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Referências do mapa"
+      ]
+    },
+    {
       "id": "bus-campanha",
       "nome": "Terminal Intermodal de Campanhã",
       "tipo": "Estação rodoviária",
@@ -83,7 +125,7 @@
       ],
       "links": [],
       "origens": [
-        "Bares e clubs LGBT+"
+        "Bares"
       ]
     },
     {
@@ -97,7 +139,7 @@
       ],
       "links": [],
       "origens": [
-        "Bares e clubs LGBT+"
+        "Clubbing"
       ]
     },
     {
@@ -111,7 +153,7 @@
       ],
       "links": [],
       "origens": [
-        "Bares e clubs LGBT+"
+        "Bares"
       ]
     },
     {
@@ -125,7 +167,7 @@
       ],
       "links": [],
       "origens": [
-        "Bares e clubs LGBT+"
+        "Casas de concertos"
       ]
     },
     {
@@ -139,7 +181,7 @@
       ],
       "links": [],
       "origens": [
-        "Bares e clubs LGBT+"
+        "Bares"
       ]
     },
     {
@@ -228,11 +270,11 @@
     },
     {
       "id": "google-5379836894796846325",
-      "nome": "Parque Saba Praça Carlos Alberto",
+      "nome": "Parque Saba · entrada Praça de Carlos Alberto",
       "tipo": "Estacionamento",
       "secoes": [
         {
-          "texto": "Parque subterrâneo sob a Praça de Carlos Alberto, no meio da Baixa e perto da Galeria de Paris."
+          "texto": "Entrada de carros do Parque Saba pela Praça de Carlos Alberto. É o mesmo parque subterrâneo da entrada pela Praça de Gomes Teixeira; o ponto marca exatamente onde o carro entra. No meio da Baixa, perto da Galeria de Paris."
         }
       ],
       "links": [],
@@ -256,16 +298,408 @@
     },
     {
       "id": "pin-gomes-teixeira",
-      "nome": "Estacionamento · Praça de Gomes Teixeira",
+      "nome": "Parque Saba · entrada Praça de Gomes Teixeira",
       "tipo": "Estacionamento",
       "secoes": [
         {
-          "texto": "Ponto salvo na Praça de Gomes Teixeira (Praça dos Leões), ao lado da Reitoria da Universidade. Confira o acesso antes de ir."
+          "texto": "Entrada de carros do Parque Saba pela Praça de Gomes Teixeira (Praça dos Leões), ao lado da Reitoria. É o mesmo parque subterrâneo da entrada pela Praça de Carlos Alberto; o ponto marca exatamente onde o carro entra."
         }
       ],
       "links": [],
       "origens": [
         "Estacionamentos"
+      ]
+    },
+    {
+      "id": "google-2970628053487203559",
+      "nome": "Jardim do Morro",
+      "tipo": "Jardim e miradouro",
+      "secoes": [
+        {
+          "texto": "Jardim em Vila Nova de Gaia, na saída do tabuleiro de cima da Ponte Luís I. Uma das melhores vistas do Porto e da Ribeira, sobretudo ao pôr do sol, quando fica muito cheio. Dá para vir a pé atravessando a ponte por cima ou de metrô (linha D, estação Jardim do Morro)."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-3558561736108103645",
+      "nome": "Jardim das Virtudes",
+      "tipo": "Jardim e miradouro",
+      "secoes": [
+        {
+          "texto": "Jardim em socalcos que desce em direção ao Douro, perto da Cordoaria. No Passeio das Virtudes, em cima, há bares simples onde dá para sentar com uma cerveja e ver o pôr do sol sobre o rio."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-11781453084677099540",
+      "nome": "Parque de Serralves",
+      "tipo": "Parque",
+      "secoes": [
+        {
+          "texto": "Parque grande e muito bem cuidado entre a Boavista e a Foz, com jardins, bosque e quinta. A entrada é paga (por volta de 20 €; confira o preço) e inclui o Museu de Arte Contemporânea de Serralves, que vale a visita. Reserve meio dia."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-9869348635645350156",
+      "nome": "Parque da Cidade",
+      "tipo": "Parque",
+      "secoes": [
+        {
+          "texto": "O maior parque urbano do Porto, gratuito, no limite com Matosinhos. Caminhos, lagos e relvados que vão até a praia. Perto, numa rotunda junto ao mar, fica a Anémona, a grande escultura de rede suspensa. Dá para emendar com um almoço de peixe ou marisco em Matosinhos."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-7236363821226401080",
+      "nome": "Jardins do Palácio de Cristal",
+      "tipo": "Jardim",
+      "secoes": [
+        {
+          "texto": "Jardins gratuitos no alto de Massarelos, com miradouros sobre o Douro, a cidade e, ao longe, o mar. Pavões soltos e bancos à sombra; boa pausa entre o centro e a Foz."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-17008510895279498101",
+      "nome": "Brasão Aliados",
+      "tipo": "Restaurante",
+      "secoes": [
+        {
+          "texto": "Restaurante perto dos Aliados, muito citado como um dos melhores lugares para provar a francesinha, o sanduíche típico do Porto com camadas de carne, queijo derretido e molho. Prato pesado."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-15115495588598920836",
+      "nome": "Venham Mais 5",
+      "tipo": "Snack-bar",
+      "secoes": [
+        {
+          "texto": "Snack-bar conhecido pelo prego no pão com queijo, sanduíche de bife com queijo: simples e muito bem feito."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-15375415481388765919",
+      "nome": "Conga Casa das Bifanas",
+      "tipo": "Restaurante",
+      "secoes": [
+        {
+          "texto": "Casa de bifanas, o sanduíche de porco típico, servido com um molho levemente picante. Rápido e barato; bom para o almoço."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-16479545691988378874",
+      "nome": "Marisqueira Serpa Pinto",
+      "tipo": "Marisqueira",
+      "secoes": [
+        {
+          "texto": "Marisqueira em Matosinhos, a zona costeira ao norte do Porto conhecida pelo peixe e marisco. Bacalhau e polvo muito frescos; peça o polvo à lagareiro. Vale passear a pé pela zona antes ou depois."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-5223228045559944123",
+      "nome": "Museu d'Avó",
+      "tipo": "Bar de petiscos",
+      "secoes": [
+        {
+          "texto": "Bar de petiscos com a decoração cheia de objetos antigos que dá nome à casa. Muitos pratos pequenos para partilhar e provar um pouco de tudo. Reserva praticamente obrigatória."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-17048478518624825639",
+      "nome": "Manteigaria",
+      "tipo": "Pastelaria",
+      "secoes": [
+        {
+          "texto": "Fábrica de pastéis de nata com fornadas o dia todo; dá para ver os pasteleiros trabalhando atrás do balcão. Peça o pastel ainda quente. Fica ao lado do Mercado do Bolhão, renovado há pouco, e da Rua de Santa Catarina, rua de pedestres com lojas e cafés. Na mesma rua está o Café Majestic, bonito por dentro mas caro."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-1717297534452235501",
+      "nome": "Bar Aduela",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar na Baixa, perto da Cordoaria. De dia, café ou almoço leve na esplanada; à noite, música e movimento. Vinhos portugueses, cervejas artesanais, cocktails e sangria, com tostas, conservas e petiscos."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-11338962856976762104",
+      "nome": "Terraplana",
+      "tipo": "Bar de cocktails",
+      "secoes": [
+        {
+          "texto": "Bar de cocktails descontraído, com uma grande coleção de vinis que define a música da casa. Bom para um drinque bem feito num ambiente acolhedor."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-6384668859678727155",
+      "nome": "Meridians & Parallels",
+      "tipo": "Bar de cocktails",
+      "secoes": [
+        {
+          "texto": "Bar de cocktails com bebidas muito boas e uma área ao ar livre agradável para beber com calma."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-9075119322768843136",
+      "nome": "Armazém da Cerveja",
+      "tipo": "Bar de cerveja artesanal",
+      "secoes": [
+        {
+          "texto": "Bar e loja de cerveja artesanal, com muitas torneiras e esplanada."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-13578414426834826803",
+      "nome": "Letraria Porto Downtown",
+      "tipo": "Bar de cerveja artesanal",
+      "secoes": [
+        {
+          "texto": "Da rua parece só uma porta pequena, mas lá embaixo há um jardim escondido. Cerveja artesanal com petiscos ou hambúrguer. Confira antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-8765872649370929691",
+      "nome": "Espaço 77",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar local, mais jovem e animado, com preços baixos; tem fama de ser o bar que mais vende Super Bock no país. Petiscos como bolinhos de bacalhau e salgados ao estilo brasileiro."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-18136031416143333085",
+      "nome": "Rua da Galeria de Paris",
+      "tipo": "Rua de bares",
+      "secoes": [
+        {
+          "texto": "A rua mais movimentada da noite no Porto, com bares e discotecas de vários estilos, e as ruas em volta também. A noite começa tarde, raramente antes das 23h, e pode ir até de manhã."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-607394263235803896",
+      "nome": "Plano B",
+      "tipo": "Discoteca",
+      "secoes": [
+        {
+          "texto": "Discoteca na zona da Galeria de Paris, com música eletrônica numa sala e pop na outra."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "pin-se-porto",
+      "nome": "Sé do Porto",
+      "tipo": "Catedral",
+      "secoes": [
+        {
+          "texto": "Catedral do Porto, no alto do Centro Histórico. O terreiro em frente tem vista sobre a cidade e o Douro; o claustro de azulejos tem entrada paga."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "pin-igreja-do-carmo",
+      "nome": "Igreja do Carmo",
+      "tipo": "Igreja",
+      "secoes": [
+        {
+          "texto": "Igreja barroca com a fachada lateral toda coberta de azulejos azuis e brancos, uma das imagens mais conhecidas do Porto. Fica colada à Igreja dos Carmelitas, separada só por uma casa estreita."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Dicas do Porto"
+      ]
+    },
+    {
+      "id": "google-586596472953538405",
+      "nome": "Bar of Soap",
+      "tipo": "Bar de cocktails",
+      "secoes": [
+        {
+          "texto": "Bar queer de cocktails na Rua do Bolhão, perto do mercado. Dois andares, jogos de tabuleiro e noites de drag; ambiente acolhedor e preços em conta. Confira a programação antes de ir."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
+      ]
+    },
+    {
+      "id": "google-11050789416555807030",
+      "nome": "HD Bar to Be Wild",
+      "tipo": "Bar de rock",
+      "secoes": [
+        {
+          "texto": "Bar de rock na zona da Galeria de Paris, um dos poucos da cidade com esse som e onde dá para sentar e conversar. Petiscos e hambúrguer; bom para começar a noite."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
+      ]
+    },
+    {
+      "id": "google-16437284624606184834",
+      "nome": "Rendez Vous",
+      "tipo": "Discoteca de rock",
+      "secoes": [
+        {
+          "texto": "Discoteca na zona da Galeria de Paris que toca rock, coisa rara hoje na noite do Porto. A noite começa tarde, como em toda a zona."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Clubbing"
+      ]
+    },
+    {
+      "id": "google-8685257631788800159",
+      "nome": "Pinkclub",
+      "tipo": "Discoteca",
+      "secoes": [
+        {
+          "texto": "Discoteca no espaço da antiga Tendinha dos Clérigos, hoje com música pop. Pequena e animada, na zona da Galeria de Paris."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Clubbing"
+      ]
+    },
+    {
+      "id": "pin-parque-sao-roque",
+      "nome": "Parque de São Roque",
+      "tipo": "Parque",
+      "secoes": [
+        {
+          "texto": "Parque de uma antiga quinta em Campanhã, com jardins em socalcos, um labirinto de buxo e vista sobre a cidade. Tranquilo e pouco conhecido por turistas. Entrada livre."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Parques e jardins"
+      ]
+    },
+    {
+      "id": "pin-jardim-cordoaria",
+      "nome": "Jardim da Cordoaria",
+      "tipo": "Jardim",
+      "secoes": [
+        {
+          "texto": "Jardim no centro, entre os Clérigos e a Reitoria da Universidade, oficialmente Jardim de João Chagas. Árvores grandes, bancos e as esculturas \"Treze a Rir Uns dos Outros\", de Juan Muñoz. Boa pausa à sombra."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Parques e jardins"
+      ]
+    },
+    {
+      "id": "pin-centro-portugues-fotografia",
+      "nome": "Centro Português de Fotografia",
+      "tipo": "Museu de fotografia",
+      "secoes": [
+        {
+          "texto": "Museu de fotografia na antiga Cadeia da Relação, um prédio do século XVIII ao lado da Cordoaria. Exposições temporárias e uma coleção de câmeras antigas; dá para ver as celas da prisão. Entrada gratuita."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Museus"
       ]
     }
   ]

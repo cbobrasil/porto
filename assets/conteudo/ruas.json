@@ -1,5 +1,42 @@
 {
   "versao": 1,
   "tipo": "ruas",
-  "itens": []
+  "itens": [
+    {
+      "id": "rua-das-flores",
+      "nome": "Rua das Flores",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Rua de pedestres entre São Bento e a Ribeira, com casarões, lojas, cafés e esplanadas. Um dos caminhos mais bonitos para descer até o rio."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "galerias-de-paris",
+      "nome": "Galeria de Paris",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "O centro da noite no Porto: a Rua da Galeria de Paris e as ruas em volta, com bares e discotecas lado a lado. A noite começa tarde, raramente antes das 23h, e vai até de manhã."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "virtudes",
+      "nome": "Passeio das Virtudes",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Passeio no alto do Jardim das Virtudes, com o muro virado para o Douro e bares simples. Um dos lugares preferidos para ver o pôr do sol com uma cerveja."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    }
+  ]
 }

@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f5f3ed">
+  <meta name="theme-color" content="#f6f8fb">
   <meta name="description" content="Um mapa do Porto por regiões de passeio: bairros, miradouros, jardins e pontos de referência.">
   <title>Guia do Porto</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
   <style>
-:root{--paper:#fcfbf8;--ink:#263b35;--muted:#63716a;--line:#dcded5;--accent:#b94730}
+:root{--paper:#f6f8fb;--ink:#14284b;--muted:#5d6a7c;--line:#d8dee7;--accent:#1f4fa3}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button,input,summary{font:inherit;-webkit-tap-highlight-color:transparent}
 button,summary{cursor:pointer}
-button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #267a70;outline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #1f4fa3;outline-offset:3px}
 button:disabled{cursor:default;opacity:.55}
 .app{display:grid;grid-template-columns:360px minmax(0,1fr);height:100vh;height:100dvh;overflow:hidden}
 .sidebar{display:flex;flex-direction:column;min-height:0;min-width:0;border-right:1px solid var(--line);background:var(--paper)}
 .guide-handle{display:none}
 .sidebar header{padding:29px 25px 23px;flex:none}
-.pride-stripe{height:5px;width:108px;border-radius:4px;background:linear-gradient(to right,#E40303 0 16.667%,#FF8C00 16.667% 33.333%,#FFED00 33.333% 50%,#008026 50% 66.667%,#004DFF 66.667% 83.333%,#750787 83.333% 100%);margin-bottom:21px}
-.sidebar h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-1px;margin:0 0 15px;color:#25352f}
+.brand-stripe{height:5px;width:108px;border-radius:4px;background:linear-gradient(to right,#12306B 0 40%,#2F5DB3 40% 70%,#3F8FC7 70% 85%,#8FA6C4 85% 100%);margin-bottom:21px}
+.sidebar h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-1px;margin:0 0 15px;color:#14284b}
 .sidebar h1 span{font-weight:450}
 .list-heading{display:flex;justify-content:space-between;margin:0 25px;padding:12px 0 9px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:650;flex:none}
 .list{overflow:auto;flex:1;min-height:0;padding:0 14px 12px;scrollbar-width:thin;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -30,73 +30,74 @@ button:disabled{cursor:default;opacity:.55}
 .region::-webkit-details-marker{display:none}
 .region::marker{content:""}
 .region:hover{background:color-mix(in srgb,var(--color) 8%,#fff)}
-.region-item[open]{border-color:var(--color);background:#fffdf9}
+.region-item[open]{border-color:var(--color);background:#ffffff}
 .region-item[open]>.region{background:color-mix(in srgb,var(--color) 9%,#fff);border-radius:8px 8px 0 0}
 .dot{width:13px;height:13px;border-radius:50%;background:var(--color);box-shadow:inset 0 0 0 1px #00000014}
 .region strong{display:block;font-size:13px;font-weight:650}
 .region small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-.arrow{color:#748177;font-size:20px;text-align:center;transition:transform .15s}
+.arrow{color:#7a8698;font-size:20px;text-align:center;transition:transform .15s}
 .region-item[open] .arrow{transform:rotate(180deg)}
 .region-details{padding:16px 15px 18px;overflow-wrap:anywhere}
 .region-details p{font-size:13px;color:var(--muted);margin:0 0 13px}
 .region-details h3{font-size:11px;letter-spacing:.5px;margin:18px 0 6px;color:var(--ink)}
 .region-details h3:first-child{margin-top:0}
 .region-details ul{padding-left:17px;font-size:12px;line-height:1.9;margin:8px 0 14px}
-.region-details a{color:#9f3e2c;font-size:12px;font-weight:650;text-underline-offset:3px}
+.region-details a{color:#1f4fa3;font-size:12px;font-weight:650;text-underline-offset:3px}
 .region-details .source{display:block;font-size:10px;font-weight:400;margin-top:15px;color:var(--muted)}
 .official{border-top:1px solid var(--line);padding-top:11px;font-size:11px!important}
 .region-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .region-actions a{display:inline-flex;align-items:center;min-height:44px}
-.locate-region{border:1px solid var(--line);border-radius:7px;padding:10px 12px;min-height:44px;background:#f3f5ee;color:var(--ink);font-size:12px}
+.locate-region{border:1px solid var(--line);border-radius:7px;padding:10px 12px;min-height:44px;background:#edf1f6;color:var(--ink);font-size:12px}
 .sidebar footer{padding:14px 25px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);flex:none}
 .sidebar footer>strong{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)}
 .sidebar footer p{margin:5px 0 9px}
 .sidebar footer summary{text-decoration:underline;text-underline-offset:2px}
 .sidebar footer a{color:var(--muted)}
-.map-shell{position:relative;min-width:0;min-height:0;background:#e4e7db;overflow:hidden}
+.map-shell{position:relative;min-width:0;min-height:0;background:#e5e9ef;overflow:hidden}
 #map{position:absolute;inset:0;z-index:0}
 .map-top{position:absolute;left:22px;right:22px;top:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;z-index:10;pointer-events:none}
 .map-top>*{pointer-events:auto}
-.map-caption{background:#fffdf8ed;border:1px solid #d8ddd2;box-shadow:0 3px 15px #25372e10;padding:11px 15px;border-radius:9px;font-size:12px}
+.map-caption{background:#ffffffed;border:1px solid #d8dee7;box-shadow:0 3px 15px #14284b10;padding:11px 15px;border-radius:9px;font-size:12px}
 .map-caption b{display:block;font-size:10px;letter-spacing:1.3px;text-transform:uppercase}
 .map-caption span{font-size:11px;color:var(--muted)}
-.overview{border:1px solid #d1d8cc;border-radius:8px;background:#fffdf8;min-height:44px;padding:10px 14px;color:var(--ink);font-size:12px;box-shadow:0 3px 15px #25372e10}
-.layers{position:absolute;bottom:29px;left:22px;z-index:10;background:#fffdf8ef;border:1px solid #d8ddd2;border-radius:8px;padding:0 9px;display:flex;gap:6px;font-size:11px;max-width:calc(100% - 85px)}
+.overview{border:1px solid #cfd6e0;border-radius:8px;background:#ffffff;min-height:44px;padding:10px 14px;color:var(--ink);font-size:12px;box-shadow:0 3px 15px #14284b10}
+.layers{position:absolute;bottom:29px;left:22px;z-index:10;background:#ffffffef;border:1px solid #d8dee7;border-radius:8px;padding:0 9px;display:flex;gap:6px;font-size:11px;max-width:calc(100% - 85px)}
 .layers label{display:flex;gap:6px;align-items:center;cursor:pointer;min-height:44px;padding:0 5px}
 .layers input{accent-color:var(--ink);margin:0}
 .notice{position:absolute;top:91px;left:22px;right:22px;z-index:15;background:#fff4d8;padding:12px 16px;border:1px solid #d8bb70;border-radius:8px;font-size:12px}
-.maplibregl-map{font-family:inherit;background:#e5e8dd}
+.maplibregl-map{font-family:inherit;background:#e5e9ef}
 .maplibregl-ctrl-bottom-right{right:10px;bottom:8px}
 .maplibregl-ctrl-group button{color:var(--ink);width:40px;height:40px}
 .maplibregl-ctrl-attrib a{color:inherit}
-.zone-label{pointer-events:none!important;background:#fffdf8e8;border:1px solid #ffffff90;box-shadow:0 1px 5px #283d301a;color:#283d31;padding:3px 7px;border-radius:4px;font-size:11px;font-weight:650;text-align:center;max-width:125px;line-height:1.2;z-index:1}
-.place-icon{--place-color:#1565c0;padding:0;background:transparent!important;border:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;z-index:2;touch-action:manipulation;cursor:pointer}
-.place-dot{width:14px;height:14px;display:flex;align-items:center;justify-content:center;background:#fffdf8;border:2px solid var(--place-color);border-radius:50%;box-shadow:0 1px 5px #182b3030;font-size:9px;font-weight:800;line-height:1;color:var(--place-color);pointer-events:none}
+.zone-label{pointer-events:none!important;background:#ffffffe8;border:1px solid #ffffff90;box-shadow:0 1px 5px #14284b1a;color:#14284b;padding:3px 7px;border-radius:4px;font-size:11px;font-weight:650;text-align:center;max-width:125px;line-height:1.2;z-index:1}
+.place-icon{--place-color:#1f4fa3;padding:0;background:transparent!important;border:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;z-index:2;touch-action:manipulation;cursor:pointer}
+.place-dot{width:14px;height:14px;display:flex;align-items:center;justify-content:center;background:#ffffff;border:2px solid var(--place-color);border-radius:50%;box-shadow:0 1px 5px #14284b30;font-size:9px;font-weight:800;line-height:1;color:var(--place-color);pointer-events:none}
 .place-icon.anchor{z-index:3}
-.place-icon.anchor .place-dot{width:23px;height:23px;background:var(--place-color);color:#fffdf8}
+.place-icon.anchor .place-dot{width:23px;height:23px;background:var(--place-color);color:#ffffff}
 .place-icon.anchor.compact-anchor .place-dot{width:20px;height:20px}
 .place-icon.hotel,.place-icon.bus-station{z-index:4}
-.place-icon.hotel .place-dot,.place-icon.bus-station .place-dot{width:32px;height:32px;border-radius:6px;background:#1565c0;border:2px solid #fff;color:#fff;box-shadow:0 2px 8px #15365450}
+.place-icon.hotel .place-dot,.place-icon.bus-station .place-dot{width:32px;height:32px;border-radius:6px;background:#1f4fa3;border:2px solid #fff;color:#fff;box-shadow:0 2px 8px #14284b50}
 .place-icon.hotel .place-dot{width:23px;height:23px;border-radius:5px;font-size:14px;font-weight:800}
 .place-icon.bus-station svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .maplibregl-popup{z-index:20}
-.maplibregl-popup-content{font-size:13px;line-height:1.5;border-radius:10px;padding:17px 46px 17px 17px;box-shadow:0 4px 20px #183d2926}
+.maplibregl-popup-content{font-size:13px;line-height:1.5;border-radius:10px;padding:17px 46px 17px 17px;box-shadow:0 4px 20px #14284b26}
 .place-name{display:block;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.lgbt-flag{display:inline-block;width:18px;height:12px;margin-left:4px;vertical-align:-1px;border-radius:2px;box-shadow:0 0 0 1px #00000014;background:linear-gradient(#E40303 0 16.667%,#FF8C00 16.667% 33.333%,#FFED00 33.333% 50%,#008026 50% 66.667%,#004DFF 66.667% 83.333%,#750787 83.333% 100%)}
 .place-type{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 .maplibregl-popup-close-button{width:40px;height:40px;font-size:23px;color:var(--ink)}
-.noscript{position:absolute;inset:100px 25px auto;z-index:25;padding:20px;background:#fffdf8}
+.noscript{position:absolute;inset:100px 25px auto;z-index:25;padding:20px;background:#ffffff}
 @media(min-width:1500px){.app{grid-template-columns:390px minmax(0,1fr)}.sidebar header{padding:32px}.list-heading{margin:0 32px}}
 @media(max-width:800px){.app{grid-template-columns:285px minmax(0,1fr)}.sidebar header{padding:23px 20px 20px}.sidebar h1{font-size:28px}.list-heading{margin:0 20px}.sidebar footer{padding:12px 20px}.map-top{left:12px;right:12px;top:12px}.map-caption{display:none}.map-top{justify-content:flex-end}.layers{left:12px;bottom:29px;gap:0;padding:0 5px}.layers label{padding:0 4px}.notice{left:12px;right:12px;top:67px}}
 @media(max-width:580px){
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,var(--map-height,45%)) minmax(0,1fr)}
   .map-shell{grid-row:1}.sidebar{grid-row:2;border-right:0;border-top:1px solid var(--line)}
   .guide-handle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:none;width:100%;min-height:44px;padding:6px 16px;border:0;background:transparent;color:var(--muted);font-size:10px;touch-action:none;cursor:ns-resize;user-select:none}
-  .guide-handle::before{content:"";width:42px;height:4px;border-radius:4px;background:#9ba69f}
+  .guide-handle::before{content:"";width:42px;height:4px;border-radius:4px;background:#9aa5b4}
   .sidebar header{touch-action:none;user-select:none;cursor:ns-resize}
   .sidebar footer{max-height:24dvh;overflow:auto}
 .app[data-guide-expanded="true"] .map-top,.app[data-guide-expanded="true"] .layers,.app[data-guide-expanded="true"] .maplibregl-control-container{visibility:hidden}
   .sidebar header{padding:13px 17px 10px}.sidebar h1{font-size:22px;line-height:1.15;letter-spacing:-.5px;margin:0 0 6px}.sidebar h1 br{display:none}.sidebar h1 span{margin-left:5px}
-  .pride-stripe{height:4px;width:80px;margin-bottom:9px}
+  .brand-stripe{height:4px;width:80px;margin-bottom:9px}
   .list-heading{margin:0 17px;padding:8px 0;font-size:9px}.list{padding:0 9px 10px}.region{min-height:60px;padding:11px}.region strong{font-size:14px}.region small{font-size:11px}.region-details{padding:14px}.region-details p{font-size:13px}
   .sidebar footer{padding:7px 17px}.sidebar footer>strong,.sidebar footer>p{display:none}.sidebar footer summary{min-height:28px;display:flex;align-items:center}
   .map-caption{display:block;padding:9px 10px}.map-caption span{display:none}.map-caption b{font-size:9px}.overview{padding:9px 10px;font-size:11px}
@@ -105,7 +106,7 @@ button:disabled{cursor:default;opacity:.55}
 @media(prefers-reduced-motion:reduce){.arrow{transition:none}}
 
 
-.place-lists{margin:0 0 15px;border:1px solid var(--line);border-radius:9px;background:#fffdf8}
+.place-lists{margin:0 0 15px;border:1px solid var(--line);border-radius:9px;background:#ffffff}
 .place-lists>summary{min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;font-size:13px;font-weight:650;list-style:none}
 .place-lists>summary::-webkit-details-marker{display:none}
 .active-list-count{font-size:10px;font-weight:450;color:var(--muted)}
@@ -113,18 +114,18 @@ button:disabled{cursor:default;opacity:.55}
 .place-list-content>p{font-size:11px;color:var(--muted);margin:0 2px 10px}
 .list-toggles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .list-toggle{display:flex;align-items:center;justify-content:space-between;gap:6px;text-align:left;border:1px solid var(--line);border-radius:8px;min-height:46px;padding:8px 9px;background:#fff;color:var(--ink);font-size:11px;line-height:1.25}
-.list-toggle[aria-pressed="true"]{background:#263b35;color:#fff;border-color:#263b35}
+.list-toggle[aria-pressed="true"]{background:#14284b;color:#fff;border-color:#14284b}
 .list-count{font-size:10px;opacity:.75;flex:none}
 .neighborhood-list-heading{padding:3px 10px 10px;color:var(--muted);font-size:10px;font-weight:650;letter-spacing:.6px;text-transform:uppercase}
-.fit-lists{width:100%;margin-top:9px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#f3f5ee;color:var(--ink);font-size:11px}
+.fit-lists{width:100%;margin-top:9px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#edf1f6;color:var(--ink);font-size:11px}
 .metro-hint{font-size:11px;color:var(--muted);margin:2px 0 8px}
 .metro-toggles{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px}
 .metro-toggle{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0;border:1px solid var(--line);border-radius:8px;background:#fff}
 .metro-toggle[aria-pressed="false"] .metro-badge{opacity:.3;filter:grayscale(1)}
-.metro-toggle[aria-pressed="true"]{border-color:#263b35}
+.metro-toggle[aria-pressed="true"]{border-color:#14284b}
 .metro-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 4px;border-radius:12px;background:var(--line-color);color:var(--line-ink);border:2px solid var(--line-edge,var(--line-color));font-size:11px;font-weight:800;line-height:1}
 .metro-actions{display:flex;gap:7px;margin-top:9px}
-.metro-actions button{flex:1;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#f3f5ee;color:var(--ink);font-size:11px}
+.metro-actions button{flex:1;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#edf1f6;color:var(--ink);font-size:11px}
 .metro-popup-lines{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
 .metro-popup-lines .metro-badge{font-size:12px;min-width:26px;height:26px;border-radius:13px}
 .street-list{margin-bottom:14px}
@@ -135,7 +136,7 @@ button:disabled{cursor:default;opacity:.55}
 .street-heading input{accent-color:var(--ink)}
 .region-dialog{position:fixed;inset:0;margin:0;padding:0;border:0;border-top:5px solid var(--color);width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;background:var(--paper);color:var(--ink);overflow:hidden}
 .region-dialog[open]{display:flex;flex-direction:column}
-.region-dialog::backdrop{background:#263b3555}
+.region-dialog::backdrop{background:#14284b55}
 .region-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;padding:calc(15px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) 15px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);background:var(--paper)}
 .region-dialog-header p{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
 .region-dialog-header h2{font-size:25px;line-height:1.2;letter-spacing:-.6px;margin:0;overflow-wrap:anywhere}
@@ -157,11 +158,11 @@ button:disabled{cursor:default;opacity:.55}
 .place-editorial h3{font-size:12px;line-height:1.4;margin:13px 0 6px}
 .place-editorial p,.place-editorial li{font-size:13px;line-height:1.6}
 .place-editorial p{margin:0 0 10px}.place-editorial ul{padding-left:18px;margin:7px 0 12px}
-.place-editorial .editorial-links{margin:8px 0 0;gap:3px 12px}.place-editorial a{font-size:12px;color:#9f3e2c}
+.place-editorial .editorial-links{margin:8px 0 0;gap:3px 12px}.place-editorial a{font-size:12px;color:#1f4fa3}
 .place-google{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .place-google a{display:inline-flex;align-items:center;min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font-size:12px;font-weight:600;text-decoration:none}
 .editorial-tools{margin-top:7px}.editorial-tools button{min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font-size:12px}
-.editorial-tools p{line-height:1.6}.content-error{color:#9f3e2c}
+.editorial-tools p{line-height:1.6}.content-error{color:#1f4fa3}
 </style>
 </head>
 <body>
@@ -169,11 +170,11 @@ button:disabled{cursor:default;opacity:.55}
     <aside class="sidebar" aria-label="Explorar regiões do Porto">
       <button id="guide-handle" class="guide-handle" type="button" aria-expanded="false" aria-controls="regions" aria-label="Expandir o guia de bairros. Também pode arrastar para cima."><span id="guide-handle-label">Deslize para cima · Mais bairros</span></button>
       <header id="guide-header">
-        <div class="pride-stripe" aria-hidden="true"></div>
+        <div class="brand-stripe" aria-hidden="true"></div>
         <h1>Guia<br><span>do Porto</span></h1>      </header>
       <div class="list-heading"><span>Explore o guia</span><span id="count" aria-live="polite">7 áreas</span></div>
       <div class="list" id="regions"></div>
-      <footer><details><summary>Como ler o mapa</summary><p>As cores acompanham a lista de regiões. Os pontos verdes indicam parques e jardins; vermelhos, monumentos e praças; azuis, estabelecimentos, museus e transporte. Use os botões em “Minhas listas” para mostrar ou ocultar cada seleção. O controle “Referências” mostra a Estação de São Bento (S), a Torre dos Clérigos (C) e a Ponte Luís I (P); o terminal de autocarros de Campanhã e o aeroporto aparecem sempre. As linhas de metrô seguem as cores oficiais; toque no “M” azul de uma estação para ver as linhas que passam por ela.</p></details><details><summary>Sobre os contornos e as fontes</summary><p>Seis áreas desenhadas por você no Google My Maps sobre as freguesias do Porto, preservadas como no arquivo enviado. O contorno do Centro Histórico é o limite oficial da freguesia, tirado do OpenStreetMap. Pequenas sobreposições e frestas entre regiões vêm dos desenhos. As partes sem cor, como Gaia e Matosinhos, ficam fora do mapa de áreas.</p><p>Mapa de fundo: OpenFreeMap, com dados do OpenStreetMap. Linhas e estações do Metro do Porto: OpenStreetMap.</p></details><details class="editorial-tools"><summary>Meus textos</summary><p id="editorial-status" role="status">Os textos podem ser personalizados nos arquivos JSON.</p><button type="button" id="import-editorial">Carregar textos JSON</button><input id="editorial-files" type="file" accept=".json,application/json" multiple hidden></details></footer>
+      <footer><details><summary>Como ler o mapa</summary><p>As cores acompanham a lista de regiões. Os pontos verde-azulados indicam parques e jardins; cinza-ardósia, monumentos, praças e igrejas; azuis, estabelecimentos, museus e transporte. Use os botões em “Minhas listas” para mostrar ou ocultar cada seleção. O controle “Referências” mostra a Estação de São Bento (S), a Torre dos Clérigos (C), a Ponte Luís I (P), o Mercado do Bolhão (B), a Livraria Lello (L), a Casa da Música (CM), os Jardins do Palácio de Cristal (PC) e Serralves (SV); o terminal de autocarros de Campanhã e o aeroporto aparecem sempre. As linhas de metrô seguem as cores oficiais; toque no “M” azul de uma estação para ver as linhas que passam por ela.</p></details><details><summary>Sobre os contornos e as fontes</summary><p>Seis áreas desenhadas por você no Google My Maps sobre as freguesias do Porto, preservadas como no arquivo enviado. O contorno do Centro Histórico é o limite oficial da freguesia, tirado do OpenStreetMap. Pequenas sobreposições e frestas entre regiões vêm dos desenhos. As partes sem cor, como Gaia e Matosinhos, ficam fora do mapa de áreas.</p><p>Mapa de fundo: OpenFreeMap, com dados do OpenStreetMap. Linhas e estações do Metro do Porto: OpenStreetMap.</p></details><details class="editorial-tools"><summary>Meus textos</summary><p id="editorial-status" role="status">Os textos podem ser personalizados nos arquivos JSON.</p><button type="button" id="import-editorial">Carregar textos JSON</button><input id="editorial-files" type="file" accept=".json,application/json" multiple hidden></details></footer>
     </aside>
     <section class="map-shell" aria-label="Mapa interativo do Porto">
       <div id="map" aria-label="Mapa: toque nos locais ou nas ruas em destaque para ver suas informações. Informações dos bairros ficam na lista."></div>
@@ -203,7 +204,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "centro-historico",
       "name": "Centro Histórico",
       "group": "centro",
-      "color": "#E40303",
+      "color": "#12306B",
       "tag": "Ribeira, Baixa e Cedofeita",
       "center": [
         41.1543497,
@@ -783,7 +784,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "bonfim",
       "name": "Bonfim",
       "group": "leste",
-      "color": "#FF8C00",
+      "color": "#2F5DB3",
       "tag": "Bairro residencial e cafés novos",
       "center": [
         41.1522247,
@@ -1020,7 +1021,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "massarelos",
       "name": "Lordelo do Ouro e Massarelos",
       "group": "oeste",
-      "color": "#FFED00",
+      "color": "#3F8FC7",
       "tag": "Palácio de Cristal, Serralves e o rio",
       "center": [
         41.1512071,
@@ -1322,7 +1323,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "foz",
       "name": "Aldoar, Foz do Douro e Nevogilde",
       "group": "oeste",
-      "color": "#008026",
+      "color": "#1E7A9E",
       "tag": "Onde o Douro encontra o mar",
       "center": [
         41.1638942,
@@ -1540,7 +1541,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "ramalde",
       "name": "Ramalde",
       "group": "norte",
-      "color": "#004DFF",
+      "color": "#8FA6C4",
       "tag": "Residencial, a caminho de Matosinhos",
       "center": [
         41.1714401,
@@ -1723,7 +1724,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "paranhos",
       "name": "Paranhos",
       "group": "norte",
-      "color": "#750787",
+      "color": "#4B5563",
       "tag": "Universidades e Hospital de São João",
       "center": [
         41.1716773,
@@ -2019,7 +2020,7 @@ button:disabled{cursor:default;opacity:.55}
       "id": "campanha",
       "name": "Campanhã",
       "group": "leste",
-      "color": "#E40303",
+      "color": "#6C7A8C",
       "tag": "Estação, Dragão e lado oriental",
       "center": [
         41.1586809,
@@ -2398,7 +2399,10 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "C",
       "anchor": true,
       "base": true,
-      "listIds": []
+      "listIds": [
+        "monumentos",
+        "igrejas"
+      ]
     },
     {
       "id": "reference-ponte-luis-i",
@@ -2409,6 +2413,49 @@ button:disabled{cursor:default;opacity:.55}
         -8.6094576
       ],
       "symbol": "P",
+      "anchor": true,
+      "base": true,
+      "listIds": [
+        "monumentos"
+      ]
+    },
+    {
+      "id": "reference-bolhao",
+      "name": "Mercado do Bolhão",
+      "type": "Mercado",
+      "coords": [
+        41.1493156,
+        -8.606947
+      ],
+      "symbol": "B",
+      "anchor": true,
+      "base": true,
+      "listIds": []
+    },
+    {
+      "id": "reference-casa-da-musica",
+      "name": "Casa da Música",
+      "type": "Sala de concertos",
+      "coords": [
+        41.1589025,
+        -8.6307748
+      ],
+      "symbol": "CM",
+      "anchor": true,
+      "base": true,
+      "listIds": [
+        "concertos"
+      ]
+    },
+    {
+      "id": "reference-lello",
+      "name": "Livraria Lello",
+      "type": "Livraria",
+      "coords": [
+        41.1468317,
+        -8.6148485
+      ],
+      "symbol": "L",
       "anchor": true,
       "base": true,
       "listIds": []
@@ -2455,10 +2502,11 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
-        "lgbt"
+        "bares"
       ],
       "googleUrl": "https://www.google.com/maps/place/Caf%C3%A9+Au+Lait/data=!4m2!3m1!1s0xd2464e2f21e6f5f:0xe9d386a605c259bc",
-      "sourceName": "Café Au Lait"
+      "sourceName": "Café Au Lait",
+      "lgbt": true
     },
     {
       "id": "google-9085700733045713204",
@@ -2471,10 +2519,11 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
-        "lgbt"
+        "clubbing"
       ],
       "googleUrl": "https://www.google.com/maps/place/Zoom+Porto/data=!4m2!3m1!1s0xd2464e4fe882edb:0x7e16e4adb8b22934",
-      "sourceName": "Zoom Porto"
+      "sourceName": "Zoom Porto",
+      "lgbt": true
     },
     {
       "id": "google-16175080923737709752",
@@ -2487,10 +2536,11 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
-        "lgbt"
+        "bares"
       ],
       "googleUrl": "https://www.google.com/maps/place/Bar+Concei%C3%A7%C3%A3o+35/data=!4m2!3m1!1s0xd2464fd23ef1c7f:0xe0796e66a0955cb8",
-      "sourceName": "Bar Conceição 35"
+      "sourceName": "Bar Conceição 35",
+      "lgbt": true
     },
     {
       "id": "google-8247749298331267903",
@@ -2503,7 +2553,7 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
-        "lgbt"
+        "concertos"
       ],
       "googleUrl": "https://www.google.com/maps/place/Ageas+Porto+Coliseum/data=!4m2!3m1!1s0xd2464e5a091b163:0x7275e449d383333f",
       "sourceName": "Ageas Porto Coliseum"
@@ -2519,10 +2569,11 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
-        "lgbt"
+        "bares"
       ],
       "googleUrl": "https://www.google.com/maps/place/Cafe+Lusitano/data=!4m2!3m1!1s0xd2464fd3396ad55:0xd760947441be9689",
-      "sourceName": "Cafe Lusitano"
+      "sourceName": "Cafe Lusitano",
+      "lgbt": true
     },
     {
       "id": "google-12206103085203183103",
@@ -2535,6 +2586,7 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
+        "restaurantes",
         "vegano"
       ],
       "googleUrl": "https://www.google.com/maps/place/Terr%C3%A1rea/data=!4m2!3m1!1s0xd246f3c402c78e3:0xa964ca15d555d5ff",
@@ -2551,6 +2603,7 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
+        "restaurantes",
         "vegano"
       ],
       "googleUrl": "https://www.google.com/maps/place/daTerra+Baixa/data=!4m2!3m1!1s0xd2464e3d92b75b9:0x25fad080e078fb34",
@@ -2567,6 +2620,7 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
+        "restaurantes",
         "vegano"
       ],
       "googleUrl": "https://www.google.com/maps/place/Suribachi/data=!4m2!3m1!1s0xd2464ed989bdbb5:0x92d8346800319776",
@@ -2599,6 +2653,7 @@ button:disabled{cursor:default;opacity:.55}
       "symbol": "",
       "base": false,
       "listIds": [
+        "restaurantes",
         "vegano"
       ],
       "googleUrl": "https://www.google.com/maps/place/Kind+Kitchen/data=!4m2!3m1!1s0xd2465e5981e9921:0x92be97ee6f703c56",
@@ -2622,7 +2677,7 @@ button:disabled{cursor:default;opacity:.55}
     },
     {
       "id": "google-5379836894796846325",
-      "name": "Parque Saba Praça Carlos Alberto",
+      "name": "Parque Saba · entrada Praça de Carlos Alberto",
       "type": "Estacionamento",
       "coords": [
         41.148286,
@@ -2654,7 +2709,7 @@ button:disabled{cursor:default;opacity:.55}
     },
     {
       "id": "pin-gomes-teixeira",
-      "name": "Estacionamento · Praça de Gomes Teixeira",
+      "name": "Parque Saba · entrada Praça de Gomes Teixeira",
       "type": "Estacionamento",
       "coords": [
         41.147299,
@@ -2667,20 +2722,555 @@ button:disabled{cursor:default;opacity:.55}
       ],
       "sourceName": "41°08'50.3\"N 8°36'56.4\"W",
       "googleUrl": "https://www.google.com/maps/search/?api=1&query=41.147299,-8.615654"
+    },
+    {
+      "id": "google-2970628053487203559",
+      "name": "Jardim do Morro",
+      "type": "Jardim e miradouro",
+      "coords": [
+        41.1371459,
+        -8.6092935
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "por-do-sol"
+      ],
+      "sourceName": "Jardim do Morro",
+      "googleUrl": "https://www.google.com/maps/place/Jardim+do+Morro/data=!4m2!3m1!1s0xd2464ddb5fa061f:0x2939ca79bfea34e7"
+    },
+    {
+      "id": "google-3558561736108103645",
+      "name": "Jardim das Virtudes",
+      "type": "Jardim e miradouro",
+      "coords": [
+        41.143585,
+        -8.6183565
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "por-do-sol",
+        "parques"
+      ],
+      "sourceName": "Jardim das Virtudes",
+      "googleUrl": "https://www.google.com/maps/place/Passeio+das+Virtudes/data=!4m2!3m1!1s0xd246509a2ffdbf1:0x31628d0b800557dd"
+    },
+    {
+      "id": "google-11781453084677099540",
+      "name": "Parque de Serralves",
+      "type": "Parque",
+      "coords": [
+        41.1590347,
+        -8.6581114
+      ],
+      "symbol": "SV",
+      "base": true,
+      "listIds": [
+        "parques",
+        "museus"
+      ],
+      "sourceName": "Parque de Serralves",
+      "googleUrl": "https://www.google.com/maps/place/Parque+de+Serralves/data=!4m2!3m1!1s0xd24658056b12071:0xa3802128e21bd014",
+      "anchor": true
+    },
+    {
+      "id": "google-9869348635645350156",
+      "name": "Parque da Cidade",
+      "type": "Parque",
+      "coords": [
+        41.1686739,
+        -8.6788358
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "parques"
+      ],
+      "sourceName": "Parque da Cidade",
+      "googleUrl": "https://www.google.com/maps/place/Parque+da+Cidade+do+Porto/data=!4m2!3m1!1s0xd246f6c77964f03:0x88f6f84b4820910c"
+    },
+    {
+      "id": "google-7236363821226401080",
+      "name": "Jardins do Palácio de Cristal",
+      "type": "Jardim",
+      "coords": [
+        41.1482682,
+        -8.6255165
+      ],
+      "symbol": "PC",
+      "base": true,
+      "listIds": [
+        "parques"
+      ],
+      "sourceName": "Jardins do Palácio de Cristal",
+      "googleUrl": "https://www.google.com/maps/place/Jardins+do+Pal%C3%A1cio+de+Cristal/data=!4m2!3m1!1s0xd24651aa3a065a3:0x646cba8e35b01d38",
+      "anchor": true
+    },
+    {
+      "id": "google-17008510895279498101",
+      "name": "Brasão Aliados",
+      "type": "Restaurante",
+      "coords": [
+        41.1491541,
+        -8.6117884
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Brasão Aliados",
+      "googleUrl": "https://www.google.com/maps/place/Bras%C3%A3o+Aliados/data=!4m2!3m1!1s0xd2464fcb4dad7fd:0xec0a5e8b577ee375"
+    },
+    {
+      "id": "google-15115495588598920836",
+      "name": "Venham Mais 5",
+      "type": "Snack-bar",
+      "coords": [
+        41.1467148,
+        -8.6034379
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Venham Mais 5",
+      "googleUrl": "https://www.google.com/maps/place/Venham+mais+5+-+O+original/data=!4m2!3m1!1s0xd24659ed1108201:0xd1c507270a6c3684"
+    },
+    {
+      "id": "google-15375415481388765919",
+      "name": "Conga Casa das Bifanas",
+      "type": "Restaurante",
+      "coords": [
+        41.1489414,
+        -8.6093776
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Conga Casa das Bifanas",
+      "googleUrl": "https://www.google.com/maps/place/Restaurante+Conga+Casa+das+Bifanas/data=!4m2!3m1!1s0xd2464e4b6f52711:0xd56072eafa3812df"
+    },
+    {
+      "id": "google-16479545691988378874",
+      "name": "Marisqueira Serpa Pinto",
+      "type": "Marisqueira",
+      "coords": [
+        41.1855627,
+        -8.6956439
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Marisqueira Serpa Pinto",
+      "googleUrl": "https://www.google.com/maps/place/Restaurante+Marisqueira+Serpa+Pinto/data=!4m2!3m1!1s0xd246f2e55ef279d:0xe4b31b7e96c944fa"
+    },
+    {
+      "id": "google-5223228045559944123",
+      "name": "Museu d'Avó",
+      "type": "Bar de petiscos",
+      "coords": [
+        41.149815,
+        -8.6153289
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Museu d'Avó",
+      "googleUrl": "https://www.google.com/maps/place/Museu+d'Av%C3%B3/data=!4m2!3m1!1s0xd2464fd4345e5e5:0x487ca23bcc7553bb"
+    },
+    {
+      "id": "google-17048478518624825639",
+      "name": "Manteigaria",
+      "type": "Pastelaria",
+      "coords": [
+        41.1486437,
+        -8.6069376
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "restaurantes"
+      ],
+      "sourceName": "Manteigaria",
+      "googleUrl": "https://www.google.com/maps/place/Manteigaria+%E2%80%93+F%C3%A1brica+de+Past%C3%A9is+de+Nata/data=!4m2!3m1!1s0xd2464e53b98b8af:0xec985ce2cf82b127"
+    },
+    {
+      "id": "google-1717297534452235501",
+      "name": "Bar Aduela",
+      "type": "Bar",
+      "coords": [
+        41.1489126,
+        -8.6150208
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Bar Aduela",
+      "googleUrl": "https://www.google.com/maps/place/Bar+Aduela/data=!4m2!3m1!1s0xd2464fd4b56988f:0x17d511024aadfced"
+    },
+    {
+      "id": "google-11338962856976762104",
+      "name": "Terraplana",
+      "type": "Bar de cocktails",
+      "coords": [
+        41.145619,
+        -8.6012757
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Terraplana",
+      "googleUrl": "https://www.google.com/maps/place/Terraplana+Caf%C3%A9/data=!4m2!3m1!1s0xd2464eec7b589f3:0x9d5c16a45b72c4f8"
+    },
+    {
+      "id": "google-6384668859678727155",
+      "name": "Meridians & Parallels",
+      "type": "Bar de cocktails",
+      "coords": [
+        41.146433,
+        -8.5934526
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Meridians & Parallels",
+      "googleUrl": "https://www.google.com/maps/place/Meridians+%26+Parallels+-+Cocktail+Bar/data=!4m2!3m1!1s0xd24653534e0fe77:0x589ae6801da61bf3"
+    },
+    {
+      "id": "google-9075119322768843136",
+      "name": "Armazém da Cerveja",
+      "type": "Bar de cerveja artesanal",
+      "coords": [
+        41.1476568,
+        -8.60375
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Armazém da Cerveja",
+      "googleUrl": "https://www.google.com/maps/place/Armaz%C3%A9m+da+Cerveja+-+Craft+Beer+Bar+and+Shop/data=!4m2!3m1!1s0xd246519153e88c3:0x7df14cf127eba180"
+    },
+    {
+      "id": "google-13578414426834826803",
+      "name": "Letraria Porto Downtown",
+      "type": "Bar de cerveja artesanal",
+      "coords": [
+        41.1509167,
+        -8.6140111
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Letraria Porto Downtown",
+      "googleUrl": "https://www.google.com/maps/place/Letraria+Porto+Downtown/data=!4m2!3m1!1s0xd2464ef9366f3c5:0xbc7037facc877633"
+    },
+    {
+      "id": "google-8765872649370929691",
+      "name": "Espaço 77",
+      "type": "Bar",
+      "coords": [
+        41.1496161,
+        -8.6159621
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "Espaço 77",
+      "googleUrl": "https://www.google.com/maps/place/Espa%C3%A7o+77/data=!4m2!3m1!1s0xd2465e8458986d3:0x79a6a2bb24110a1b"
+    },
+    {
+      "id": "google-18136031416143333085",
+      "name": "Rua da Galeria de Paris",
+      "type": "Rua de bares",
+      "coords": [
+        41.1471263,
+        -8.614316
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "clubbing"
+      ],
+      "sourceName": "Rua da Galeria de Paris",
+      "googleUrl": "https://www.google.com/maps/place/Galeria+De+Paris/data=!4m2!3m1!1s0xd2464e2ee09fac7:0xfbb0207bf28c46dd"
+    },
+    {
+      "id": "google-607394263235803896",
+      "name": "Plano B",
+      "type": "Discoteca",
+      "coords": [
+        41.1465492,
+        -8.6138554
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "clubbing"
+      ],
+      "sourceName": "Plano B",
+      "googleUrl": "https://www.google.com/maps/place/Plano+B/data=!4m2!3m1!1s0xd2464e340499ca5:0x86de5dd42c7baf8"
+    },
+    {
+      "id": "pin-se-porto",
+      "name": "Sé do Porto",
+      "type": "Catedral",
+      "coords": [
+        41.1427992,
+        -8.6112059
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "igrejas",
+        "monumentos"
+      ],
+      "sourceName": "Sé do Porto"
+    },
+    {
+      "id": "pin-igreja-do-carmo",
+      "name": "Igreja do Carmo",
+      "type": "Igreja",
+      "coords": [
+        41.147456,
+        -8.6162547
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "igrejas"
+      ],
+      "sourceName": "Igreja do Carmo"
+    },
+    {
+      "id": "google-586596472953538405",
+      "name": "Bar of Soap",
+      "type": "Bar de cocktails",
+      "coords": [
+        41.1514233,
+        -8.607126
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "lgbt": true,
+      "sourceName": "Bar of Soap - Porto",
+      "googleUrl": "https://www.google.com/maps/place/Bar+of+Soap+-+Porto/data=!4m2!3m1!1s0xd24650170fbc48b:0x82402625ce48765"
+    },
+    {
+      "id": "google-11050789416555807030",
+      "name": "HD Bar to Be Wild",
+      "type": "Bar de rock",
+      "coords": [
+        41.147694,
+        -8.6142109
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "bares"
+      ],
+      "sourceName": "HD Bar to Be Wild",
+      "googleUrl": "https://www.google.com/maps/place/HD+Bar+to+Be+Wild/data=!4m2!3m1!1s0xd2464fcaf1c313b:0x995c4a6cbd748136"
+    },
+    {
+      "id": "google-16437284624606184834",
+      "name": "Rendez Vous",
+      "type": "Discoteca de rock",
+      "coords": [
+        41.1470093,
+        -8.6140196
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "clubbing"
+      ],
+      "sourceName": "Rendez Vous - Discoteca",
+      "googleUrl": "https://www.google.com/maps/place/Rendez+Vous+-+Discoteca/data=!4m2!3m1!1s0xd2464e2faac59a3:0xe41cf74711a44582"
+    },
+    {
+      "id": "google-8685257631788800159",
+      "name": "Pinkclub",
+      "type": "Discoteca",
+      "coords": [
+        41.1469323,
+        -8.6134262
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "clubbing"
+      ],
+      "sourceName": "Pinkclub",
+      "googleUrl": "https://www.google.com/maps/place/Pinkclub/data=!4m2!3m1!1s0xd246500764766fb:0x78883bccb585989f"
+    },
+    {
+      "id": "pin-parque-sao-roque",
+      "name": "Parque de São Roque",
+      "type": "Parque",
+      "coords": [
+        41.1590714,
+        -8.5890149
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "parques"
+      ],
+      "sourceName": "Parque de São Roque"
+    },
+    {
+      "id": "pin-jardim-cordoaria",
+      "name": "Jardim da Cordoaria",
+      "type": "Jardim",
+      "coords": [
+        41.1456642,
+        -8.6164778
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "parques"
+      ],
+      "sourceName": "Jardim da Cordoaria"
+    },
+    {
+      "id": "pin-centro-portugues-fotografia",
+      "name": "Centro Português de Fotografia",
+      "type": "Museu de fotografia",
+      "coords": [
+        41.1447171,
+        -8.615892
+      ],
+      "symbol": "",
+      "base": false,
+      "listIds": [
+        "museus"
+      ],
+      "sourceName": "Centro Português de Fotografia"
     }
   ],
   "boundaryAttribution": "Seis contornos desenhados pelo usuário no Google My Maps (freguesias do Porto), importados sem simplificação do arquivo KMZ. O contorno do Centro Histórico vem do OpenStreetMap.",
   "placeLists": [
     {
-      "id": "lgbt",
-      "name": "Bares e clubs LGBT+",
-      "sourceName": "Gay",
+      "id": "monumentos",
+      "name": "Monumentos",
+      "placeIds": [
+        "reference-clerigos",
+        "reference-ponte-luis-i",
+        "pin-se-porto"
+      ]
+    },
+    {
+      "id": "museus",
+      "name": "Museus",
+      "placeIds": [
+        "google-11781453084677099540",
+        "pin-centro-portugues-fotografia"
+      ]
+    },
+    {
+      "id": "igrejas",
+      "name": "Igrejas e lugares religiosos",
+      "placeIds": [
+        "reference-clerigos",
+        "pin-se-porto",
+        "pin-igreja-do-carmo"
+      ]
+    },
+    {
+      "id": "parques",
+      "name": "Parques e jardins",
+      "placeIds": [
+        "google-3558561736108103645",
+        "google-11781453084677099540",
+        "google-9869348635645350156",
+        "google-7236363821226401080",
+        "pin-parque-sao-roque",
+        "pin-jardim-cordoaria"
+      ]
+    },
+    {
+      "id": "por-do-sol",
+      "name": "Pôr do sol",
+      "placeIds": [
+        "google-2970628053487203559",
+        "google-3558561736108103645"
+      ]
+    },
+    {
+      "id": "restaurantes",
+      "name": "Restaurantes",
+      "placeIds": [
+        "google-12206103085203183103",
+        "google-2736728975521413940",
+        "google-10581264945791473526",
+        "google-10574056025440140374",
+        "google-17008510895279498101",
+        "google-15115495588598920836",
+        "google-15375415481388765919",
+        "google-16479545691988378874",
+        "google-5223228045559944123",
+        "google-17048478518624825639"
+      ]
+    },
+    {
+      "id": "bares",
+      "name": "Bares",
       "placeIds": [
         "google-16848958678542473660",
-        "google-9085700733045713204",
         "google-16175080923737709752",
-        "google-8247749298331267903",
-        "google-15519567542958855817"
+        "google-15519567542958855817",
+        "google-1717297534452235501",
+        "google-11338962856976762104",
+        "google-6384668859678727155",
+        "google-9075119322768843136",
+        "google-13578414426834826803",
+        "google-8765872649370929691",
+        "google-586596472953538405",
+        "google-11050789416555807030"
+      ]
+    },
+    {
+      "id": "clubbing",
+      "name": "Clubbing",
+      "placeIds": [
+        "google-9085700733045713204",
+        "google-18136031416143333085",
+        "google-607394263235803896",
+        "google-16437284624606184834",
+        "google-8685257631788800159"
+      ]
+    },
+    {
+      "id": "concertos",
+      "name": "Casas de concertos",
+      "placeIds": [
+        "reference-casa-da-musica",
+        "google-8247749298331267903"
       ]
     },
     {
@@ -2707,9 +3297,117 @@ button:disabled{cursor:default;opacity:.55}
       ]
     }
   ],
-  "streets": []
+  "streets": [
+    {
+      "id": "rua-das-flores",
+      "name": "Rua das flores",
+      "regionId": "centro-historico",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.6111334,
+            41.145348
+          ],
+          [
+            -8.6111187,
+            41.1452733
+          ],
+          [
+            -8.6111562,
+            41.1451975
+          ],
+          [
+            -8.6113105,
+            41.1451238
+          ],
+          [
+            -8.6115492,
+            41.1450097
+          ],
+          [
+            -8.6120481,
+            41.1447643
+          ],
+          [
+            -8.6132594,
+            41.1441764
+          ],
+          [
+            -8.6145067,
+            41.1434674
+          ],
+          [
+            -8.6146354,
+            41.1433805
+          ],
+          [
+            -8.6147159,
+            41.1431563
+          ],
+          [
+            -8.6147051,
+            41.1428534
+          ]
+        ]
+      },
+      "sourceName": "Freguesias"
+    },
+    {
+      "id": "galerias-de-paris",
+      "name": "Galerias de Paris",
+      "regionId": "centro-historico",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -8.6140922,
+              41.1477322
+            ],
+            [
+              -8.6147306,
+              41.1466052
+            ],
+            [
+              -8.6140654,
+              41.1461891
+            ],
+            [
+              -8.6138025,
+              41.1476676
+            ],
+            [
+              -8.6140922,
+              41.1477322
+            ]
+          ]
+        ]
+      },
+      "sourceName": "Freguesias"
+    },
+    {
+      "id": "virtudes",
+      "name": "Virtudes",
+      "regionId": "centro-historico",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.6182671,
+            41.144698
+          ],
+          [
+            -8.6182939,
+            41.1435831
+          ]
+        ]
+      },
+      "sourceName": "Freguesias"
+    }
+  ]
 }
-  </script>
+</script>
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <script>
 'use strict';
@@ -2721,6 +3419,12 @@ const panels = new Map(), labels = [], markers = [];
 const listButtons = new Map(), activeLists = new Set();
 const placeLists = data.placeLists || [];
 const allPlaces = data.places;
+// A private stay comes only from the link (#hospedagem=lat,lng), never from the public data. The hash is not sent to the server.
+const stay = /^#hospedagem=(-?\d{1,2}\.\d+),(-?\d{1,3}\.\d+)$/.exec(location.hash);
+const stayCoords = stay && [Number(stay[1]),Number(stay[2])];
+if (stayCoords && Math.abs(stayCoords[0]-41.15) < 1 && Math.abs(stayCoords[1]+8.6) < 1) {
+  allPlaces.push({id:'hospedagem',name:'Hospedagem',type:'Onde vocês estão hospedados',coords:stayCoords,base:false,listIds:[],hotel:true,alwaysVisible:true,googleUrl:'https://www.google.com/maps/search/?api=1&query='+stayCoords.join(',')});
+}
 const streets = data.streets || [], streetButtons = new Map();
 const metroLines = [], metroStations = [], metroButtons = new Map(), activeMetroLines = new Set();
 let metroReady = false, activeStation = null;
@@ -2778,10 +3482,10 @@ function placeType(place) {return editorial.locais.get(place.id)?.tipo ?? place.
 function placeColor(place) {
   const type = placeType(place).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   // Cultural venues stay blue even when housed in a palace or historic building.
-  if (/muse|centro cultural|espaco cultural|espaco de expos|instituicao cultural|galeria|teatro/.test(type)) return '#1565c0';
-  if (/\b(praca|plaza|monumento|escultura|fonte|fuente|arco|catedral|palacio|templo)\b/.test(type)) return '#c74939';
-  if (/\b(parque|parc|park|jardim|jardin|jardines|lago)\b/.test(type)) return '#008026';
-  return '#1565c0';
+  if (/muse|centro cultural|espaco cultural|espaco de expos|instituicao cultural|galeria|teatro/.test(type)) return '#1f4fa3';
+  if (/\b(praca|plaza|monumento|escultura|fonte|fuente|arco|catedral|igreja|palacio|templo)\b/.test(type)) return '#4a5a70';
+  if (/\b(parque|parc|park|jardim|jardin|jardines|lago)\b/.test(type)) return '#3a7d6e';
+  return '#1f4fa3';
 }
 // Saved Google list places keep their own link; the others search by name.
 function placeGoogleLinks(place) {
@@ -2794,7 +3498,8 @@ function placeGoogleLinks(place) {
 function placeContent(place) {
   const item = editorial.locais.get(place.id);
   const extra = item?renderEditorialSections(item):'';
-  return '<strong class="place-name">'+escapeHTML(placeName(place))+'</strong><span class="place-type">'+escapeHTML(placeType(place))+'</span>'+(extra?'<div class="place-editorial">'+extra+'</div>':'')+placeGoogleLinks(place);
+  const flag = place.lgbt ? ' <span class="lgbt-flag" role="img" aria-label="Público LGBT+" title="Público LGBT+"></span>' : '';
+  return '<strong class="place-name">'+escapeHTML(placeName(place))+flag+'</strong><span class="place-type">'+escapeHTML(placeType(place))+'</span>'+(extra?'<div class="place-editorial">'+extra+'</div>':'')+placeGoogleLinks(place);
 }
 function streetName(street) {return editorial.ruas.get(street.id)?.nome ?? street.name;}
 function streetRegion(street) {return data.regions.find(region=>region.id === (editorial.ruas.get(street.id)?.bairro ?? street.regionId));}
@@ -2804,7 +3509,7 @@ function streetContent(street) {
   return '<strong class="place-name">'+escapeHTML(streetName(street))+'</strong>'+(region?'<span class="place-type">'+escapeHTML(regionName(region))+'</span>':'')+(extra?'<div class="place-editorial">'+extra+'</div>':'');
 }
 function streetFeatures() {
-  return {type:'FeatureCollection',features:streets.map(street=>({type:'Feature',properties:{id:street.id,color:streetRegion(street)?.color || '#263b35'},geometry:street.geometry}))};
+  return {type:'FeatureCollection',features:streets.map(street=>({type:'Feature',properties:{id:street.id,color:streetRegion(street)?.color || '#14284b'},geometry:street.geometry}))};
 }
 function refreshEditorialViews() {
   data.regions.forEach((region,index)=>{
@@ -2844,7 +3549,7 @@ function refreshEditorialViews() {
     if (button) {
       button.querySelector('strong').textContent = streetName(street);
       button.querySelector('small').textContent = region?regionName(region):'Rua em destaque';
-      button.style.setProperty('--color',region?.color || '#263b35');
+      button.style.setProperty('--color',region?.color || '#14284b');
     }
   }
   if (overlaysReady) map.getSource('streets')?.setData(streetFeatures());
@@ -3011,7 +3716,7 @@ function renderStreetControls() {
   section.innerHTML = '<div class="street-heading"><span>Ruas em destaque</span><label><input id="streets" type="checkbox" checked> Mostrar</label></div>';
   for (const street of streets) {
     const region = streetRegion(street), button = document.createElement('button');
-    button.type = 'button'; button.className = 'street-button'; button.style.setProperty('--color',region?.color || '#263b35');
+    button.type = 'button'; button.className = 'street-button'; button.style.setProperty('--color',region?.color || '#14284b');
     button.innerHTML = '<strong>'+escapeHTML(streetName(street))+'</strong><small>'+escapeHTML(region?regionName(region):'Rua em destaque')+'</small>';
     button.addEventListener('click',()=>{
       if (!map || !overlaysReady) return;
@@ -3115,7 +3820,7 @@ function addMetroLayers() {
   return metroData.then(collection=>{
     // GeoJSON sources stringify array properties, so station lines become "|1|2|" for filtering.
     const features = collection.features.map(({properties,geometry})=>({type:'Feature',geometry,properties:properties.kind === 'line'
-      ? {line:properties.line,color:properties.color,casing:'#fffdf8'}
+      ? {line:properties.line,color:properties.color,casing:'#ffffff'}
       : {name:properties.name,station:metroStations.findIndex(station=>station.properties === properties),lineKey:'|'+properties.lines.join('|')+'|'}}));
     const {image,pixelRatio} = metroStationIcon();
     map.addImage('metro-station',image,{pixelRatio});
@@ -3126,7 +3831,7 @@ function addMetroLayers() {
     map.addLayer({id:'metro-stations',type:'symbol',source:'metro',minzoom:11.5,filter:['has','lineKey'],layout:{
       'icon-image':'metro-station','icon-size':['interpolate',['linear'],['zoom'],11.5,.5,14,.8,17,1.1],'icon-allow-overlap':true,
       'text-field':['step',['zoom'],'',14.5,['get','name']],'text-font':['Noto Sans Regular'],'text-size':11,'text-offset':[0,1.2],'text-anchor':'top','text-optional':true
-    },paint:{'text-color':'#263b35','text-halo-color':'#fffdf8','text-halo-width':1.5}},before);
+    },paint:{'text-color':'#14284b','text-halo-color':'#ffffff','text-halo-width':1.5}},before);
     metroReady = true; syncLayers();
   });
 }
@@ -3165,6 +3870,7 @@ function renderListControls() {
     button.type = 'button'; button.className = 'list-toggle'; button.setAttribute('aria-pressed','false');
     button.title = list.sourceName || list.name;
     button.innerHTML = '<span>'+escapeHTML(list.name)+'</span><span class="list-count">'+list.placeIds.length+'</span>';
+    button.disabled = !list.placeIds.length;
     button.addEventListener('click',()=>{
       if (activeLists.has(list.id)) activeLists.delete(list.id); else activeLists.add(list.id);
       for (const [id,item] of listButtons) item.setAttribute('aria-pressed',String(activeLists.has(id)));
@@ -3331,14 +4037,14 @@ try {
   map.on('load',()=>{
     const features = data.regions.map(region => {
       const ring = region.polygon.map(lngLat); ring.push([...ring[0]]);
-      return {type:'Feature',properties:{id:region.id,color:region.color,stroke:region.color === '#FFED00' ? '#B39400' : region.color},geometry:region.geometry || {type:'Polygon',coordinates:[ring]}};
+      return {type:'Feature',properties:{id:region.id,color:region.color,stroke:region.color},geometry:region.geometry || {type:'Polygon',coordinates:[ring]}};
     });
     map.addSource('regions',{type:'geojson',data:{type:'FeatureCollection',features}});
     map.addLayer({id:'region-fills',type:'fill',source:'regions',paint:{'fill-color':['get','color'],'fill-opacity':.22}});
     map.addLayer({id:'region-lines',type:'line',source:'regions',paint:{'line-color':['get','stroke'],'line-width':1.7}});
     map.addSource('streets',{type:'geojson',data:streetFeatures()});
     map.addLayer({id:'street-fills',type:'fill',source:'streets',filter:['==',['geometry-type'],'Polygon'],paint:{'fill-color':['get','color'],'fill-opacity':.75}});
-    map.addLayer({id:'street-halo',type:'line',source:'streets',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#fffdf8','line-width':8}});
+    map.addLayer({id:'street-halo',type:'line',source:'streets',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#ffffff','line-width':8}});
     map.addLayer({id:'street-lines',type:'line',source:'streets',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':['get','color'],'line-width':4}});
     map.addLayer({id:'street-hit',type:'line',source:'streets',paint:{'line-color':'#000','line-width':24,'line-opacity':0}});
     overlaysReady = true; refreshSelection(); syncLayers();

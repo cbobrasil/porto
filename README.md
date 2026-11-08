@@ -1,18 +1,19 @@
 # Guia do Porto
 
-Um guia interativo para explorar o Porto a pé. O mapa reúne as freguesias da cidade, pontos de referência e listas de lugares para comer, sair à noite e estacionar.
+Um guia interativo para explorar o Porto a pé. O mapa reúne as freguesias da cidade, pontos de referência e listas de lugares para visitar, comer, sair à noite e estacionar.
 
 Pensado principalmente para usar no celular durante os passeios.
 
 ## O que você encontra
 
-- **7 regiões de passeio**, uma por freguesia do Porto, identificadas com as cores da bandeira arco-íris: Centro Histórico, Bonfim, Lordelo do Ouro e Massarelos, Aldoar/Foz do Douro/Nevogilde, Ramalde, Paranhos e Campanhã.
+- **7 regiões de passeio**, uma por freguesia do Porto, identificadas em tons de azul e cinza: Centro Histórico, Bonfim, Lordelo do Ouro e Massarelos, Aldoar/Foz do Douro/Nevogilde, Ramalde, Paranhos e Campanhã.
 - **Fichas dos bairros** com descrições, destaques e ideias de passeio.
 - **Pontos no mapa** com o nome do lugar e sua categoria.
-- **Cores por categoria nos pontos:** verde para parques e jardins, vermelho para monumentos e praças, azul para estabelecimentos e museus.
+- **Cores por categoria nos pontos:** verde-azulado para parques e jardins, cinza-ardósia para monumentos, praças e igrejas, azul para estabelecimentos e museus.
+- **Ruas em destaque** desenhadas no mapa, com a cor da região: Rua das Flores, Galeria de Paris e Passeio das Virtudes. Toque numa rua para ler sobre ela.
 - **Metro do Porto**: as linhas A a F com as cores oficiais e as estações marcadas com um "M" azul. Toque numa estação para ver as linhas que passam por ela.
-- **Listas independentes** de bares e clubs LGBT+, vegano e vegetariano, e estacionamentos.
-- **Referências fixas no mapa:** Estação de São Bento (S), Torre dos Clérigos (C) e Ponte Luís I (P), além do terminal de autocarros de Campanhã e do aeroporto, que aparecem sempre.
+- **Listas independentes** de monumentos, museus, igrejas e lugares religiosos, parques e jardins, pôr do sol, restaurantes, bares, clubbing, casas de concertos, vegano e vegetariano, e estacionamentos. Bares e clubs voltados ao público LGBT+ ficam em Bares ou Clubbing e mostram uma bandeirinha arco-íris no popup.
+- **Referências fixas no mapa:** Estação de São Bento (S), Torre dos Clérigos (C), Ponte Luís I (P), Mercado do Bolhão (B), Livraria Lello (L), Casa da Música (CM), Jardins do Palácio de Cristal (PC) e Serralves (SV), além do terminal de autocarros de Campanhã e do aeroporto, que aparecem sempre.
 
 ## Como explorar
 
