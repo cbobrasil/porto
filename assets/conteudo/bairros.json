@@ -25,14 +25,6 @@
             "Mercado do Bolhão",
             "Rua de Miguel Bombarda e as galerias"
           ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Comece em São Bento, suba até a Sé e desça pelas escadas e vielas até a Ribeira. Dali, atravesse o tabuleiro inferior da Ponte Luís I para ver o Porto do lado de Gaia, ou volte pela Rua das Flores até os Clérigos e os Aliados."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "As subidas são fortes: vá de sapato confortável. À noite, as ruas entre a Galeria de Paris, a Rua da Conceição e a Praça de Carlos Alberto concentram bares."
         }
       ],
       "links": [
@@ -62,14 +54,6 @@
             "Igreja do Bonfim",
             "Campo 24 de Agosto"
           ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Saia da Praça da Batalha, passe pelo Jardim de São Lázaro e siga pela Rua do Bonfim até a igreja. Para voltar, o metrô no Campo 24 de Agosto leva à Trindade e aos Aliados."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "Bom para almoçar fora da rota turística. O Suribachi, da lista vegana, fica na Rua do Bonfim."
         }
       ],
       "links": [
@@ -100,14 +84,6 @@
             "Ponte da Arrábida",
             "Marginal do Douro"
           ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Dos Jardins do Palácio de Cristal, com vista para o Douro, desça até a marginal e siga o rio no sentido da Ponte da Arrábida. O elétrico 1 faz o mesmo percurso, entre o Infante e o Passeio Alegre."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "Serralves pede meio dia: o parque é grande e o museu de arte contemporânea tem bilhete conjunto. Confira os horários antes de ir."
         }
       ],
       "links": [
@@ -138,14 +114,6 @@
             "Avenida do Brasil e as praias",
             "Parque da Cidade"
           ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Desça do elétrico 1 no Passeio Alegre, vá até o Farolim de Felgueiras e siga pela Avenida do Brasil, à beira-mar, até o Castelo do Queijo. Dali, o Parque da Cidade fica a poucos minutos."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "Venta bastante e a água é fria mesmo no verão. Leve um agasalho para o fim da tarde."
         }
       ],
       "links": [
@@ -158,29 +126,14 @@
     {
       "id": "ramalde",
       "nome": "Ramalde",
-      "subtitulo": "Residencial, a caminho de Matosinhos",
+      "subtitulo": "Zona industrial e de passagem",
       "secoes": [
         {
-          "texto": "Freguesia residencial ao norte da Boavista, pouco turística. É atravessada pelo metrô a caminho de Matosinhos e do aeroporto."
+          "texto": "Freguesia ao norte da Boavista, pouco turística. É sobretudo uma zona industrial e comercial, atravessada pelo metrô a caminho de Matosinhos e do aeroporto."
         },
         {
           "titulo": "O clima da região",
-          "texto": "Bairros de habitação, comércio local e zonas de escritórios. Mais lugar de passagem do que de passeio."
-        },
-        {
-          "titulo": "O que ver",
-          "itens": [
-            "Estações de metrô Francos, Ramalde e Viso",
-            "Avenida da Boavista, na borda sul"
-          ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Não é um bairro de passeio. Das estações Francos e Ramalde, as linhas A, B, C, E e F seguem direto para a Trindade e o centro."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "A linha E, que vai ao aeroporto, passa por aqui: é uma base prática para quem chega ou sai de avião."
+          "texto": "Concessionárias, armazéns, oficinas e bairros residenciais. Lugar de passagem, sem atrações para quem está passeando."
         }
       ],
       "links": [
@@ -209,14 +162,6 @@
             "Hospital de São João",
             "Rua de Costa Cabral"
           ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Para quem fica por aqui, a linha D (amarela) liga o Hospital de São João à Trindade, aos Aliados e a São Bento, e atravessa a Ponte Luís I até Gaia."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "Pouco para ver a pé: use como base e vá de metrô para o centro."
         }
       ],
       "links": [
@@ -229,31 +174,18 @@
     {
       "id": "campanha",
       "nome": "Campanhã",
-      "subtitulo": "Estação, Dragão e lado oriental",
+      "subtitulo": "Comboios e autocarros intercidades",
       "secoes": [
         {
-          "texto": "Lado oriental da cidade. Tem a estação de comboios de Campanhã, o Terminal Intermodal (autocarros) e o Estádio do Dragão."
+          "texto": "Lado oriental da cidade e principal ponto de transporte intercidades do Porto: a estação de comboios de Campanhã e o Terminal Intermodal, de onde saem os autocarros de longa distância."
         },
         {
           "titulo": "O clima da região",
-          "texto": "Área de transportes, bairros residenciais e antigas zonas industriais, com uma margem do Douro pouco explorada."
+          "texto": "Área de transportes, bairros residenciais e antigas zonas industriais. Pouco para ver a passeio."
         },
         {
-          "titulo": "O que ver",
-          "itens": [
-            "Estação de Campanhã",
-            "Terminal Intermodal de Campanhã",
-            "Estádio do Dragão",
-            "Parque Oriental da Cidade do Porto"
-          ]
-        },
-        {
-          "titulo": "Uma ideia de passeio",
-          "texto": "Mais ponto de chegada e saída do que de passeio. Da estação, o metrô (linhas A, B, C, E e F) ou o comboio urbano até São Bento levam ao centro em poucos minutos."
-        },
-        {
-          "titulo": "Para aproveitar melhor",
-          "texto": "Em dia de jogo do FC Porto, o metrô até o Estádio do Dragão fica cheio antes e depois da partida."
+          "titulo": "Do comboio ao autocarro",
+          "texto": "Da estação de comboios ao terminal de autocarros são menos de 10 minutos a pé: atravesse pela passagem subterrânea da estação e ande um pouco até o terminal."
         }
       ],
       "links": [

@@ -92,7 +92,7 @@
       "tipo": "Estação rodoviária",
       "secoes": [
         {
-          "texto": "Principal terminal de autocarros de longa distância, ao lado da estação de comboios de Campanhã. Para o centro: metrô (linhas A, B, C, E e F) ou comboio urbano até São Bento."
+          "texto": "Principal terminal de autocarros de longa distância, ao lado da estação de comboios de Campanhã. Para o centro: metrô (linhas A, B, C, E e F) ou comboio urbano até São Bento. Da estação de comboios de Campanhã são menos de 10 minutos a pé, pela passagem subterrânea da estação."
         }
       ],
       "links": [],
@@ -540,7 +540,7 @@
       "tipo": "Bar",
       "secoes": [
         {
-          "texto": "Bar local, mais jovem e animado, com preços baixos; tem fama de ser o bar que mais vende Super Bock no país. Petiscos como bolinhos de bacalhau e salgados ao estilo brasileiro."
+          "texto": "Bar local na Travessa de Cedofeita, com a cerveja mais barata da cidade; durante anos foi o bar que mais vendeu Super Bock em Portugal. Ótimos petiscos de forno e fritos, como bolinhos de bacalhau. Público jovem e animado."
         }
       ],
       "links": [],
@@ -700,6 +700,34 @@
       "links": [],
       "origens": [
         "Museus"
+      ]
+    },
+    {
+      "id": "google-15168545695424324213",
+      "nome": "Taberna Santo António",
+      "tipo": "Taberna",
+      "secoes": [
+        {
+          "texto": "Taberna de comida portuguesa caseira na Rua das Virtudes, perto da Cordoaria e do Jardim das Virtudes. Pratos fartos e baratos: bolinhos de bacalhau, rissóis, leitão assado, pernil e francesinha, com sobremesas caseiras. Salão pequeno e concorrido."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Restaurantes"
+      ]
+    },
+    {
+      "id": "google-8587099537667679130",
+      "nome": "A Mariola",
+      "tipo": "Restaurante",
+      "secoes": [
+        {
+          "texto": "Restaurante familiar de comida portuguesa tradicional na Rua das Taipas, frequentado por gente do bairro. Preços acessíveis; peça o polvo, o bacalhau à brás ou a vitela, e o leite-creme caseiro. Vale reservar."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Restaurantes"
       ]
     }
   ]

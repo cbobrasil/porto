@@ -7,7 +7,7 @@ Pensado principalmente para usar no celular durante os passeios.
 ## O que você encontra
 
 - **7 regiões de passeio**, uma por freguesia do Porto, identificadas em tons de azul e cinza: Centro Histórico, Bonfim, Lordelo do Ouro e Massarelos, Aldoar/Foz do Douro/Nevogilde, Ramalde, Paranhos e Campanhã.
-- **Fichas dos bairros** com descrições, destaques e ideias de passeio.
+- **Fichas dos bairros** com descrição, clima e o que ver.
 - **Pontos no mapa** com o nome do lugar e sua categoria.
 - **Cores por categoria nos pontos:** verde-azulado para parques e jardins, cinza-ardósia para monumentos, praças e igrejas, azul para estabelecimentos e museus.
 - **Ruas em destaque** desenhadas no mapa, com a cor da região: Rua das Flores, Galeria de Paris e Passeio das Virtudes. Toque numa rua para ler sobre ela.
