@@ -1,0 +1,203 @@
+{
+  "versao": 1,
+  "tipo": "bairros",
+  "itens": [
+    {
+      "id": "centro-historico",
+      "nome": "Centro Histórico",
+      "subtitulo": "Ribeira, Baixa e Cedofeita",
+      "secoes": [
+        {
+          "texto": "Freguesia que reúne o Porto antigo: Sé, Ribeira e Miragaia junto ao rio, a Baixa dos Aliados e de Santa Catarina e o bairro de Cedofeita."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ladeiras, escadarias e fachadas de azulejo. Perto do rio o movimento é bem turístico; na Baixa e em Cedofeita há mais cafés, lojas independentes, galerias e vida noturna."
+        },
+        {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória. No mapa, cada uma aparece com contorno tracejado e o nome."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Estação de São Bento",
+            "Sé do Porto",
+            "Ribeira e Cais da Ribeira",
+            "Torre e Igreja dos Clérigos",
+            "Avenida dos Aliados",
+            "Mercado do Bolhão",
+            "Rua de Miguel Bombarda e as galerias"
+          ]
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Cedofeita,_Santo_Ildefonso,_S%C3%A9,_Miragaia,_S%C3%A3o_Nicolau_e_Vit%C3%B3ria"
+        }
+      ]
+    },
+    {
+      "id": "bonfim",
+      "nome": "Bonfim",
+      "subtitulo": "Bairro residencial e cafés novos",
+      "secoes": [
+        {
+          "texto": "A leste da Baixa, entre a Praça da Batalha e Campanhã. Bairro residencial antigo que nos últimos anos ganhou cafés, restaurantes e ateliês."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ruas mais calmas que as do centro, casas com azulejo e comércio de bairro. A Rua do Bonfim e o entorno do Jardim de São Lázaro concentram as aberturas recentes."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardim de São Lázaro",
+            "Biblioteca Pública Municipal do Porto",
+            "Igreja do Bonfim",
+            "Campo 24 de Agosto"
+          ]
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Bonfim_(Porto)"
+        }
+      ]
+    },
+    {
+      "id": "massarelos",
+      "nome": "Lordelo do Ouro e Massarelos",
+      "subtitulo": "Palácio de Cristal, Serralves e o rio",
+      "secoes": [
+        {
+          "texto": "Faixa a oeste do centro, dos Jardins do Palácio de Cristal até a Fundação de Serralves e a margem do Douro. Mistura jardins, museus e avenidas largas."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Mais espaçoso e verde que o centro. Junto ao rio, a marginal é plana e boa para caminhar ou pedalar até a Foz."
+        },
+        {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Lordelo do Ouro e Massarelos. No mapa, cada uma aparece com contorno tracejado e o nome."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardins do Palácio de Cristal",
+            "Museu Romântico",
+            "Fundação de Serralves (museu e parque)",
+            "Ponte da Arrábida",
+            "Marginal do Douro"
+          ]
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Lordelo_do_Ouro_e_Massarelos"
+        }
+      ]
+    },
+    {
+      "id": "foz",
+      "nome": "Aldoar, Foz do Douro e Nevogilde",
+      "subtitulo": "Onde o Douro encontra o mar",
+      "secoes": [
+        {
+          "texto": "Onde o Douro encontra o Atlântico. Antiga zona de pescadores e de veraneio, hoje bairro residencial com praias e passeio à beira-mar."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Ritmo de praia: gente caminhando e correndo no passeio marítimo, esplanadas e pôr do sol sobre o mar. Ao norte, Nevogilde e Aldoar são mais residenciais e chegam ao Parque da Cidade."
+        },
+        {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Aldoar, Foz do Douro e Nevogilde. No mapa, cada uma aparece com contorno tracejado e o nome."
+        },
+        {
+          "titulo": "O que ver",
+          "itens": [
+            "Jardim do Passeio Alegre",
+            "Farolim de Felgueiras",
+            "Forte de São João Baptista da Foz",
+            "Avenida do Brasil e as praias",
+            "Parque da Cidade"
+          ]
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Aldoar,_Foz_do_Douro_e_Nevogilde"
+        }
+      ]
+    },
+    {
+      "id": "ramalde",
+      "nome": "Ramalde",
+      "subtitulo": "Zona industrial e de passagem",
+      "secoes": [
+        {
+          "texto": "Freguesia ao norte da Boavista, pouco turística. É sobretudo uma zona industrial e comercial, atravessada pelo metrô a caminho de Matosinhos e do aeroporto."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Concessionárias, armazéns, oficinas e bairros residenciais. Lugar de passagem, sem atrações para quem está passeando."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Ramalde"
+        }
+      ]
+    },
+    {
+      "id": "paranhos",
+      "nome": "Paranhos",
+      "subtitulo": "Universidades e Hospital de São João",
+      "secoes": [
+        {
+          "texto": "A maior freguesia do Porto, ao norte do centro. Reúne o Polo Universitário da Asprela e o Hospital de São João."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Bairro de estudantes e moradores, com residências universitárias, comércio de rua e poucas atrações turísticas."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Paranhos_(Porto)"
+        }
+      ]
+    },
+    {
+      "id": "campanha",
+      "nome": "Campanhã",
+      "subtitulo": "Comboios e autocarros intercidades",
+      "secoes": [
+        {
+          "texto": "Lado oriental da cidade e principal ponto de transporte intercidades do Porto: a estação de comboios de Campanhã e o Terminal Intermodal, de onde saem os autocarros de longa distância."
+        },
+        {
+          "titulo": "O clima da região",
+          "texto": "Área de transportes, bairros residenciais e antigas zonas industriais. Pouco para ver a passeio."
+        },
+        {
+          "titulo": "Do comboio ao autocarro",
+          "texto": "Da estação de comboios ao terminal de autocarros são menos de 10 minutos a pé: atravesse pela passagem subterrânea da estação e ande um pouco até o terminal."
+        }
+      ],
+      "links": [
+        {
+          "texto": "Mais sobre a região",
+          "url": "https://pt.wikipedia.org/wiki/Campanh%C3%A3"
+        }
+      ]
+    }
+  ]
+}

@@ -27,7 +27,7 @@ Os controles **Áreas**, **Nomes** e **Metrô** permitem ajustar o que aparece n
 
 ## Sobre o mapa
 
-Seis contornos foram desenhados no Google My Maps sobre as freguesias do Porto; o do Centro Histórico é o limite oficial da freguesia, tirado do OpenStreetMap. Os nomes dos lugares ficam como no Porto, e os textos do guia estão em português do Brasil.
+Os contornos das regiões são os limites oficiais das freguesias, tirados do OpenStreetMap: as 7 atuais e, tracejadas, as 11 antigas que formam as uniões. Os nomes dos lugares ficam como no Porto, e os textos do guia estão em português do Brasil.
 
 É necessário acesso à internet para carregar o mapa de fundo.
 
