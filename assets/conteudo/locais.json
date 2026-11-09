@@ -3,68 +3,12 @@
   "tipo": "locais",
   "itens": [
     {
-      "id": "reference-sao-bento",
-      "nome": "Estação de São Bento",
-      "tipo": "Estação ferroviária",
-      "secoes": [
-        {
-          "texto": "Estação de comboios no centro, famosa pelo átrio coberto de azulejos com cenas da história de Portugal. A entrada no átrio é livre. Daqui saem os comboios urbanos para Campanhã e Guimarães."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Referências do mapa"
-      ]
-    },
-    {
       "id": "reference-clerigos",
       "nome": "Torre dos Clérigos",
       "tipo": "Monumento",
       "secoes": [
         {
           "texto": "Torre barroca do século XVIII, um dos símbolos da cidade e visível de quase todo o centro. A subida tem cerca de 240 degraus e bilhete pago; ao fim da tarde costuma ter fila."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Referências do mapa"
-      ]
-    },
-    {
-      "id": "reference-ponte-luis-i",
-      "nome": "Ponte Luís I",
-      "tipo": "Monumento",
-      "secoes": [
-        {
-          "texto": "Ponte de ferro de dois tabuleiros entre o Porto e Gaia. Em cima passam o metrô (linha D) e pedestres, com vista sobre a Ribeira; embaixo, carros e pedestres junto ao rio."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Referências do mapa"
-      ]
-    },
-    {
-      "id": "reference-bolhao",
-      "nome": "Mercado do Bolhão",
-      "tipo": "Mercado",
-      "secoes": [
-        {
-          "texto": "Mercado histórico da Baixa, reaberto em 2022 depois de uma longa reforma. Bancas de peixe, fruta, flores, enchidos e queijos, e pequenos restaurantes no andar de cima. Fechado aos domingos; confira o horário."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Referências do mapa"
-      ]
-    },
-    {
-      "id": "reference-casa-da-musica",
-      "nome": "Casa da Música",
-      "tipo": "Sala de concertos",
-      "secoes": [
-        {
-          "texto": "Sala de concertos na Rotunda da Boavista, projetada por Rem Koolhaas. O prédio vale a visita mesmo sem concerto; há visitas guiadas pagas. Metrô: estação Casa da Música (linhas A, B, C, E e F)."
         }
       ],
       "links": [],
@@ -88,11 +32,11 @@
     },
     {
       "id": "bus-campanha",
-      "nome": "Terminal Intermodal de Campanhã",
-      "tipo": "Estação rodoviária",
+      "nome": "Campanhã: comboios, metrô e autocarros",
+      "tipo": "Estação de transportes",
       "secoes": [
         {
-          "texto": "Principal terminal de autocarros de longa distância, ao lado da estação de comboios de Campanhã. Para o centro: metrô (linhas A, B, C, E e F) ou comboio urbano até São Bento. Da estação de comboios de Campanhã são menos de 10 minutos a pé, pela passagem subterrânea da estação."
+          "texto": "Principal ponto de transporte intercidades do Porto: a estação de comboios, a estação de metrô (linhas A, B, C, E e F) e o Terminal Intermodal, de onde saem os autocarros de longa distância, ficam lado a lado. Entre o comboio e o autocarro são menos de 10 minutos a pé, pela passagem subterrânea da estação. Para o centro: metrô ou comboio urbano até São Bento."
         }
       ],
       "links": [],
@@ -112,6 +56,34 @@
       "links": [],
       "origens": [
         "Chegada e saída"
+      ]
+    },
+    {
+      "id": "google-14745104950003252575",
+      "nome": "Urgência do Hospital de São João",
+      "tipo": "Hospital (urgência 24 horas)",
+      "secoes": [
+        {
+          "texto": "Urgência geral do Hospital Universitário de São João, aberta 24 horas, no norte da cidade. Metrô: estação Hospital São João (linha D). Em caso de emergência, ligue 112."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Saúde"
+      ]
+    },
+    {
+      "id": "google-11075950675400194616",
+      "nome": "Hospital de Santo António",
+      "tipo": "Hospital (urgência 24 horas)",
+      "secoes": [
+        {
+          "texto": "Hospital central do Porto, entre a Cordoaria e o Palácio de Cristal, com urgência aberta 24 horas. É o mais perto do centro histórico. Em caso de emergência, ligue 112."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Saúde"
       ]
     },
     {
@@ -311,68 +283,12 @@
       ]
     },
     {
-      "id": "google-2970628053487203559",
-      "nome": "Jardim do Morro",
-      "tipo": "Jardim e miradouro",
-      "secoes": [
-        {
-          "texto": "Jardim em Vila Nova de Gaia, na saída do tabuleiro de cima da Ponte Luís I. Uma das melhores vistas do Porto e da Ribeira, sobretudo ao pôr do sol, quando fica muito cheio. Dá para vir a pé atravessando a ponte por cima ou de metrô (linha D, estação Jardim do Morro)."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
       "id": "google-3558561736108103645",
       "nome": "Jardim das Virtudes",
       "tipo": "Jardim e miradouro",
       "secoes": [
         {
           "texto": "Jardim em socalcos que desce em direção ao Douro, perto da Cordoaria. No Passeio das Virtudes, em cima, há bares simples onde dá para sentar com uma cerveja e ver o pôr do sol sobre o rio."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
-      "id": "google-11781453084677099540",
-      "nome": "Parque de Serralves",
-      "tipo": "Parque",
-      "secoes": [
-        {
-          "texto": "Parque grande e muito bem cuidado entre a Boavista e a Foz, com jardins, bosque e quinta. A entrada é paga (por volta de 20 €; confira o preço) e inclui o Museu de Arte Contemporânea de Serralves, que vale a visita. Reserve meio dia."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
-      "id": "google-9869348635645350156",
-      "nome": "Parque da Cidade",
-      "tipo": "Parque",
-      "secoes": [
-        {
-          "texto": "O maior parque urbano do Porto, gratuito, no limite com Matosinhos. Caminhos, lagos e relvados que vão até a praia. Perto, numa rotunda junto ao mar, fica a Anémona, a grande escultura de rede suspensa. Dá para emendar com um almoço de peixe ou marisco em Matosinhos."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
-      "id": "google-7236363821226401080",
-      "nome": "Jardins do Palácio de Cristal",
-      "tipo": "Jardim",
-      "secoes": [
-        {
-          "texto": "Jardins gratuitos no alto de Massarelos, com miradouros sobre o Douro, a cidade e, ao longe, o mar. Pavões soltos e bancos à sombra; boa pausa entre o centro e a Foz."
         }
       ],
       "links": [],
@@ -456,7 +372,7 @@
       "tipo": "Pastelaria",
       "secoes": [
         {
-          "texto": "Fábrica de pastéis de nata com fornadas o dia todo; dá para ver os pasteleiros trabalhando atrás do balcão. Peça o pastel ainda quente. Fica ao lado do Mercado do Bolhão, renovado há pouco, e da Rua de Santa Catarina, rua de pedestres com lojas e cafés. Na mesma rua está o Café Majestic, bonito por dentro mas caro."
+          "texto": "Fábrica de pastéis de nata com fornadas o dia todo; dá para ver os pasteleiros trabalhando atrás do balcão. Peça o pastel ainda quente. "
         }
       ],
       "links": [],
@@ -521,40 +437,12 @@
       ]
     },
     {
-      "id": "google-13578414426834826803",
-      "nome": "Letraria Porto Downtown",
-      "tipo": "Bar de cerveja artesanal",
-      "secoes": [
-        {
-          "texto": "Da rua parece só uma porta pequena, mas lá embaixo há um jardim escondido. Cerveja artesanal com petiscos ou hambúrguer. Confira antes de ir."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
       "id": "google-8765872649370929691",
       "nome": "Espaço 77",
       "tipo": "Bar",
       "secoes": [
         {
           "texto": "Bar local na Travessa de Cedofeita, com a cerveja mais barata da cidade; durante anos foi o bar que mais vendeu Super Bock em Portugal. Ótimos petiscos de forno e fritos, como bolinhos de bacalhau. Público jovem e animado."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Dicas do Porto"
-      ]
-    },
-    {
-      "id": "google-18136031416143333085",
-      "nome": "Rua da Galeria de Paris",
-      "tipo": "Rua de bares",
-      "secoes": [
-        {
-          "texto": "A rua mais movimentada da noite no Porto, com bares e discotecas de vários estilos, e as ruas em volta também. A noite começa tarde, raramente antes das 23h, e pode ir até de manhã."
         }
       ],
       "links": [],
@@ -661,34 +549,6 @@
       ]
     },
     {
-      "id": "pin-parque-sao-roque",
-      "nome": "Parque de São Roque",
-      "tipo": "Parque",
-      "secoes": [
-        {
-          "texto": "Parque de uma antiga quinta em Campanhã, com jardins em socalcos, um labirinto de buxo e vista sobre a cidade. Tranquilo e pouco conhecido por turistas. Entrada livre."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Parques e jardins"
-      ]
-    },
-    {
-      "id": "pin-jardim-cordoaria",
-      "nome": "Jardim da Cordoaria",
-      "tipo": "Jardim",
-      "secoes": [
-        {
-          "texto": "Jardim no centro, entre os Clérigos e a Reitoria da Universidade, oficialmente Jardim de João Chagas. Árvores grandes, bancos e as esculturas \"Treze a Rir Uns dos Outros\", de Juan Muñoz. Boa pausa à sombra."
-        }
-      ],
-      "links": [],
-      "origens": [
-        "Parques e jardins"
-      ]
-    },
-    {
       "id": "pin-centro-portugues-fotografia",
       "nome": "Centro Português de Fotografia",
       "tipo": "Museu de fotografia",
@@ -728,6 +588,162 @@
       "links": [],
       "origens": [
         "Restaurantes"
+      ]
+    },
+    {
+      "id": "pin-super-bock-arena",
+      "nome": "Super Bock Arena",
+      "tipo": "Sala de espetáculos",
+      "secoes": [
+        {
+          "texto": "O antigo Pavilhão Rosa Mota, a grande cúpula dentro dos Jardins do Palácio de Cristal. Recebe concertos, festivais e eventos; veja a programação e compre o bilhete antes."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Casas de concertos"
+      ]
+    },
+    {
+      "id": "google-13663084083767548181",
+      "nome": "Guindalense Futebol Clube",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar do clube de futebol do bairro, na Escada dos Guindais, com esplanada e uma vista maravilhosa sobre o Douro e a Ponte Luís I. Comida simples e não muito cara; ótimo para o fim da tarde."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
+      ]
+    },
+    {
+      "id": "google-17123714647247615587",
+      "nome": "Azul e Branco",
+      "tipo": "Café",
+      "secoes": [
+        {
+          "texto": "Café com esplanada no Passeio das Fontainhas, com vista sobre o Douro. Peça os bolinhos de bacalhau com pimentinha: incríveis."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Restaurantes"
+      ]
+    },
+    {
+      "id": "google-13753433323149191792",
+      "nome": "Cult of Pita",
+      "tipo": "Restaurante vegetariano",
+      "secoes": [
+        {
+          "texto": "Restaurante vegetariano de comida israelita na Rua de Fernandes Tomás, ao lado do Mercado do Bolhão. Pitas recheadas, pratos para partilhar e sobremesas como o pudim com pistácio. A música pode ser alta."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Restaurantes",
+        "Vegano e vegetariano"
+      ]
+    },
+    {
+      "id": "google-11751612210030532805",
+      "nome": "Adega Leonor",
+      "tipo": "Taberna",
+      "secoes": [
+        {
+          "texto": "Taberna pequena no Campo dos Mártires da Pátria, ao lado da Cordoaria, popular entre estudantes. Cerveja em caneca a preço bom e mesas na rua; animada ao fim da tarde."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Tascas"
+      ]
+    },
+    {
+      "id": "google-16141449263211083186",
+      "nome": "Casa dos Presuntos \"Xico\"",
+      "tipo": "Tasca",
+      "secoes": [
+        {
+          "texto": "Tasca tradicional na Rua do Heroísmo, famosa pelas sandes de presunto bem recheadas. Bom vinho, queijo da Serra e petiscos a preço justo."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Tascas"
+      ]
+    },
+    {
+      "id": "google-2916001600314466357",
+      "nome": "Tasquinha Rebelo",
+      "tipo": "Tasca",
+      "secoes": [
+        {
+          "texto": "Tasca pequenina na Rua de Miraflor, com comida caseira e muitos petiscos a bons preços, de sandes de presunto a francesinha. O espaço é estreito e enche rápido; às vezes é preciso esperar do lado de fora."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Tascas"
+      ]
+    },
+    {
+      "id": "google-17443305065782146300",
+      "nome": "Académico Bar",
+      "tipo": "Bar brasileiro",
+      "secoes": [
+        {
+          "texto": "Bar de brasileiros na Rua de Costa Cabral, que passa os jogos do Flamengo. Jam session às quintas, cerveja barata e esplanada grande."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
+      ]
+    },
+    {
+      "id": "google-2262722629816264982",
+      "nome": "Ferro Bar",
+      "tipo": "Bar",
+      "secoes": [
+        {
+          "texto": "Bar alternativo na Rua da Madeira, ao lado da estação de São Bento, com ambiente rústico e boa música. Tem noites com DJ, samba na cave e uma esplanada com vista. Bons preços."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
+      ]
+    },
+    {
+      "id": "google-288711720224010983",
+      "nome": "Lola Hi-Fi",
+      "tipo": "Bar de vinil",
+      "secoes": [
+        {
+          "texto": "Bar na Rua de José Falcão com som hi-fi e discos de vinil, cocktails bem feitos e comida. Espaço bonito e acolhedor; bom para jantar, beber um drink ou esticar a noite com música."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares",
+        "Clubbing"
+      ]
+    },
+    {
+      "id": "google-17703531634827352768",
+      "nome": "Candelabro",
+      "tipo": "Bar de vinhos",
+      "secoes": [
+        {
+          "texto": "Bar de vinhos com livraria de livros usados na Rua da Conceição, perto da Praça de Carlos Alberto. Ambiente boêmio, boa carta de vinhos portugueses, petiscos e esplanada. Pedidos no balcão; bom para o fim da tarde."
+        }
+      ],
+      "links": [],
+      "origens": [
+        "Bares"
       ]
     }
   ]

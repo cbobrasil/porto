@@ -15,6 +15,10 @@
           "texto": "Ladeiras, escadarias e fachadas de azulejo. Perto do rio o movimento é bem turístico; na Baixa e em Cedofeita há mais cafés, lojas independentes, galerias e vida noturna."
         },
         {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória. No mapa, cada uma aparece com contorno tracejado e o nome."
+        },
+        {
           "titulo": "O que ver",
           "itens": [
             "Estação de São Bento",
@@ -76,6 +80,10 @@
           "texto": "Mais espaçoso e verde que o centro. Junto ao rio, a marginal é plana e boa para caminhar ou pedalar até a Foz."
         },
         {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Lordelo do Ouro e Massarelos. No mapa, cada uma aparece com contorno tracejado e o nome."
+        },
+        {
           "titulo": "O que ver",
           "itens": [
             "Jardins do Palácio de Cristal",
@@ -104,6 +112,10 @@
         {
           "titulo": "O clima da região",
           "texto": "Ritmo de praia: gente caminhando e correndo no passeio marítimo, esplanadas e pôr do sol sobre o mar. Ao norte, Nevogilde e Aldoar são mais residenciais e chegam ao Parque da Cidade."
+        },
+        {
+          "titulo": "Freguesias",
+          "texto": "Esta região junta as antigas freguesias de Aldoar, Foz do Douro e Nevogilde. No mapa, cada uma aparece com contorno tracejado e o nome."
         },
         {
           "titulo": "O que ver",
@@ -154,14 +166,6 @@
         {
           "titulo": "O clima da região",
           "texto": "Bairro de estudantes e moradores, com residências universitárias, comércio de rua e poucas atrações turísticas."
-        },
-        {
-          "titulo": "O que ver",
-          "itens": [
-            "Polo Universitário da Asprela",
-            "Hospital de São João",
-            "Rua de Costa Cabral"
-          ]
         }
       ],
       "links": [

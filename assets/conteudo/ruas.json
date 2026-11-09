@@ -37,6 +37,354 @@
       ],
       "links": [],
       "origem": "Freguesias"
+    },
+    {
+      "id": "mercado-do-bolhao",
+      "nome": "Mercado do Bolhão",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Mercado histórico da Baixa, reaberto em 2022 depois de uma longa reforma. Bancas de peixe, fruta, flores, enchidos e queijos, e pequenos restaurantes no andar de cima. Fechado aos domingos; confira o horário."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "praca-da-boavista",
+      "nome": "Rotunda da Boavista",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "A grande rotunda da Boavista, oficialmente Praça de Mouzinho de Albuquerque, com um jardim e o monumento aos heróis da Guerra Peninsular no centro. Ao lado ficam a Casa da Música e a estação de metrô Casa da Música (linhas A, B, C, E e F)."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "casa-da-musica",
+      "nome": "Casa da Música",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Sala de concertos projetada por Rem Koolhaas, na Rotunda da Boavista. O prédio vale a visita mesmo sem concerto; há visitas guiadas pagas. Veja a programação no site."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "campanha-estacao-de-comboios",
+      "nome": "Estação de Campanhã",
+      "bairro": "campanha",
+      "secoes": [
+        {
+          "texto": "Principal estação de comboios do Porto: daqui saem os Alfa Pendular e Intercidades para Lisboa e o resto do país, além dos comboios urbanos. Para o centro, pegue o metrô ao lado ou um urbano até São Bento. O terminal de autocarros fica a menos de 10 minutos a pé, pela passagem subterrânea da estação de comboios."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "estacao-intermodal-autocarro",
+      "nome": "Terminal Intermodal de Campanhã",
+      "bairro": "campanha",
+      "secoes": [
+        {
+          "texto": "Terminal dos autocarros de longa distância e internacionais. A estação de comboios fica a menos de 10 minutos a pé, pela passagem subterrânea da estação."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "metro-campanha",
+      "nome": "Metrô Campanhã",
+      "bairro": "campanha",
+      "secoes": [
+        {
+          "texto": "Estação de metrô ao lado da estação de comboios de Campanhã. Passam as linhas A, B, C, E e F; para o centro, desça na Trindade ou no Bolhão."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "ponte-luis-i",
+      "nome": "Ponte Luís I",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Ponte de ferro de dois tabuleiros entre o Porto e Gaia. Em cima passam o metrô (linha D) e pedestres, com vista sobre a Ribeira; embaixo, carros e pedestres junto ao rio."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "cais-da-ribeira",
+      "nome": "Cais da Ribeira",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Beira-rio do Centro Histórico, com casas coloridas, esplanadas e barcos rabelos. Muito turístico e cheio no fim da tarde; bom para caminhar até a Ponte Luís I."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "parque-serralves",
+      "nome": "Parque de Serralves",
+      "bairro": "massarelos",
+      "secoes": [
+        {
+          "texto": "Parque grande e muito bem cuidado entre a Boavista e a Foz, com jardins, bosque e quinta. A entrada é paga (por volta de 20 €; confira o preço) e inclui o Museu de Arte Contemporânea de Serralves, que vale a visita. Reserve meio dia."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "anemona",
+      "nome": "Anémona",
+      "bairro": "foz",
+      "secoes": [
+        {
+          "texto": "A escultura She Changes, conhecida como Anémona: uma grande rede suspensa da artista Janet Echelman, numa rotunda junto ao mar, entre Matosinhos e o Parque da Cidade. Vale ver também à noite, iluminada."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "praia-de-matosinhos",
+      "nome": "Praia de Matosinhos",
+      "bairro": "foz",
+      "secoes": [
+        {
+          "texto": "Praia urbana grande, com areal largo, calçadão e escolas de surf. A água do Atlântico é fria o ano todo. Dá para emendar com um almoço de peixe nas marisqueiras ali perto."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "rua-das-marisqueiras-de-matosinhos",
+      "nome": "Marisqueiras de Matosinhos",
+      "bairro": "foz",
+      "secoes": [
+        {
+          "texto": "Zona dos restaurantes de peixe e marisco de Matosinhos, muitos com grelhadores na rua. Peixe fresco grelhado, polvo e marisco; a Marisqueira Serpa Pinto fica aqui. Enche no almoço de fim de semana."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "jardins-do-palacio-de-cristal",
+      "nome": "Jardins do Palácio de Cristal",
+      "bairro": "massarelos",
+      "secoes": [
+        {
+          "texto": "Jardins gratuitos no alto de Massarelos, com miradouros sobre o Douro, a cidade e, ao longe, o mar. Pavões soltos e bancos à sombra; boa pausa entre o centro e a Foz."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "parque-da-cidade",
+      "nome": "Parque da Cidade",
+      "bairro": "foz",
+      "secoes": [
+        {
+          "texto": "O maior parque urbano do Porto, gratuito, no limite com Matosinhos. Caminhos, lagos e relvados que vão até a praia. Perto, numa rotunda junto ao mar, fica a Anémona, a grande escultura de rede suspensa. Dá para emendar com um almoço de peixe ou marisco em Matosinhos."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "parque-quinta-do-covelo",
+      "nome": "Parque da Quinta do Covelo",
+      "bairro": "paranhos",
+      "secoes": [
+        {
+          "texto": "Parque arborizado numa antiga quinta em Paranhos, com caminhos em subida, as ruínas da casa da quinta e vista sobre a cidade. Tranquilo e frequentado por moradores."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "praca-do-marques",
+      "nome": "Praça do Marquês",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Praça do Marquês de Pombal, com jardim, lago e árvores grandes, num bairro residencial ao norte da Trindade. Cafés e esplanadas em volta; metrô Marquês (linha D)."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "parque-sao-roque",
+      "nome": "Parque de São Roque",
+      "bairro": "campanha",
+      "secoes": [
+        {
+          "texto": "Parque de uma antiga quinta em Campanhã, com jardins em socalcos, um labirinto de buxo e vista sobre a cidade. Tranquilo e pouco conhecido por turistas. Entrada livre."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "estadio-do-dragao",
+      "nome": "Estádio do Dragão",
+      "bairro": "campanha",
+      "secoes": [
+        {
+          "texto": "Estádio do FC Porto, em Campanhã, com o museu do clube e visitas guiadas. Metrô: estação Estádio do Dragão (linhas A, B, E e F)."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "rua-de-santa-catarina",
+      "nome": "Rua de Santa Catarina",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Principal rua comercial de pedestres do Porto, a partir da Praça da Batalha. Lojas, o Café Majestic e a Capela das Almas, toda coberta de azulejos. Perto ficam o Mercado do Bolhão e a Manteigaria."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "jardim-da-cordoaria",
+      "nome": "Jardim da Cordoaria",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Jardim no centro, entre os Clérigos e a Reitoria da Universidade, oficialmente Jardim de João Chagas. Árvores grandes, bancos e as esculturas \"Treze a Rir Uns dos Outros\", de Juan Muñoz. Boa pausa à sombra."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "universidade-do-porto",
+      "nome": "Reitoria da Universidade do Porto",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Prédio neoclássico da Reitoria, na Praça de Gomes Teixeira (Praça dos Leões), com a Fonte dos Leões em frente. Abriga o Museu de História Natural e da Ciência."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "rua-de-cedofeita",
+      "nome": "Rua de Cedofeita",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Rua de pedestres com lojas, cafés e comércio tradicional, saindo da Praça de Carlos Alberto em direção a Cedofeita. Boa para caminhar e fazer compras."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "camara-municipal-do-porto",
+      "nome": "Câmara Municipal do Porto",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Sede da prefeitura do Porto, no alto da Avenida dos Aliados, com a torre do relógio que se vê de longe."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "aliados",
+      "nome": "Avenida dos Aliados",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "A grande avenida do centro, entre a Praça da Liberdade e a Câmara Municipal, com prédios imponentes e cafés. Ponto de encontro e palco das festas da cidade. Metrô: Aliados (linha D)."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "estacao-de-comboios-sao-bento",
+      "nome": "Estação de São Bento",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Estação de comboios no centro, famosa pelo átrio coberto de azulejos com cenas da história de Portugal. A entrada no átrio é livre. Daqui saem os comboios urbanos para Campanhã e Guimarães."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "palacio-da-bolsa",
+      "nome": "Palácio da Bolsa",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Prédio do século XIX da Associação Comercial, ao lado da Igreja de São Francisco. Só se visita com visita guiada paga; o destaque é o Salão Árabe. Na alta temporada, reserve o horário antes."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "alfandega-do-porto",
+      "nome": "Alfândega do Porto",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Antigo edifício da alfândega à beira do Douro, em Miragaia, hoje centro de congressos com o Museu dos Transportes e Comunicações. Bom ponto de partida para caminhar pela beira-rio até a Ribeira."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "ribeira-de-gaia",
+      "nome": "Cais de Gaia",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "A margem de Vila Nova de Gaia em frente à Ribeira, com as caves do vinho do Porto, esplanadas e barcos rabelos. Visitas com prova nas caves; do cais se vê o Porto inteiro."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
+    },
+    {
+      "id": "jardim-do-morro",
+      "nome": "Jardim do Morro",
+      "bairro": "centro-historico",
+      "secoes": [
+        {
+          "texto": "Jardim em Vila Nova de Gaia, na saída do tabuleiro de cima da Ponte Luís I. Uma das melhores vistas do Porto e da Ribeira, sobretudo ao pôr do sol, quando fica muito cheio. Dá para vir a pé atravessando a ponte por cima ou de metrô (linha D, estação Jardim do Morro)."
+        }
+      ],
+      "links": [],
+      "origem": "Freguesias"
     }
   ]
 }
